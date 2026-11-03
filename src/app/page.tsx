@@ -4,7 +4,7 @@ import { PlacementTicker } from "@/components/home/PlacementTicker";
 import { ProgramFinder } from "@/components/academics/ProgramFinder";
 import { NoticeBoard } from "@/components/notices/NoticeBoard";
 import { HolidayCalendar } from "@/components/academics/HolidayCalendar";
-import { InquiryForm } from "@/components/inquiry-form";
+import { InquiryForm } from "@/components/admissions/InquiryForm";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -226,10 +226,8 @@ export default async function HomePage() {
         aria-labelledby="inquiry-heading"
       >
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl mx-auto">
-            <InquiryForm
-              courses={programs.map((p) => ({ slug: p.slug, name: p.name }))}
-            />
+          <div className="max-w-2xl mx-auto">
+            <InquiryForm />
           </div>
         </div>
       </section>

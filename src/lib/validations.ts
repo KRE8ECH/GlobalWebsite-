@@ -81,7 +81,7 @@ export const PlacementHighlightSchema = z.object({
 
 export type PlacementHighlightInput = z.infer<typeof PlacementHighlightSchema>;
 
-// Inquiry validation schema
+// Standard Inquiry validation schema
 export const InquirySchema = z.object({
   id: z.string().cuid().optional(),
   fullName: z.string().min(2, "Full name must be at least 2 characters"),
@@ -98,3 +98,34 @@ export const InquirySchema = z.object({
 
 export type InquiryInput = z.infer<typeof InquirySchema>;
 
+// Multi-Step Admission Funnel Schema with Indian Mobile Validation & Honeypot
+export const StepOneSchema = z.object({
+  fullName: z
+    .string()
+    .min(2, "Full name must be at least 2 characters")
+    .max(80, "Full name cannot exceed 80 characters"),
+  email: z
+    .string()
+    .min(1, "Email is required")
+    .email("Please provide a valid email address (e.g. name@example.com)"),
+  phone: z
+    .string()
+    .regex(
+      /^(?:\+91[\-\s]?)?[6-9]\d{9}$/,
+      "Please provide a valid 10-digit Indian mobile number (e.g. 9812345678)"
+    ),
+  honeypot: z.string().max(0, "Spam detected").optional().or(z.literal("")),
+});
+
+export const StepTwoSchema = z.object({
+  state: z.string().min(2, "Please select or specify your domicile state"),
+  highestQualification: z
+    .string()
+    .min(2, "Please select your highest qualification"),
+  courseInterested: z.string().min(2, "Please select the program you wish to apply for"),
+  message: z.string().max(500, "Message cannot exceed 500 characters").optional(),
+});
+
+export const MultiStepInquirySchema = StepOneSchema.merge(StepTwoSchema);
+
+export type MultiStepInquiryInput = z.infer<typeof MultiStepInquirySchema>;

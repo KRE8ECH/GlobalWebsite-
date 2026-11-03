@@ -152,41 +152,37 @@ export function HolidayCalendar() {
         <div className="flex flex-wrap items-center gap-2 mb-8" role="group" aria-label="Filter calendar events">
           <button
             onClick={() => setFilterType("ALL")}
-            className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-              filterType === "ALL"
+            className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${filterType === "ALL"
                 ? "bg-primary text-primary-foreground shadow-xs"
                 : "bg-card border border-border text-muted-foreground hover:text-foreground"
-            }`}
+              }`}
           >
             All Milestones ({ACADEMIC_HOLIDAY_SCHEDULE.length})
           </button>
           <button
             onClick={() => setFilterType("HOLIDAY")}
-            className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-              filterType === "HOLIDAY"
+            className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${filterType === "HOLIDAY"
                 ? "bg-primary text-primary-foreground shadow-xs"
                 : "bg-card border border-border text-muted-foreground hover:text-foreground"
-            }`}
+              }`}
           >
             Gazetted Holidays ({ACADEMIC_HOLIDAY_SCHEDULE.filter((i) => i.type === "HOLIDAY").length})
           </button>
           <button
             onClick={() => setFilterType("EXAM")}
-            className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-              filterType === "EXAM"
+            className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${filterType === "EXAM"
                 ? "bg-primary text-primary-foreground shadow-xs"
                 : "bg-card border border-border text-muted-foreground hover:text-foreground"
-            }`}
+              }`}
           >
             Examination Schedules ({ACADEMIC_HOLIDAY_SCHEDULE.filter((i) => i.type === "EXAM").length})
           </button>
           <button
             onClick={() => setFilterType("ACADEMIC")}
-            className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-              filterType === "ACADEMIC"
+            className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${filterType === "ACADEMIC"
                 ? "bg-primary text-primary-foreground shadow-xs"
                 : "bg-card border border-border text-muted-foreground hover:text-foreground"
-            }`}
+              }`}
           >
             Semester Milestones ({ACADEMIC_HOLIDAY_SCHEDULE.filter((i) => i.type === "ACADEMIC").length})
           </button>
@@ -217,8 +213,8 @@ export function HolidayCalendar() {
                       item.type === "HOLIDAY"
                         ? "warning"
                         : item.type === "EXAM"
-                        ? "destructive"
-                        : "default"
+                          ? "destructive"
+                          : "default"
                     }
                     className="text-[10px] font-bold uppercase tracking-wider"
                   >

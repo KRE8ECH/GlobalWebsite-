@@ -323,3 +323,4 @@ export function NoticeBoard({ notices }: NoticeBoardProps) {
 }
 
 export default NoticeBoard;
+
