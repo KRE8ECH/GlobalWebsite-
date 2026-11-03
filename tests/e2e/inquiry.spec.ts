@@ -56,3 +56,4 @@ test.describe("Admission Inquiry Multi-Step Funnel E2E", () => {
     await expect(formSection.locator("span", { hasText: /^#/ })).toBeVisible();
   });
 });
+
