@@ -77,18 +77,18 @@ export function InquiryModal({ isOpen, onClose, initialCourse }: InquiryModalPro
     >
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 bg-black/70 transition-opacity"
         onClick={onClose}
         aria-hidden="true"
       />
 
       {/* Modal Dialog Content */}
-      <div className="relative w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-3xl border border-border bg-background shadow-2xl animate-in zoom-in-95 duration-200">
+      <div className="relative w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-md border border-stone-300 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] shadow-2xl animate-in zoom-in-95 duration-200">
         {/* Top Close Button */}
         <button
           ref={closeButtonRef}
           onClick={onClose}
-          className="absolute right-4 top-4 rounded-full p-2 text-muted-foreground hover:bg-accent hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring z-10"
+          className="absolute right-4 top-4 rounded-sm p-1.5 text-stone-500 hover:bg-stone-100 dark:hover:bg-stone-800 hover:text-stone-900 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary z-10"
           aria-label="Close admission inquiry modal"
         >
           <X className="h-5 w-5" />

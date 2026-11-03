@@ -15,8 +15,8 @@ import {
   ArrowLeft,
   CheckCircle2,
   Loader2,
-  Sparkles,
   ShieldAlert,
+  Landmark,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -137,38 +137,38 @@ export function InquiryForm({ initialCourse, onSuccess, className = "" }: Inquir
 
   return (
     <div
-      className={`rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-sm ${className}`}
+      className={`rounded-md border border-stone-300 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] p-6 sm:p-8 shadow-xs ${className}`}
       aria-label="GITM Gurgaon Admission Inquiry Form"
     >
       {/* 1. Header & Step Indicator */}
       {!submittedRef ? (
         <>
-          <div className="mb-6">
+          <div className="mb-6 border-b border-stone-200 dark:border-stone-800 pb-4">
             <div className="flex items-center justify-between">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/10 px-3 py-0.5 text-xs font-semibold text-primary">
-                <Sparkles className="h-3 w-3" />
-                <span>Admissions 2026-27</span>
+              <span className="inline-flex items-center gap-1.5 rounded-xs border border-[#881337]/30 bg-[#881337]/10 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-[#881337] dark:text-amber-400">
+                <Landmark className="h-3 w-3" />
+                <span>Central Admissions Office 2026-27</span>
               </span>
 
-              <span className="text-xs font-bold text-muted-foreground">
+              <span className="text-xs font-mono font-bold text-stone-500">
                 Step {step} of 2
               </span>
             </div>
 
-            <h3 className="text-xl font-bold tracking-tight text-foreground mt-2">
+            <h3 className="font-editorial text-xl font-bold text-[#0f2b48] dark:text-stone-100 mt-2">
               {step === 1 ? "Step 1: Contact Details" : "Step 2: Academic Interests"}
             </h3>
 
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className="text-xs text-stone-600 dark:text-stone-400 mt-1">
               {step === 1
-                ? "Provide your contact information so our counselor can reach you."
-                : "Select your preferred program and previous educational qualification."}
+                ? "Enter candidate contact information to receive the official syllabus and counseling schedule."
+                : "Select candidate academic background and preferred undergraduate or postgraduate degree."}
             </p>
 
             {/* Visual Step Progress Bar */}
-            <div className="w-full bg-muted rounded-full h-1.5 mt-3 overflow-hidden">
+            <div className="w-full bg-stone-100 dark:bg-stone-800 rounded-xs h-1.5 mt-3 overflow-hidden">
               <div
-                className="bg-primary h-1.5 rounded-full transition-all duration-300 ease-out"
+                className="bg-[#0f2b48] dark:bg-amber-500 h-1.5 rounded-xs transition-all duration-300 ease-out"
                 style={{ width: step === 1 ? "50%" : "100%" }}
               />
             </div>
@@ -191,16 +191,17 @@ export function InquiryForm({ initialCourse, onSuccess, className = "" }: Inquir
               <div className="space-y-4 animate-in fade-in-50 duration-200">
                 {/* Full Name */}
                 <div className="space-y-1.5">
-                  <label htmlFor="inquiry-fullName" className="text-xs font-bold text-foreground flex items-center gap-1">
-                    <User className="h-3.5 w-3.5 text-primary" />
+                  <label htmlFor="inquiry-fullName" className="text-xs font-bold text-stone-800 dark:text-stone-200 flex items-center gap-1">
+                    <User className="h-3.5 w-3.5 text-[#0f2b48] dark:text-amber-400" />
                     <span>Candidate&apos;s Full Name</span>
                     <span className="text-destructive">*</span>
                   </label>
                   <Input
                     id="inquiry-fullName"
                     type="text"
-                    placeholder="e.g. Ananya Sen"
+                    placeholder="e.g. Vikram Malhotra"
                     disabled={isSubmitting}
+                    className="h-10 text-xs rounded-sm border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-stone-900"
                     aria-invalid={!!errors.fullName}
                     aria-describedby={errors.fullName ? "fullName-error" : undefined}
                     {...register("fullName")}
@@ -215,16 +216,17 @@ export function InquiryForm({ initialCourse, onSuccess, className = "" }: Inquir
 
                 {/* Email Address */}
                 <div className="space-y-1.5">
-                  <label htmlFor="inquiry-email" className="text-xs font-bold text-foreground flex items-center gap-1">
-                    <Mail className="h-3.5 w-3.5 text-primary" />
+                  <label htmlFor="inquiry-email" className="text-xs font-bold text-stone-800 dark:text-stone-200 flex items-center gap-1">
+                    <Mail className="h-3.5 w-3.5 text-[#0f2b48] dark:text-amber-400" />
                     <span>Email Address</span>
                     <span className="text-destructive">*</span>
                   </label>
                   <Input
                     id="inquiry-email"
                     type="email"
-                    placeholder="ananya.sen@example.com"
+                    placeholder="vikram.malhotra@example.com"
                     disabled={isSubmitting}
+                    className="h-10 text-xs rounded-sm border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-stone-900"
                     aria-invalid={!!errors.email}
                     aria-describedby={errors.email ? "email-error" : undefined}
                     {...register("email")}
@@ -239,21 +241,21 @@ export function InquiryForm({ initialCourse, onSuccess, className = "" }: Inquir
 
                 {/* Indian Mobile Number */}
                 <div className="space-y-1.5">
-                  <label htmlFor="inquiry-phone" className="text-xs font-bold text-foreground flex items-center gap-1">
-                    <Phone className="h-3.5 w-3.5 text-primary" />
+                  <label htmlFor="inquiry-phone" className="text-xs font-bold text-stone-800 dark:text-stone-200 flex items-center gap-1">
+                    <Phone className="h-3.5 w-3.5 text-[#0f2b48] dark:text-amber-400" />
                     <span>Mobile Number (10 Digits)</span>
                     <span className="text-destructive">*</span>
                   </label>
                   <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-muted-foreground">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-mono font-bold text-stone-500">
                       +91
                     </span>
                     <Input
                       id="inquiry-phone"
                       type="tel"
                       maxLength={10}
-                      placeholder="9812345678"
-                      className="pl-12"
+                      placeholder="9876543210"
+                      className="pl-12 h-10 text-xs rounded-sm border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-stone-900"
                       disabled={isSubmitting}
                       aria-invalid={!!errors.phone}
                       aria-describedby={errors.phone ? "phone-error" : undefined}
@@ -266,8 +268,8 @@ export function InquiryForm({ initialCourse, onSuccess, className = "" }: Inquir
                       {errors.phone.message}
                     </p>
                   )}
-                  <p className="text-[10px] text-muted-foreground">
-                    OTP and counseling instructions will be sent via SMS / WhatsApp.
+                  <p className="text-[10px] text-stone-500">
+                    Admission merit lists and counseling dates will be communicated via official SMS.
                   </p>
                 </div>
 
@@ -275,7 +277,7 @@ export function InquiryForm({ initialCourse, onSuccess, className = "" }: Inquir
                 <Button
                   type="button"
                   onClick={handleNextStep}
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold mt-2"
+                  className="w-full bg-[#0f2b48] hover:bg-[#153456] text-white font-bold text-xs uppercase tracking-wider h-10 rounded-sm mt-2 shadow-2xs"
                 >
                   <span>Continue to Academic Interests</span>
                   <ArrowRight className="h-4 w-4 ml-1.5" />
@@ -288,15 +290,15 @@ export function InquiryForm({ initialCourse, onSuccess, className = "" }: Inquir
               <div className="space-y-4 animate-in fade-in-50 duration-200">
                 {/* State Domicile */}
                 <div className="space-y-1.5">
-                  <label htmlFor="inquiry-state" className="text-xs font-bold text-foreground flex items-center gap-1">
-                    <MapPin className="h-3.5 w-3.5 text-primary" />
+                  <label htmlFor="inquiry-state" className="text-xs font-bold text-stone-800 dark:text-stone-200 flex items-center gap-1">
+                    <MapPin className="h-3.5 w-3.5 text-[#0f2b48] dark:text-amber-400" />
                     <span>Domicile State / UT</span>
                     <span className="text-destructive">*</span>
                   </label>
                   <select
                     id="inquiry-state"
                     disabled={isSubmitting}
-                    className="flex h-9 w-full rounded-md border border-input bg-card px-3 py-1 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    className="flex h-10 w-full rounded-sm border border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-stone-900 px-3 py-1 text-xs font-medium shadow-2xs"
                     {...register("state")}
                   >
                     {INDIAN_STATES.map((st) => (
@@ -312,15 +314,15 @@ export function InquiryForm({ initialCourse, onSuccess, className = "" }: Inquir
 
                 {/* Highest Qualification */}
                 <div className="space-y-1.5">
-                  <label htmlFor="inquiry-qual" className="text-xs font-bold text-foreground flex items-center gap-1">
-                    <GraduationCap className="h-3.5 w-3.5 text-primary" />
+                  <label htmlFor="inquiry-qual" className="text-xs font-bold text-stone-800 dark:text-stone-200 flex items-center gap-1">
+                    <GraduationCap className="h-3.5 w-3.5 text-[#0f2b48] dark:text-amber-400" />
                     <span>Highest Completed / Pursuing Qualification</span>
                     <span className="text-destructive">*</span>
                   </label>
                   <select
                     id="inquiry-qual"
                     disabled={isSubmitting}
-                    className="flex h-9 w-full rounded-md border border-input bg-card px-3 py-1 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    className="flex h-10 w-full rounded-sm border border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-stone-900 px-3 py-1 text-xs font-medium shadow-2xs"
                     {...register("highestQualification")}
                   >
                     {QUALIFICATIONS.map((q) => (
@@ -338,15 +340,15 @@ export function InquiryForm({ initialCourse, onSuccess, className = "" }: Inquir
 
                 {/* Program Interested in */}
                 <div className="space-y-1.5">
-                  <label htmlFor="inquiry-course" className="text-xs font-bold text-foreground flex items-center gap-1">
-                    <BookOpen className="h-3.5 w-3.5 text-primary" />
+                  <label htmlFor="inquiry-course" className="text-xs font-bold text-stone-800 dark:text-stone-200 flex items-center gap-1">
+                    <BookOpen className="h-3.5 w-3.5 text-[#0f2b48] dark:text-amber-400" />
                     <span>Degree Program Interested In</span>
                     <span className="text-destructive">*</span>
                   </label>
                   <select
                     id="inquiry-course"
                     disabled={isSubmitting}
-                    className="flex h-9 w-full rounded-md border border-input bg-card px-3 py-1 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring font-medium"
+                    className="flex h-10 w-full rounded-sm border border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-stone-900 px-3 py-1 text-xs font-bold shadow-2xs"
                     {...register("courseInterested")}
                   >
                     {AVAILABLE_PROGRAMS.map((p) => (
@@ -364,14 +366,15 @@ export function InquiryForm({ initialCourse, onSuccess, className = "" }: Inquir
 
                 {/* Optional Message */}
                 <div className="space-y-1.5">
-                  <label htmlFor="inquiry-msg" className="text-xs font-medium text-muted-foreground">
-                    Questions or Entrance Exam Percentile (Optional)
+                  <label htmlFor="inquiry-msg" className="text-xs font-medium text-stone-500">
+                    Entrance Exam Score / Merit Percentile / Hostel Inquiry (Optional)
                   </label>
                   <Textarea
                     id="inquiry-msg"
                     rows={2}
-                    placeholder="e.g. JEE Main score, hostel inquiry, bus route details..."
+                    placeholder="e.g. JEE Main rank, 10+2 PCM percentage, transport route request..."
                     disabled={isSubmitting}
+                    className="text-xs rounded-sm border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-stone-900"
                     {...register("message")}
                   />
                 </div>
@@ -383,7 +386,7 @@ export function InquiryForm({ initialCourse, onSuccess, className = "" }: Inquir
                     variant="outline"
                     onClick={() => setStep(1)}
                     disabled={isSubmitting}
-                    className="w-1/3 border-border font-bold text-xs"
+                    className="w-1/3 border-stone-300 dark:border-stone-700 font-bold text-xs uppercase tracking-wider rounded-sm h-10"
                   >
                     <ArrowLeft className="h-4 w-4 mr-1" />
                     <span>Back</span>
@@ -392,7 +395,7 @@ export function InquiryForm({ initialCourse, onSuccess, className = "" }: Inquir
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-2/3 bg-primary hover:bg-primary/90 text-primary-foreground font-bold"
+                    className="w-2/3 bg-[#881337] hover:bg-[#70102e] text-white font-bold text-xs uppercase tracking-wider rounded-sm h-10 shadow-2xs"
                   >
                     {isSubmitting ? (
                       <>
@@ -414,24 +417,24 @@ export function InquiryForm({ initialCourse, onSuccess, className = "" }: Inquir
       ) : (
         /* 2. SUCCESS SCREEN WITH CONFIRMATION REFERENCE */
         <div className="py-6 text-center space-y-4 animate-in zoom-in-95 duration-200">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500 mx-auto">
-            <CheckCircle2 className="h-10 w-10" />
+          <div className="flex h-14 w-14 items-center justify-center rounded-sm bg-emerald-50 dark:bg-emerald-950 text-emerald-600 border border-emerald-300 mx-auto">
+            <CheckCircle2 className="h-8 w-8" />
           </div>
 
           <div className="space-y-1">
-            <h3 className="text-xl font-black text-foreground">
+            <h3 className="font-editorial text-xl font-bold text-stone-900 dark:text-stone-100">
               Admission Inquiry Received!
             </h3>
-            <p className="text-xs text-muted-foreground max-w-sm mx-auto">
-              Your academic application has been recorded in the central GITM Gurgaon admissions portal.
+            <p className="text-xs text-stone-600 dark:text-stone-400 max-w-sm mx-auto">
+              Your inquiry has been logged with the GITM Central Admissions Directorate. An academic counselor will contact you shortly.
             </p>
           </div>
 
-          <div className="rounded-xl border border-border bg-muted/60 p-4 max-w-xs mx-auto">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground block">
+          <div className="rounded-sm border border-stone-300 dark:border-stone-800 bg-stone-50 dark:bg-stone-900 p-4 max-w-xs mx-auto">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-stone-500 block">
               Application Reference ID
             </span>
-            <span className="text-2xl font-black text-primary font-mono tracking-wider block mt-0.5">
+            <span className="text-2xl font-black text-[#0f2b48] dark:text-amber-400 font-mono tracking-wider block mt-0.5">
               #{submittedRef}
             </span>
           </div>
@@ -445,14 +448,14 @@ export function InquiryForm({ initialCourse, onSuccess, className = "" }: Inquir
                 setStep(1);
                 reset();
               }}
-              className="text-xs font-bold"
+              className="text-xs font-bold uppercase tracking-wider rounded-sm"
             >
               Submit Another Inquiry
             </Button>
 
-            <Button asChild size="sm" className="bg-primary text-primary-foreground text-xs font-bold">
+            <Button asChild size="sm" className="bg-[#0f2b48] text-white text-xs font-bold uppercase tracking-wider rounded-sm">
               <a href="https://gurugramuniversity.ac.in/Notice/academic-calendar-2026.pdf" target="_blank" rel="noopener noreferrer">
-                Download Academic Calendar
+                Official University Calendar
               </a>
             </Button>
           </div>
@@ -463,4 +466,3 @@ export function InquiryForm({ initialCourse, onSuccess, className = "" }: Inquir
 }
 
 export default InquiryForm;
-

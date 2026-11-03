@@ -1,50 +1,83 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* --------------------------------------------------------------------------
+   INSTITUTIONAL DESIGN SYSTEM: GLOBAL INSTITUTE OF TECHNOLOGY & MANAGEMENT
+   Palette: Academic Navy (#0F2B48), Deep Crimson (#881337), Academic Gold (#B45309)
+   Surfaces: Warm White (#FAFAF9 / Stone-50), Crisp White (#FFFFFF), Border Stone (#E7E5E4)
+   Typography: Editorial Academic Serif (Merriweather) & Grounded Sans (Plus Jakarta Sans)
+   -------------------------------------------------------------------------- */
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #090d16;
+  /* Warm academic stone background */
+  --background: #fafaf9;
+  --foreground: #0c1929;
+  
+  /* Crisp institutional card surfaces */
   --card: #ffffff;
-  --card-foreground: #090d16;
+  --card-foreground: #0c1929;
   --popover: #ffffff;
-  --popover-foreground: #090d16;
-  --primary: #1e3a8a;
+  --popover-foreground: #0c1929;
+
+  /* Deep Academic Navy (#0F2B48) */
+  --primary: #0f2b48;
   --primary-foreground: #ffffff;
-  --secondary: #f1f5f9;
-  --secondary-foreground: #0f172a;
-  --muted: #f8fafc;
-  --muted-foreground: #64748b;
-  --accent: #f1f5f9;
-  --accent-foreground: #0f172a;
-  --destructive: #ef4444;
+
+  /* Warm Stone Secondary */
+  --secondary: #f5f5f4;
+  --secondary-foreground: #1c1917;
+
+  /* Soft Muted Surfaces */
+  --muted: #f5f5f4;
+  --muted-foreground: #57534e;
+
+  /* Accent: Deep Academic Crimson / Warm Gold */
+  --accent: #f5f5f4;
+  --accent-foreground: #0f2b48;
+  --crimson: #881337;
+  --gold: #b45309;
+
+  /* Destructive */
+  --destructive: #b91c1c;
   --destructive-foreground: #ffffff;
-  --border: #e2e8f0;
-  --input: #e2e8f0;
-  --ring: #2563eb;
-  --radius: 0.5rem;
+
+  /* Architectural Stone Borders */
+  --border: #e7e5e4;
+  --input: #e7e5e4;
+  --ring: #0f2b48;
+  --radius: 0.375rem; /* Subtle, sharp radiuses: rounded-md */
 }
 
 .dark {
-  --background: #090d16;
-  --foreground: #f8fafc;
-  --card: #0d1527;
-  --card-foreground: #f8fafc;
-  --popover: #0d1527;
-  --popover-foreground: #f8fafc;
-  --primary: #3b82f6;
+  --background: #080f1a;
+  --foreground: #f5f5f4;
+  --card: #0f1c2e;
+  --card-foreground: #f5f5f4;
+  --popover: #0f1c2e;
+  --popover-foreground: #f5f5f4;
+
+  --primary: #1e3a5f;
   --primary-foreground: #ffffff;
-  --secondary: #1e293b;
-  --secondary-foreground: #f8fafc;
-  --muted: #131d35;
-  --muted-foreground: #94a3b8;
-  --accent: #1e293b;
-  --accent-foreground: #f8fafc;
-  --destructive: #ef4444;
+
+  --secondary: #172437;
+  --secondary-foreground: #f5f5f4;
+
+  --muted: #132032;
+  --muted-foreground: #a8a29e;
+
+  --accent: #172437;
+  --accent-foreground: #ffffff;
+  --crimson: #9f1239;
+  --gold: #d97706;
+
+  --destructive: #dc2626;
   --destructive-foreground: #ffffff;
-  --border: #1e293b;
-  --input: #1e293b;
-  --ring: #3b82f6;
+
+  --border: #1f3148;
+  --input: #1f3148;
+  --ring: #38bdf8;
 }
 
 @theme inline {
@@ -62,6 +95,8 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-crimson: var(--crimson);
+  --color-gold: var(--gold);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
@@ -76,36 +111,40 @@
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   min-height: 100vh;
+  letter-spacing: -0.01em;
 }
 
-/* Performant Infinite Marquee Without DOM Duplication */
-@keyframes marquee-single-track {
+/* Distinguished Academic Serif for Headings */
+h1, h2, h3, .font-editorial {
+  font-family: 'Merriweather', Georgia, Cambria, 'Times New Roman', Times, serif;
+  letter-spacing: -0.02em;
+}
+
+/* Authentic College Ticker Animation */
+@keyframes ticker-slide {
   0% {
     transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translate3d(calc(-100% + 100vw), 0, 0);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
-.animate-marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee-single-track 28s ease-in-out infinite alternate;
-  will-change: transform;
+.animate-notice-ticker {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: ticker-slide 35s linear infinite;
 }
 
-.animate-marquee-track:hover {
+.animate-notice-ticker:hover {
   animation-play-state: paused;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-marquee-track {
+  .animate-notice-ticker {
     animation: none;
-    flex-wrap: wrap;
-    width: 100%;
-    justify-content: center;
+    transform: none;
   }
 }

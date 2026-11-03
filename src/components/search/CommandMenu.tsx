@@ -12,7 +12,6 @@ import {
   ExternalLink,
   PhoneCall,
   Calendar,
-  Sparkles,
   ArrowRight,
   School,
   X,
@@ -40,12 +39,15 @@ export function CommandMenu({
     [setControlledOpen]
   );
 
-  // Global Ctrl+K / Cmd+K keyboard shortcut listener
+  // Global Ctrl+K / Cmd+K keyboard shortcut and Escape dismissal listener
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.key === "k" || e.key === "K") && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         setIsOpen(!isOpen);
+      }
+      if (e.key === "Escape" && isOpen) {
+        setIsOpen(false);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -71,13 +73,13 @@ export function CommandMenu({
     >
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity animate-in fade-in-50"
+        className="fixed inset-0 bg-black/70 transition-opacity animate-in fade-in-50"
         onClick={() => setIsOpen(false)}
         aria-hidden="true"
       />
 
       {/* Palette Container */}
-      <div className="relative w-full max-w-2xl rounded-2xl border border-border bg-card text-foreground shadow-2xl overflow-hidden animate-in zoom-in-95 duration-150 z-10">
+      <div className="relative w-full max-w-2xl rounded-md border border-stone-300 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] text-stone-900 dark:text-stone-100 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-150 z-10">
         <Command
           className="w-full flex flex-col focus:outline-none"
           loop
@@ -147,7 +149,7 @@ export function CommandMenu({
                 className="flex items-center justify-between rounded-xl p-2.5 text-xs font-semibold text-foreground hover:bg-accent cursor-pointer transition-colors"
               >
                 <div className="flex items-center gap-2.5">
-                  <div className="rounded-lg bg-indigo-500/10 p-2 text-indigo-600 dark:text-indigo-400">
+                  <div className="rounded-sm bg-[#0f2b48]/10 p-2 text-[#0f2b48] dark:text-amber-400">
                     <BookOpen className="h-4 w-4" />
                   </div>
                   <div>
@@ -320,8 +322,8 @@ export function CommandMenu({
                 className="flex items-center justify-between rounded-xl p-2.5 text-xs font-semibold text-foreground hover:bg-accent cursor-pointer transition-colors"
               >
                 <div className="flex items-center gap-2.5">
-                  <div className="rounded-lg bg-emerald-500/10 p-2 text-emerald-600 dark:text-emerald-400">
-                    <Sparkles className="h-4 w-4" />
+                  <div className="rounded-sm bg-[#881337]/10 p-2 text-[#881337] dark:text-amber-400">
+                    <GraduationCap className="h-4 w-4" />
                   </div>
                   <div>
                     <span className="font-bold block text-sm">Online Admission Inquiry 2026-27</span>

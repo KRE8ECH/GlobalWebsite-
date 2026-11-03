@@ -10,13 +10,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   Calendar,
-  Sparkles,
   MapPin,
   Building,
   GraduationCap,
   Users2,
   Cpu,
   ShieldCheck,
+  Award,
+  Landmark,
+  BookOpen,
 } from "lucide-react";
 
 export default async function HomePage() {
@@ -39,108 +41,135 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* 1. HERO SECTION */}
+      {/* 1. HERO SECTION (Collegiate 2008 Legacy, Accreditations & Key Metrics) */}
       <Hero />
 
-      {/* 2. PLACEMENT MARQUEE & STUDENT HIGHLIGHTS */}
+      {/* 2. VERIFIED RECRUITERS & PLACEMENT HIGHLIGHTS */}
       <PlacementTicker placements={placementHighlights} />
 
-      {/* 3. INTERACTIVE PROGRAM FINDER (Client Hydrated Tabs + Search) */}
+      {/* 3. ACADEMIC DEPARTMENTS & DEGREE FINDER (NEP 2020 Aligned) */}
       <ProgramFinder programs={programs} />
 
-      {/* 4. LIVE NOTICES & CIRCULARS FEED (Split-view GU & GITM) */}
+      {/* 4. FORMAL TABULAR NOTICEBOARD (Gurugram University & GITM Circulars) */}
       <NoticeBoard notices={notices} />
 
-      {/* 5. HOLIDAY & ACADEMIC CALENDAR WIDGET */}
+      {/* 5. ACADEMIC CALENDAR & GAZETTED HOLIDAYS */}
       <HolidayCalendar />
 
-      {/* 6. ABOUT GITM GURGAON SECTION */}
+      {/* 6. ABOUT GITM GURGAON (Authoritative Institutional Profile) */}
       <section
         id="about"
-        className="py-16 sm:py-24 border-b border-border bg-background scroll-mt-14"
+        className="py-14 sm:py-20 border-b border-stone-200 dark:border-stone-800 bg-white dark:bg-[#080f1a] scroll-mt-14"
         aria-labelledby="about-heading"
       >
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-7 space-y-5">
-              <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
-                <Building className="h-4 w-4" />
-                <span>About Global Institute of Technology & Management</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            <div className="lg:col-span-7 space-y-4">
+              <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#881337] dark:text-amber-400">
+                <Landmark className="h-4 w-4" />
+                <span>Institutional Governance & Legacy</span>
               </div>
               <h2
                 id="about-heading"
-                className="text-2xl sm:text-4xl font-extrabold tracking-tight text-foreground leading-tight"
+                className="font-editorial text-2xl sm:text-4xl font-extrabold text-[#0f2b48] dark:text-stone-100 leading-tight"
               >
-                18+ Years of Academic Integrity & Corporate Leadership
+                18+ Years of Academic Discipline, Integrity & Leadership
               </h2>
-              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                Established in 2008, Global Institute of Technology & Management (GITM) is strategically nestled in Gurgaon, Delhi-NCR. Affiliated with Gurugram University, GITM has produced over 15,000 alumni across engineering, technology, artificial intelligence, business leadership, and clinical pharmaceutical science.
+              <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
+                Founded in 2008 under the aegis of the Baljeet Singh Education Society, Global Institute of Technology & Management (GITM Gurgaon) is recognized by the Directorate of Technical Education, Government of Haryana, approved by the All India Council for Technical Education (AICTE), Ministry of Education, Government of India, and the Pharmacy Council of India (PCI). GITM is permanently affiliated with Gurugram University, Gurugram.
+              </p>
+              <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
+                Strategically situated across a 20-acre lush green campus on the Farrukhnagar-Gurgaon Highway within the corporate sphere of Delhi-NCR, the institute has nurtured over 15,000 engineers, software architects, corporate leaders, and pharmaceutical scientists serving in premier organizations worldwide.
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                <div className="flex items-start gap-3 p-3.5 rounded-xl border border-border bg-card">
-                  <Cpu className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                <div className="p-3.5 rounded-md border border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900/60 flex items-start gap-3">
+                  <Cpu className="h-5 w-5 text-[#0f2b48] dark:text-amber-400 shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="text-xs font-bold text-foreground">Advanced Tech Labs</h4>
-                    <p className="text-[11px] text-muted-foreground">AI/ML research labs, IoT center, and high-performance computing clusters.</p>
+                    <h4 className="text-xs font-bold text-stone-900 dark:text-stone-100">
+                      Advanced Computing Infrastructure
+                    </h4>
+                    <p className="text-[11px] text-stone-500 mt-0.5">
+                      High-throughput artificial intelligence clusters, IoT design studios, and cloud research laboratories.
+                    </p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 p-3.5 rounded-xl border border-border bg-card">
-                  <ShieldCheck className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+                <div className="p-3.5 rounded-md border border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900/60 flex items-start gap-3">
+                  <ShieldCheck className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="text-xs font-bold text-foreground">Government Approvals</h4>
-                    <p className="text-[11px] text-muted-foreground">Approved by AICTE, PCI, and affiliated to Gurugram University, Haryana.</p>
+                    <h4 className="text-xs font-bold text-stone-900 dark:text-stone-100">
+                      Statutory Approvals & Affiliation
+                    </h4>
+                    <p className="text-[11px] text-stone-500 mt-0.5">
+                      Fully approved by AICTE, PCI, DTE Haryana (Code 074), and affiliated to Gurugram University.
+                    </p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 p-3.5 rounded-xl border border-border bg-card">
-                  <Users2 className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
+                <div className="p-3.5 rounded-md border border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900/60 flex items-start gap-3">
+                  <Users2 className="h-5 w-5 text-[#b45309] shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="text-xs font-bold text-foreground">Distinguished Faculty</h4>
-                    <p className="text-[11px] text-muted-foreground">PhD scholars, researchers, and corporate mentors guiding student projects.</p>
+                    <h4 className="text-xs font-bold text-stone-900 dark:text-stone-100">
+                      Eminent Academic Faculty
+                    </h4>
+                    <p className="text-[11px] text-stone-500 mt-0.5">
+                      Senior academicians, PhD scholars from premier central universities, and corporate research guides.
+                    </p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 p-3.5 rounded-xl border border-border bg-card">
-                  <GraduationCap className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
+                <div className="p-3.5 rounded-md border border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900/60 flex items-start gap-3">
+                  <GraduationCap className="h-5 w-5 text-[#881337] dark:text-rose-400 shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="text-xs font-bold text-foreground">Merit Scholarships</h4>
-                    <p className="text-[11px] text-muted-foreground">Scholarships up to 100% tuition waiver for meritorious candidates.</p>
+                    <h4 className="text-xs font-bold text-stone-900 dark:text-stone-100">
+                      Merit Scholarship Scheme
+                    </h4>
+                    <p className="text-[11px] text-stone-500 mt-0.5">
+                      Institutional fee concessions and merit scholarships awarded to top JEE, CUET, and 10+2 scorers.
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="lg:col-span-5 bg-muted/40 rounded-2xl border border-border p-6 sm:p-8 space-y-4">
-              <h3 className="text-base font-bold text-foreground">
-                Campus Highlights at a Glance
-              </h3>
-              <ul className="space-y-3 text-xs text-muted-foreground">
-                <li className="flex items-center gap-2">
-                  <span className="h-2 w-2 rounded-full bg-primary" />
-                  <span>20+ Acres Lush Green Eco-Friendly Campus</span>
+            {/* Campus Facilities Specification Card */}
+            <div className="lg:col-span-5 bg-stone-50 dark:bg-stone-900/80 rounded-md border border-stone-300 dark:border-stone-800 p-6 space-y-4">
+              <div className="border-b border-stone-200 dark:border-stone-800 pb-3">
+                <h3 className="font-editorial text-base font-bold text-[#0f2b48] dark:text-stone-100">
+                  Campus Facilities & Academic Infrastructure
+                </h3>
+                <p className="text-[11px] text-stone-500">
+                  Inspected and accredited collegiate amenities
+                </p>
+              </div>
+
+              <ul className="space-y-2.5 text-xs text-stone-700 dark:text-stone-300">
+                <li className="flex items-start gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#0f2b48] dark:bg-amber-400 mt-1.5 shrink-0" />
+                  <span><strong>20-Acre Campus:</strong> Lush green, barrier-free, Wi-Fi enabled infrastructure.</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <span className="h-2 w-2 rounded-full bg-primary" />
-                  <span>Digital Library with 50,000+ Volumes & IEEE Access</span>
+                <li className="flex items-start gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#0f2b48] dark:bg-amber-400 mt-1.5 shrink-0" />
+                  <span><strong>Central Digital Library:</strong> Over 50,000 print volumes, IEEE, DELNET, and National Digital Library access.</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <span className="h-2 w-2 rounded-full bg-primary" />
-                  <span>Air-Conditioned Hostels for Boys & Girls with 24x7 Security</span>
+                <li className="flex items-start gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#0f2b48] dark:bg-amber-400 mt-1.5 shrink-0" />
+                  <span><strong>Residential Hostels:</strong> Separate air-cooled hostels for male and female students with 24x7 security and hygienic dining.</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <span className="h-2 w-2 rounded-full bg-primary" />
-                  <span>Dedicated Fleet of AC Buses covering Gurgaon, Delhi & Rewari</span>
+                <li className="flex items-start gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#0f2b48] dark:bg-amber-400 mt-1.5 shrink-0" />
+                  <span><strong>Transport Fleet:</strong> Institute-owned buses operating across Gurugram, Delhi, Dwarka, Rewari, and Jhajjar.</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <span className="h-2 w-2 rounded-full bg-primary" />
-                  <span>On-Campus Sports Complex & Gymnasium</span>
+                <li className="flex items-start gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#0f2b48] dark:bg-amber-400 mt-1.5 shrink-0" />
+                  <span><strong>Sports & Gymnasium:</strong> Cricket grounds, basketball courts, badminton arena, and indoor recreation centre.</span>
                 </li>
               </ul>
-              <div className="pt-2">
-                <Button asChild variant="outline" className="w-full font-semibold">
-                  <a href="#inquiry">Book a Campus Tour</a>
+
+              <div className="pt-2 border-t border-stone-200 dark:border-stone-800">
+                <Button asChild variant="outline" className="w-full font-bold text-xs uppercase tracking-wider rounded-sm border-stone-300 dark:border-stone-700">
+                  <a href="#inquiry">Request Campus Inspection Tour</a>
                 </Button>
               </div>
             </div>
@@ -148,67 +177,75 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 7. CAMPUS LIFE & EVENTS */}
+      {/* 7. ACADEMIC EVENTS, CONFERENCES & SYMPOSIUMS */}
       <section
         id="events"
-        className="py-16 sm:py-24 border-b border-border bg-muted/20 scroll-mt-14"
+        className="py-14 sm:py-20 border-b border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-[#0c1524] scroll-mt-14"
         aria-labelledby="events-heading"
       >
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
-              <Sparkles className="h-4 w-4" />
-              <span>Campus Life & Innovation</span>
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 border-b border-stone-200 dark:border-stone-800 pb-6">
+            <div>
+              <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#881337] dark:text-amber-400 mb-1.5">
+                <BookOpen className="h-4 w-4" />
+                <span>Scholarly Summits, Hackathons & Seminars</span>
+              </div>
+              <h2
+                id="events-heading"
+                className="font-editorial text-2xl sm:text-4xl font-extrabold text-[#0f2b48] dark:text-stone-100"
+              >
+                Conferences, Seminars & Campus Events
+              </h2>
+              <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 mt-1.5 max-w-2xl">
+                National research conventions, faculty development programs, and inter-collegiate technical symposia hosted at GITM Gurgaon.
+              </p>
             </div>
-            <h2
-              id="events-heading"
-              className="text-2xl sm:text-4xl font-extrabold tracking-tight text-foreground mt-2"
-            >
-              Conferences, Hackathons & Cultural Summits
-            </h2>
-            <p className="text-muted-foreground text-sm sm:text-base mt-2">
-              National hackathons, tech symposiums, and leadership conclaves at GITM Gurgaon.
-            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {events.map((event) => {
               const tags = event.tags ? event.tags.split(",").map((t) => t.trim()) : [];
               return (
                 <Card
                   key={event.id}
-                  className="flex flex-col justify-between hover:border-primary/50 transition-all hover:shadow-md rounded-2xl"
+                  className="rounded-md border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] hover:border-[#0f2b48] transition-colors shadow-2xs flex flex-col justify-between"
                 >
-                  <CardHeader className="p-6">
-                    <div className="flex flex-wrap items-center gap-2 mb-2">
+                  <CardHeader className="p-5 pb-3">
+                    <div className="flex flex-wrap items-center gap-1.5 mb-2">
                       {tags.map((tag) => (
-                        <Badge key={tag} variant="secondary" className="text-[10px]">
+                        <span
+                          key={tag}
+                          className="text-[10px] font-bold uppercase tracking-wider bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 px-2 py-0.5 rounded-xs border border-stone-200 dark:border-stone-700"
+                        >
                           {tag}
-                        </Badge>
+                        </span>
                       ))}
                     </div>
-                    <CardTitle className="text-xl font-bold text-foreground">
+
+                    <CardTitle className="font-editorial text-base sm:text-lg font-bold text-[#0f2b48] dark:text-stone-100 leading-snug">
                       {event.title}
                     </CardTitle>
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 text-xs text-muted-foreground pt-2">
+
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 text-xs text-stone-500 pt-2 font-mono">
                       <span className="flex items-center gap-1">
-                        <Calendar className="h-3.5 w-3.5 text-primary" />
-                        {new Date(event.date).toLocaleDateString("en-US", {
+                        <Calendar className="h-3.5 w-3.5 text-stone-400" />
+                        {new Date(event.date).toLocaleDateString("en-IN", {
                           weekday: "short",
+                          day: "2-digit",
                           month: "short",
-                          day: "numeric",
                           year: "numeric",
                         })}
                       </span>
                       <span className="hidden sm:inline">•</span>
                       <span className="flex items-center gap-1">
-                        <MapPin className="h-3.5 w-3.5 text-primary" />
+                        <MapPin className="h-3.5 w-3.5 text-stone-400" />
                         {event.location}
                       </span>
                     </div>
                   </CardHeader>
-                  <CardContent className="p-6 pt-0">
-                    <p className="text-sm text-muted-foreground leading-relaxed">
+
+                  <CardContent className="p-5 pt-0">
+                    <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
                       {event.summary}
                     </p>
                   </CardContent>
@@ -222,7 +259,7 @@ export default async function HomePage() {
       {/* 8. ADMISSION INQUIRY SECTION */}
       <section
         id="inquiry"
-        className="py-16 sm:py-24 border-b border-border bg-background scroll-mt-14"
+        className="py-14 sm:py-20 border-b border-stone-200 dark:border-stone-800 bg-white dark:bg-[#080f1a] scroll-mt-14"
         aria-labelledby="inquiry-heading"
       >
         <div className="container mx-auto px-4 sm:px-6">

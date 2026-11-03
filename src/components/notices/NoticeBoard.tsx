@@ -8,14 +8,13 @@ import {
   ExternalLink,
   Download,
   Pin,
-  Sparkles,
   School,
   Building2,
   Filter,
+  CheckCircle,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
 export interface NoticeItem {
@@ -36,7 +35,6 @@ interface NoticeBoardProps {
 
 type NoticeSourceTab = "GURUGRAM_UNIVERSITY" | "GITM";
 
-// Helper to determine if a notice is under 7 days old
 function isUnderSevenDays(dateInput: string | Date): boolean {
   const d = new Date(dateInput);
   const diffTime = Math.abs(Date.now() - d.getTime());
@@ -75,48 +73,47 @@ export function NoticeBoard({ notices }: NoticeBoardProps) {
     });
   }, [notices, activeSourceTab, selectedCategory, searchQuery]);
 
-  // Counts for each source tab
   const guCount = notices.filter((n) => n.source === "GURUGRAM_UNIVERSITY").length;
   const gitmCount = notices.filter((n) => n.source === "GITM").length;
 
   return (
     <section
       id="notices"
-      className="py-16 sm:py-24 border-b border-border bg-background scroll-mt-14"
+      className="py-14 sm:py-20 border-b border-stone-200 dark:border-stone-800 bg-white dark:bg-[#080f1a] scroll-mt-14"
       aria-labelledby="notices-board-heading"
     >
       <div className="container mx-auto px-4 sm:px-6">
         {/* Section Heading */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 border-b border-stone-200 dark:border-stone-800 pb-6">
           <div>
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/10 px-3.5 py-1 text-xs font-semibold text-primary mb-2">
-              <FileText className="h-3.5 w-3.5" />
-              <span>Official Circulars & Notifications</span>
+            <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#881337] dark:text-amber-400 mb-1.5">
+              <FileText className="h-4 w-4" />
+              <span>Official Regulatory Circulars & Notifications</span>
             </div>
 
             <h2
               id="notices-board-heading"
-              className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground"
+              className="font-editorial text-2xl sm:text-4xl font-extrabold text-[#0f2b48] dark:text-stone-100"
             >
               Live Circulars & Noticeboard
             </h2>
 
-            <p className="text-sm sm:text-base text-muted-foreground mt-2 max-w-2xl leading-relaxed">
-              Stay synchronized with official Gurugram University examination schedules, result circulars, Samarth eGov portals, and GITM campus announcements.
+            <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 mt-1.5 max-w-2xl leading-relaxed">
+              Official circulars synchronized directly from Gurugram University (Controller of Examinations, Samarth eGov Portal) and GITM Campus Dean of Academic Affairs.
             </p>
           </div>
 
-          <div className="flex items-center gap-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/20">
-            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+          <div className="flex items-center gap-2 text-xs font-bold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 px-3 py-1.5 rounded-sm border border-emerald-300 dark:border-emerald-800 shrink-0">
+            <span className="h-2 w-2 rounded-full bg-emerald-600 animate-pulse" />
             <span>Automated Live Sync Active</span>
           </div>
         </div>
 
-        {/* 1. SPLIT-VIEW SOURCE TABS */}
-        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 mb-8">
-          {/* Main 2 Tabs */}
+        {/* Filter Controls Bar */}
+        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 mb-6">
+          {/* Official Toggle Tabs: Gurugram University vs GITM Campus */}
           <div
-            className="flex p-1.5 rounded-xl border border-border bg-muted/50 max-w-md w-full"
+            className="flex rounded-md border border-stone-300 dark:border-stone-700 bg-stone-100 dark:bg-stone-900 p-1 max-w-md w-full"
             role="tablist"
             aria-label="Filter notices by source"
           >
@@ -124,15 +121,17 @@ export function NoticeBoard({ notices }: NoticeBoardProps) {
               role="tab"
               aria-selected={activeSourceTab === "GURUGRAM_UNIVERSITY"}
               onClick={() => setActiveSourceTab("GURUGRAM_UNIVERSITY")}
-              className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-xs sm:text-sm font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+              className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-sm text-xs font-bold uppercase tracking-wider transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary ${
                 activeSourceTab === "GURUGRAM_UNIVERSITY"
-                  ? "bg-card text-foreground shadow-xs border border-border/80"
-                  : "text-muted-foreground hover:text-foreground"
+                  ? "bg-[#0f2b48] text-white shadow-xs"
+                  : "text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white"
               }`}
             >
-              <School className="h-4 w-4 text-primary" />
+              <School className="h-3.5 w-3.5" />
               <span>Gurugram University</span>
-              <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-primary/10 text-primary">
+              <span className={`text-[10px] font-bold px-1.5 py-0.2 rounded-xs ${
+                activeSourceTab === "GURUGRAM_UNIVERSITY" ? "bg-white/20 text-white" : "bg-stone-200 dark:bg-stone-800 text-stone-700 dark:text-stone-300"
+              }`}>
                 {guCount}
               </span>
             </button>
@@ -141,31 +140,33 @@ export function NoticeBoard({ notices }: NoticeBoardProps) {
               role="tab"
               aria-selected={activeSourceTab === "GITM"}
               onClick={() => setActiveSourceTab("GITM")}
-              className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-xs sm:text-sm font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+              className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-sm text-xs font-bold uppercase tracking-wider transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary ${
                 activeSourceTab === "GITM"
-                  ? "bg-card text-foreground shadow-xs border border-border/80"
-                  : "text-muted-foreground hover:text-foreground"
+                  ? "bg-[#0f2b48] text-white shadow-xs"
+                  : "text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white"
               }`}
             >
-              <Building2 className="h-4 w-4 text-primary" />
+              <Building2 className="h-3.5 w-3.5" />
               <span>GITM Campus</span>
-              <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-primary/10 text-primary">
+              <span className={`text-[10px] font-bold px-1.5 py-0.2 rounded-xs ${
+                activeSourceTab === "GITM" ? "bg-white/20 text-white" : "bg-stone-200 dark:bg-stone-800 text-stone-700 dark:text-stone-300"
+              }`}>
                 {gitmCount}
               </span>
             </button>
           </div>
 
-          {/* Search + Category Filter Dropdown */}
-          <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
+          {/* Search + Category Filter */}
+          <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
             {/* Search Input */}
-            <div className="relative w-full sm:w-64">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+            <div className="relative w-full sm:w-72">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-stone-400" />
               <Input
                 type="search"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search circulars..."
-                className="pl-9 h-9 text-xs bg-card border-border rounded-lg"
+                placeholder="Search circular title or keyword..."
+                className="pl-9 h-9 text-xs bg-stone-50 dark:bg-stone-900 border-stone-300 dark:border-stone-700 rounded-md"
                 aria-label="Search circulars"
               />
             </div>
@@ -174,135 +175,181 @@ export function NoticeBoard({ notices }: NoticeBoardProps) {
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="h-9 rounded-lg border border-input bg-card px-3 text-xs font-medium text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-xs w-full sm:w-auto"
+              className="h-9 rounded-md border border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-stone-900 px-3 text-xs font-bold text-stone-800 dark:text-stone-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary shadow-2xs w-full sm:w-auto"
               aria-label="Filter notices by category"
             >
-              <option value="ALL">All Categories</option>
+              <option value="ALL">All Circular Categories</option>
               <option value="EXAM">Examination & Results</option>
               <option value="ADMISSION">Admissions & Counseling</option>
-              <option value="ACADEMIC">Academic & Samarth</option>
+              <option value="ACADEMIC">Academic & Samarth Portal</option>
               <option value="HOLIDAY">Holidays & Closures</option>
-              <option value="GENERAL">General Circulars</option>
+              <option value="GENERAL">General Administrative</option>
             </select>
           </div>
         </div>
 
-        {/* 2. NOTICES FEED GRID */}
+        {/* 2. TABULAR OFFICIAL NOTICEBOARD */}
         {filteredNotices.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredNotices.map((notice) => {
-              const publishDateObj = new Date(notice.publishDate);
-              const isRecent = isUnderSevenDays(publishDateObj);
+          <div className="rounded-md border border-stone-300 dark:border-stone-800 overflow-hidden shadow-xs bg-white dark:bg-[#0f1c2e]">
+            {/* Desktop Table View */}
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs border-collapse">
+                <thead>
+                  <tr className="bg-[#0f2b48] text-white border-b border-[#0b1e32]">
+                    <th scope="col" className="py-3 px-4 font-bold uppercase tracking-wider w-32">
+                      Date
+                    </th>
+                    <th scope="col" className="py-3 px-4 font-bold uppercase tracking-wider w-36">
+                      Category
+                    </th>
+                    <th scope="col" className="py-3 px-4 font-bold uppercase tracking-wider">
+                      Subject / Notification Title
+                    </th>
+                    <th scope="col" className="py-3 px-4 font-bold uppercase tracking-wider text-right w-44">
+                      Official Document
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-stone-200 dark:divide-stone-800">
+                  {filteredNotices.map((notice) => {
+                    const publishDateObj = new Date(notice.publishDate);
+                    const isRecent = isUnderSevenDays(publishDateObj);
 
-              return (
-                <Card
-                  key={notice.id}
-                  className={`flex flex-col justify-between border bg-card hover:border-primary/50 transition-all duration-200 hover:shadow-md rounded-xl ${
-                    notice.isPinned
-                      ? "border-primary/40 bg-gradient-to-b from-primary/[0.03] to-card ring-1 ring-primary/20"
-                      : "border-border"
-                  }`}
-                >
-                  <CardHeader className="p-5 pb-3">
-                    {/* Top Row: Category + Pinned + "NEW" */}
-                    <div className="flex items-center justify-between gap-2 mb-2.5">
-                      <div className="flex items-center gap-1.5">
-                        <Badge
-                          variant={
-                            notice.category === "EXAM"
-                              ? "default"
-                              : notice.category === "ADMISSION"
-                              ? "success"
-                              : notice.category === "HOLIDAY"
-                              ? "warning"
-                              : "secondary"
-                          }
-                          className="text-[10px] font-bold tracking-wider"
-                        >
-                          {notice.category}
-                        </Badge>
-
-                        {isRecent && (
-                          <span className="inline-flex items-center gap-0.5 text-[10px] font-extrabold px-1.5 py-0.2 rounded bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20">
-                            <Sparkles className="h-2.5 w-2.5" />
-                            NEW
+                    return (
+                      <tr
+                        key={notice.id}
+                        className={`hover:bg-stone-50 dark:hover:bg-stone-900/60 transition-colors ${
+                          notice.isPinned
+                            ? "bg-amber-50/40 dark:bg-amber-950/20 border-l-4 border-l-[#b45309]"
+                            : ""
+                        }`}
+                      >
+                        {/* Date Column */}
+                        <td className="py-3.5 px-4 font-mono text-stone-700 dark:text-stone-300 whitespace-nowrap align-top">
+                          <span className="font-bold">
+                            {publishDateObj.toLocaleDateString("en-IN", {
+                              day: "2-digit",
+                              month: "short",
+                              year: "numeric",
+                            })}
                           </span>
-                        )}
-                      </div>
+                        </td>
 
-                      {notice.isPinned && (
-                        <span className="flex items-center text-amber-500 text-[11px] font-bold gap-1 bg-amber-500/10 px-2 py-0.5 rounded-full">
-                          <Pin className="h-3 w-3 fill-amber-500" />
-                          Pinned
-                        </span>
-                      )}
-                    </div>
+                        {/* Category Column */}
+                        <td className="py-3.5 px-4 align-top whitespace-nowrap">
+                          <div className="flex flex-col gap-1 items-start">
+                            <span
+                              className={`text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-xs border ${
+                                notice.category === "EXAM"
+                                  ? "bg-red-50 text-red-800 border-red-200 dark:bg-red-950/60 dark:text-red-300 dark:border-red-900"
+                                  : notice.category === "ADMISSION"
+                                  ? "bg-emerald-50 text-emerald-800 border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-900"
+                                  : notice.category === "HOLIDAY"
+                                  ? "bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-950/60 dark:text-amber-300 dark:border-amber-900"
+                                  : "bg-stone-100 text-stone-800 border-stone-200 dark:bg-stone-800 dark:text-stone-300 dark:border-stone-700"
+                              }`}
+                            >
+                              {notice.category}
+                            </span>
 
-                    {/* Notice Title */}
-                    <CardTitle className="text-base font-bold text-foreground leading-snug line-clamp-3">
-                      {notice.title}
-                    </CardTitle>
+                            {notice.isPinned && (
+                              <span className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-700 dark:text-amber-400">
+                                <Pin className="h-2.5 w-2.5 fill-amber-600" />
+                                Pinned
+                              </span>
+                            )}
+                          </div>
+                        </td>
 
-                    {/* Publication Date Badge */}
-                    <CardDescription className="text-xs flex items-center gap-1.5 pt-2 text-muted-foreground font-medium">
-                      <Calendar className="h-3.5 w-3.5 text-primary shrink-0" />
-                      <span>
-                        Published:{" "}
-                        {publishDateObj.toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        })}
-                      </span>
-                    </CardDescription>
-                  </CardHeader>
+                        {/* Subject Title Column */}
+                        <td className="py-3.5 px-4 align-top">
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <span className="font-bold text-stone-900 dark:text-stone-100 text-sm leading-snug">
+                                {notice.title}
+                              </span>
 
-                  {/* Card Actions: PDF Download & External Link */}
-                  <CardContent className="p-5 pt-0 mt-auto flex items-center justify-between gap-2 border-t border-border/50 pt-3">
-                    {notice.pdfUrl ? (
-                      <a
-                        href={notice.pdfUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:text-primary/80 hover:underline"
-                        aria-label={`Open PDF circular for ${notice.title} in a new tab`}
-                      >
-                        <Download className="h-3.5 w-3.5" />
-                        <span>Download PDF</span>
-                      </a>
-                    ) : (
-                      <span className="text-[11px] text-muted-foreground italic">
-                        Text circular
-                      </span>
-                    )}
+                              {isRecent && (
+                                <span className="inline-block text-[10px] font-black uppercase tracking-wider px-1.5 py-0.2 rounded-xs bg-[#881337] text-white">
+                                  NEW
+                                </span>
+                              )}
+                            </div>
 
-                    {notice.sourceUrl && (
-                      <a
-                        href={notice.sourceUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground hover:text-foreground hover:underline ml-auto"
-                        aria-label="View original portal link"
-                      >
-                        <span>Official Portal</span>
-                        <ExternalLink className="h-3 w-3" />
-                      </a>
-                    )}
-                  </CardContent>
-                </Card>
-              );
-            })}
+                            <div className="flex items-center gap-3 text-[11px] text-stone-500">
+                              <span>
+                                Source:{" "}
+                                {notice.source === "GURUGRAM_UNIVERSITY"
+                                  ? "Gurugram University, Sector 51, Gurugram"
+                                  : "GITM Campus Academic Office"}
+                              </span>
+                              {notice.sourceUrl && (
+                                <a
+                                  href={notice.sourceUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1 text-stone-500 hover:text-[#0f2b48] dark:hover:text-amber-400"
+                                >
+                                  <span>Portal Entry</span>
+                                  <ExternalLink className="h-2.5 w-2.5" />
+                                </a>
+                              )}
+                            </div>
+                          </div>
+                        </td>
+
+                        {/* PDF / Document Column */}
+                        <td className="py-3.5 px-4 text-right align-top whitespace-nowrap">
+                          {notice.pdfUrl ? (
+                            <a
+                              href={notice.pdfUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1.5 rounded-sm border border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-stone-800 px-3 py-1.5 font-bold text-xs text-[#0f2b48] dark:text-stone-200 hover:bg-[#0f2b48] hover:text-white dark:hover:bg-amber-500 dark:hover:text-stone-950 transition-colors shadow-2xs"
+                              aria-label={`Download PDF circular for ${notice.title} in a new tab`}
+                            >
+                              <Download className="h-3.5 w-3.5 text-[#881337] group-hover:text-white shrink-0" />
+                              <span>Download PDF</span>
+                            </a>
+                          ) : (
+                            <span className="text-[11px] text-stone-400 italic">
+                              Circular on record
+                            </span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Table Footer with Official Record Notice */}
+            <div className="bg-stone-50 dark:bg-stone-900 border-t border-stone-200 dark:border-stone-800 px-4 py-2.5 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-stone-500">
+              <span className="flex items-center gap-1.5">
+                <CheckCircle className="h-3.5 w-3.5 text-emerald-600" />
+                <span>Showing <strong>{filteredNotices.length}</strong> authenticated records verified against Gurugram University notification server.</span>
+              </span>
+              <a
+                href="https://gurugramuniversity.ac.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-[#0f2b48] dark:text-amber-400 hover:underline flex items-center gap-1"
+              >
+                <span>gurugramuniversity.ac.in</span>
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            </div>
           </div>
         ) : (
-          /* Empty State */
-          <div className="rounded-2xl border border-dashed border-border bg-card p-12 text-center max-w-lg mx-auto">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary mx-auto mb-3">
-              <Filter className="h-6 w-6" />
-            </div>
-            <h3 className="text-base font-bold text-foreground">No circulars found</h3>
-            <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
-              No notifications matched your current filter criteria in{" "}
-              {activeSourceTab === "GURUGRAM_UNIVERSITY" ? "Gurugram University" : "GITM Campus"}.
+          /* Empty Search State */
+          <div className="rounded-md border border-dashed border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-stone-900 p-10 text-center max-w-lg mx-auto">
+            <Filter className="h-8 w-8 text-stone-400 mx-auto mb-2" />
+            <h3 className="font-editorial text-base font-bold text-stone-900 dark:text-stone-100">
+              No Circulars Found
+            </h3>
+            <p className="text-xs text-stone-500 mt-1">
+              No published notifications matched &quot;{searchQuery}&quot; under the selected category.
             </p>
             <Button
               variant="outline"
@@ -311,7 +358,7 @@ export function NoticeBoard({ notices }: NoticeBoardProps) {
                 setSelectedCategory("ALL");
                 setSearchQuery("");
               }}
-              className="mt-4 font-semibold"
+              className="mt-4 font-bold text-xs"
             >
               Reset Filters
             </Button>
@@ -323,4 +370,3 @@ export function NoticeBoard({ notices }: NoticeBoardProps) {
 }
 
 export default NoticeBoard;
-

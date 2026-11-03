@@ -9,6 +9,8 @@ import {
   FileDown,
   ArrowRight,
   Filter,
+  GraduationCap,
+  Award,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -35,10 +37,10 @@ interface ProgramFinderProps {
 type TabLevel = "ALL" | "UG" | "PG" | "DIPLOMA";
 
 const TABS: { id: TabLevel; label: string; sub: string }[] = [
-  { id: "ALL", label: "All Programs", sub: "Complete Catalog" },
-  { id: "UG", label: "Undergraduate", sub: "B.Tech, BBA, BCA, B.Pharm" },
-  { id: "PG", label: "Postgraduate", sub: "M.Tech, MBA, MCA" },
-  { id: "DIPLOMA", label: "Diploma", sub: "Polytechnic & D.Pharm" },
+  { id: "ALL", label: "All Degree Programs", sub: "Complete Catalog" },
+  { id: "UG", label: "Undergraduate (UG)", sub: "B.Tech, BCA, BBA, B.Pharm" },
+  { id: "PG", label: "Postgraduate (PG)", sub: "MBA, MCA, M.Tech" },
+  { id: "DIPLOMA", label: "Diploma / Polytechnic", sub: "Engineering & D.Pharm" },
 ];
 
 export function ProgramFinder({ programs }: ProgramFinderProps) {
@@ -70,34 +72,34 @@ export function ProgramFinder({ programs }: ProgramFinderProps) {
   return (
     <section
       id="programs"
-      className="py-16 sm:py-24 border-b border-border bg-muted/20 scroll-mt-14"
+      className="py-14 sm:py-20 border-b border-stone-200 dark:border-stone-800 bg-white dark:bg-[#080f1a] scroll-mt-14"
       aria-labelledby="programs-finder-heading"
     >
       <div className="container mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/10 px-3.5 py-1 text-xs font-semibold text-primary">
-            <BookOpen className="h-3.5 w-3.5" />
-            <span>NEP 2020 Aligned Academic Degrees</span>
+        <div className="text-center max-w-3xl mx-auto mb-8 space-y-2">
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#881337] dark:text-amber-400">
+            <BookOpen className="h-4 w-4" />
+            <span>Academic Curriculum Aligned with NEP 2020 & Gurugram University</span>
           </div>
 
           <h2
             id="programs-finder-heading"
-            className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground"
+            className="font-editorial text-2xl sm:text-4xl font-extrabold text-[#0f2b48] dark:text-stone-100"
           >
-            Interactive Degree & Program Finder
+            Academic Departments & Degree Programs
           </h2>
 
-          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-            Find your ideal academic pathway affiliated with Gurugram University. Explore multidisciplinary curricula, eligibility criteria, and approved seat intakes.
+          <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 leading-relaxed max-w-2xl mx-auto">
+            Explore approved degree programs offered at GITM Gurgaon. Rigorous curriculum designed in accordance with AICTE model syllabus, Pharmacy Council of India (PCI), and Gurugram University ordinances.
           </p>
         </div>
 
         {/* Filter Controls: Tabs + Search Bar */}
-        <div className="max-w-4xl mx-auto space-y-5 mb-10">
+        <div className="max-w-4xl mx-auto space-y-4 mb-10">
           {/* Tabbed Level Switcher */}
           <div
-            className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-1.5 rounded-xl border border-border bg-card shadow-xs"
+            className="grid grid-cols-2 sm:grid-cols-4 gap-1 p-1 rounded-md border border-stone-300 dark:border-stone-700 bg-stone-100 dark:bg-stone-900 shadow-2xs"
             role="tablist"
             aria-label="Filter programs by level"
           >
@@ -110,16 +112,16 @@ export function ProgramFinder({ programs }: ProgramFinderProps) {
                   aria-selected={isActive}
                   aria-controls="programs-grid"
                   onClick={() => setSelectedTab(tab.id)}
-                  className={`flex flex-col items-center justify-center py-2.5 px-3 rounded-lg text-xs font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                  className={`flex flex-col items-center justify-center py-2 px-3 rounded-sm text-xs font-bold transition-all duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary ${
                     isActive
-                      ? "bg-primary text-primary-foreground shadow-sm"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
+                      ? "bg-[#0f2b48] text-white shadow-xs"
+                      : "text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white"
                   }`}
                 >
-                  <span className="text-sm sm:text-xs">{tab.label}</span>
+                  <span className="uppercase tracking-wider">{tab.label}</span>
                   <span
                     className={`text-[10px] font-normal truncate max-w-full ${
-                      isActive ? "text-primary-foreground/80" : "text-muted-foreground/70"
+                      isActive ? "text-stone-300" : "text-stone-500"
                     }`}
                   >
                     {tab.sub}
@@ -131,19 +133,19 @@ export function ProgramFinder({ programs }: ProgramFinderProps) {
 
           {/* Real-time Search Input */}
           <div className="relative">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-stone-400" />
             <Input
               type="search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search programs by title or specialization (e.g. 'AI & Data Science', 'Finance', 'Pharmacy', 'Full Stack')..."
-              className="pl-10 h-11 bg-card text-foreground placeholder:text-muted-foreground/70 border-border shadow-xs rounded-xl text-sm"
+              placeholder="Search programs by title or specialization (e.g. 'Artificial Intelligence', 'Management', 'Pharmacy')..."
+              className="pl-10 h-10 bg-stone-50 dark:bg-stone-900 text-stone-900 dark:text-stone-100 placeholder:text-stone-400 border-stone-300 dark:border-stone-700 shadow-2xs rounded-md text-xs font-medium"
               aria-label="Search academic programs"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground hover:text-foreground bg-muted px-2 py-0.5 rounded-md"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-stone-500 hover:text-stone-900 bg-stone-200 dark:bg-stone-800 px-2 py-0.5 rounded-xs"
               >
                 Clear
               </button>
@@ -151,10 +153,10 @@ export function ProgramFinder({ programs }: ProgramFinderProps) {
           </div>
 
           {/* Results Summary Bar */}
-          <div className="flex items-center justify-between text-xs text-muted-foreground px-1">
+          <div className="flex items-center justify-between text-xs text-stone-500 px-1">
             <span>
-              Showing <strong>{filteredPrograms.length}</strong> {filteredPrograms.length === 1 ? "program" : "programs"}
-              {selectedTab !== "ALL" && ` in ${selectedTab}`}
+              Showing <strong>{filteredPrograms.length}</strong> {filteredPrograms.length === 1 ? "degree program" : "degree programs"}
+              {selectedTab !== "ALL" && ` under ${selectedTab}`}
               {searchQuery && ` matching "${searchQuery}"`}
             </span>
             {(selectedTab !== "ALL" || searchQuery) && (
@@ -163,91 +165,91 @@ export function ProgramFinder({ programs }: ProgramFinderProps) {
                   setSelectedTab("ALL");
                   setSearchQuery("");
                 }}
-                className="text-primary hover:underline font-medium"
+                className="text-[#881337] dark:text-amber-400 hover:underline font-bold"
               >
-                Reset all filters
+                Reset filters
               </button>
             )}
           </div>
         </div>
 
-        {/* 2. PROGRAM CARDS GRID */}
+        {/* 2. STRUCTURED ACADEMIC DEGREE CARDS */}
         {filteredPrograms.length > 0 ? (
           <div
             id="programs-grid"
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
             {filteredPrograms.map((program) => (
               <Card
                 key={program.id}
-                className="flex flex-col justify-between border border-border bg-card hover:border-primary/50 transition-all duration-200 hover:shadow-lg group rounded-2xl overflow-hidden"
+                className="flex flex-col justify-between border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] hover:border-[#0f2b48] dark:hover:border-stone-600 transition-colors rounded-md overflow-hidden shadow-2xs"
               >
-                {/* Header with badges */}
-                <CardHeader className="p-6 pb-4">
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <Badge variant="outline" className="text-xs uppercase font-bold tracking-wide">
-                      {program.department.replace("_", " ")}
-                    </Badge>
-                    <Badge variant="secondary" className="text-xs font-semibold">
+                <div className="h-1 bg-[#0f2b48] w-full" />
+                
+                <CardHeader className="p-5 pb-3">
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#881337] dark:text-amber-400 bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded-xs border border-stone-200 dark:border-stone-700">
+                      Dept. of {program.department.replace("_", " ")}
+                    </span>
+                    <span className="text-[10px] font-bold text-stone-500">
                       {program.level} • {program.durationYears} Years
-                    </Badge>
+                    </span>
                   </div>
 
-                  <CardTitle className="text-lg font-bold text-foreground group-hover:text-primary transition-colors leading-snug">
+                  <CardTitle className="font-editorial text-base sm:text-lg font-bold text-[#0f2b48] dark:text-stone-100 leading-snug">
                     {program.name}
                   </CardTitle>
 
-                  <CardDescription className="text-xs text-muted-foreground line-clamp-3 mt-2 leading-relaxed">
+                  <CardDescription className="text-xs text-stone-600 dark:text-stone-400 line-clamp-3 mt-1.5 leading-relaxed">
                     {program.description}
                   </CardDescription>
                 </CardHeader>
 
-                {/* Body Content */}
-                <CardContent className="p-6 pt-0 space-y-4">
-                  {/* Eligibility & Seats box */}
-                  <div className="space-y-2 rounded-xl bg-muted/60 p-3.5 text-xs">
+                <CardContent className="p-5 pt-0 space-y-3">
+                  {/* Statutory Affiliation and Intake */}
+                  <div className="rounded-sm border border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900/60 p-3 text-xs space-y-2">
                     <div className="flex items-start gap-2">
-                      <CheckCircle className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                      <CheckCircle className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
                       <div>
-                        <span className="font-bold text-foreground">Eligibility: </span>
-                        <span className="text-muted-foreground">{program.eligibility}</span>
+                        <span className="font-bold text-stone-800 dark:text-stone-200">Eligibility: </span>
+                        <span className="text-stone-600 dark:text-stone-400">{program.eligibility}</span>
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between pt-2 border-t border-border/60 text-muted-foreground">
+                    <div className="flex items-center justify-between pt-2 border-t border-stone-200 dark:border-stone-800 text-stone-600 dark:text-stone-400 text-[11px]">
                       <span className="flex items-center gap-1">
-                        <Users className="h-3 w-3 text-primary" />
-                        Annual Approved Intake:
+                        <Users className="h-3 w-3 text-stone-400" />
+                        Approved Seat Intake:
                       </span>
-                      <span className="font-bold text-foreground">{program.intake} Seats</span>
+                      <span className="font-bold text-stone-900 dark:text-stone-100">{program.intake} Seats</span>
                     </div>
                   </div>
 
-                  {/* Syllabus & Enquire Actions */}
+                  {/* Actions: Syllabus Download & Enquire */}
                   <div className="flex items-center justify-between pt-1 gap-2">
                     {program.syllabusPdfUrl ? (
                       <a
                         href={program.syllabusPdfUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-primary/80 hover:underline"
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0f2b48] dark:text-amber-400 hover:underline"
                         aria-label={`Download NEP 2020 syllabus for ${program.name}`}
                       >
                         <FileDown className="h-3.5 w-3.5" />
-                        <span>NEP 2020 Syllabus</span>
+                        <span>Curriculum Syllabus</span>
                       </a>
                     ) : (
-                      <span className="text-[11px] text-muted-foreground">Syllabus on request</span>
+                      <span className="text-[11px] text-stone-400 italic">Curriculum on request</span>
                     )}
 
                     <Button
                       asChild
                       size="sm"
-                      className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold shadow-xs ml-auto"
+                      className="bg-[#0f2b48] hover:bg-[#1a3a5e] text-white font-bold text-xs uppercase tracking-wider rounded-sm ml-auto shadow-2xs"
                     >
                       <a href="#inquiry" className="flex items-center gap-1">
-                        <span>Enquire Now</span>
-                        <ArrowRight className="h-3.5 w-3.5" />
+                        <span>Admissions</span>
+                        <ArrowRight className="h-3 w-3" />
                       </a>
                     </Button>
                   </div>
@@ -256,14 +258,13 @@ export function ProgramFinder({ programs }: ProgramFinderProps) {
             ))}
           </div>
         ) : (
-          /* Empty State */
-          <div className="rounded-2xl border border-dashed border-border bg-card p-12 text-center max-w-lg mx-auto">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary mx-auto mb-3">
-              <Filter className="h-6 w-6" />
-            </div>
-            <h3 className="text-base font-bold text-foreground">No matching programs found</h3>
-            <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
-              We couldn&apos;t find any programs matching &quot;{searchQuery}&quot; under the selected filter. Try broadening your keywords.
+          <div className="rounded-md border border-dashed border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-stone-900 p-10 text-center max-w-lg mx-auto">
+            <Filter className="h-8 w-8 text-stone-400 mx-auto mb-2" />
+            <h3 className="font-editorial text-base font-bold text-stone-900 dark:text-stone-100">
+              No Programs Matching Criteria
+            </h3>
+            <p className="text-xs text-stone-500 mt-1">
+              No degree courses found matching &quot;{searchQuery}&quot;. Please adjust your filters.
             </p>
             <Button
               variant="outline"
@@ -272,9 +273,9 @@ export function ProgramFinder({ programs }: ProgramFinderProps) {
                 setSelectedTab("ALL");
                 setSearchQuery("");
               }}
-              className="mt-4 font-semibold"
+              className="mt-4 font-bold text-xs"
             >
-              Clear Search & Show All
+              Reset Search & Show All
             </Button>
           </div>
         )}
