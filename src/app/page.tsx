@@ -3,25 +3,27 @@ import prisma from "@/lib/prisma";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Hero } from "@/components/home/Hero";
+import { PlacementTicker } from "@/components/home/PlacementTicker";
 import { InquiryForm } from "@/components/inquiry-form";
 import {
-  Award,
-  TrendingUp,
-  Building2,
   Calendar,
   FileText,
   ExternalLink,
   CheckCircle,
   BookOpen,
-  ArrowRight,
   Pin,
   Sparkles,
   MapPin,
+  ShieldCheck,
+  Building,
+  GraduationCap,
+  Users2,
+  Cpu,
 } from "lucide-react";
 
-
 export default async function HomePage() {
-  // Fetch data in parallel using Prisma ORM server components
+  // Fetch real-time data from database via Prisma ORM Server Components
   const [programs, placementHighlights, notices, events] = await Promise.all([
     prisma.program.findMany({
       orderBy: { name: "asc" },
@@ -41,76 +43,18 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden border-b border-border bg-gradient-to-b from-primary/5 via-background to-background py-16 sm:py-24 lg:py-28">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-              {/* Affiliation Pill */}
-              <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3.5 py-1 text-xs font-semibold text-primary">
-                <Award className="h-3.5 w-3.5" />
-                <span>Affiliated to Gurugram University, Gurugram</span>
-                <span className="text-primary/40">•</span>
-                <span>AICTE & PCI Approved</span>
-              </div>
+      {/* 1. HERO SECTION */}
+      <Hero />
 
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.15]">
-                Engineering Tomorrow&apos;s Innovations at{" "}
-                <span className="text-primary bg-clip-text">GITM Gurgaon</span>
-              </h1>
+      {/* 2. PLACEMENT MARQUEE & STUDENT HIGHLIGHTS */}
+      <PlacementTicker placements={placementHighlights} />
 
-              <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                Global Institute of Technology & Management offers accredited undergraduate and postgraduate programs in Computer Science, Artificial Intelligence, Business Administration, Computer Applications, and Pharmacy.
-              </p>
-
-              {/* Action Buttons */}
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
-                <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-md">
-                  <Link href="#inquiry">
-                    Apply for Admissions 2026-27
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="border-border">
-                  <Link href="#programs">
-                    View Academic Programs
-                  </Link>
-                </Button>
-              </div>
-
-              {/* Key Highlights */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-border/80">
-                <div className="space-y-1">
-                  <div className="text-2xl sm:text-3xl font-extrabold text-foreground">₹28.5 LPA</div>
-                  <div className="text-xs text-muted-foreground font-medium">Highest Package</div>
-                </div>
-                <div className="space-y-1">
-                  <div className="text-2xl sm:text-3xl font-extrabold text-foreground">500+</div>
-                  <div className="text-xs text-muted-foreground font-medium">Corporate Recruiters</div>
-                </div>
-                <div className="space-y-1">
-                  <div className="text-2xl sm:text-3xl font-extrabold text-foreground">100%</div>
-                  <div className="text-xs text-muted-foreground font-medium">Placement Assistance</div>
-                </div>
-                <div className="space-y-1">
-                  <div className="text-2xl sm:text-3xl font-extrabold text-foreground">18+ Years</div>
-                  <div className="text-xs text-muted-foreground font-medium">Academic Legacy</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Hero Quick Inquiry Box */}
-            <div className="lg:col-span-5">
-              <InquiryForm
-                courses={programs.map((p) => ({ slug: p.slug, name: p.name }))}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Notices & Circulars Banner */}
-      <section id="notices" className="py-16 bg-muted/30 border-b border-border">
+      {/* 3. LIVE GURUGRAM UNIVERSITY & GITM NOTICES */}
+      <section
+        id="notices"
+        className="py-16 sm:py-20 bg-background border-b border-border scroll-mt-14"
+        aria-labelledby="notices-heading"
+      >
         <div className="container mx-auto px-4 sm:px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
             <div>
@@ -118,13 +62,16 @@ export default async function HomePage() {
                 <FileText className="h-4 w-4" />
                 <span>Notice Board & Official Circulars</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mt-1">
-                Latest Updates & University Notifications
+              <h2
+                id="notices-heading"
+                className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-foreground mt-1"
+              >
+                Live University Notifications & Exam Schedules
               </h2>
             </div>
             <div className="text-xs text-muted-foreground flex items-center gap-2">
-              <span className="inline-block h-2 w-2 rounded-full bg-emerald-500" />
-              Real-time sync with Gurugram University & GITM Registrars
+              <span className="inline-block h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Real-time sync with Gurugram University & Registrars</span>
             </div>
           </div>
 
@@ -133,7 +80,9 @@ export default async function HomePage() {
               <Card
                 key={notice.id}
                 className={`flex flex-col justify-between transition-all hover:shadow-md ${
-                  notice.isPinned ? "border-primary/50 bg-primary/[0.02]" : "border-border"
+                  notice.isPinned
+                    ? "border-primary/50 bg-primary/[0.02]"
+                    : "border-border"
                 }`}
               >
                 <CardHeader className="p-5 pb-3">
@@ -202,25 +151,35 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Academic Programs Section */}
-      <section id="programs" className="py-16 sm:py-20 border-b border-border">
+      {/* 4. ACADEMIC PROGRAMS OFFERED */}
+      <section
+        id="programs"
+        className="py-16 sm:py-20 border-b border-border bg-muted/20 scroll-mt-14"
+        aria-labelledby="programs-heading"
+      >
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
               <BookOpen className="h-4 w-4" />
-              <span>Curriculum & Specializations</span>
+              <span>Accredited Programs</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-foreground mt-2">
-              Academic Programs Offered
+            <h2
+              id="programs-heading"
+              className="text-2xl sm:text-4xl font-extrabold tracking-tight text-foreground mt-2"
+            >
+              Academic Disciplines & Specializations
             </h2>
             <p className="text-muted-foreground text-sm sm:text-base mt-2">
-              Degree programs developed in alignment with Gurugram University and National Education Policy (NEP) guidelines.
+              Industry-aligned curricula affiliated with Gurugram University and governed by AICTE & PCI norms.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {programs.map((program) => (
-              <Card key={program.id} className="flex flex-col justify-between hover:border-primary/50 transition-all">
+              <Card
+                key={program.id}
+                className="flex flex-col justify-between hover:border-primary/50 transition-all hover:shadow-md"
+              >
                 <CardHeader className="p-6">
                   <div className="flex items-center justify-between gap-2 mb-3">
                     <Badge variant="outline" className="text-xs uppercase font-medium">
@@ -239,7 +198,7 @@ export default async function HomePage() {
                 </CardHeader>
 
                 <CardContent className="p-6 pt-0 space-y-4">
-                  <div className="space-y-2 rounded-lg bg-muted/50 p-3 text-xs">
+                  <div className="space-y-2 rounded-lg bg-muted/60 p-3 text-xs">
                     <div className="flex items-start gap-1.5">
                       <CheckCircle className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" />
                       <div>
@@ -248,7 +207,7 @@ export default async function HomePage() {
                       </div>
                     </div>
                     <div className="flex items-center justify-between pt-1 border-t border-border/50 text-muted-foreground">
-                      <span>Annual Approved Intake:</span>
+                      <span>Approved Intake:</span>
                       <span className="font-semibold text-foreground">{program.intake} Seats</span>
                     </div>
                   </div>
@@ -267,7 +226,12 @@ export default async function HomePage() {
                     ) : (
                       <span />
                     )}
-                    <Button asChild size="sm" variant="default" className="bg-primary text-primary-foreground">
+                    <Button
+                      asChild
+                      size="sm"
+                      variant="default"
+                      className="bg-primary text-primary-foreground font-semibold"
+                    >
                       <Link href="#inquiry">Apply Now</Link>
                     </Button>
                   </div>
@@ -278,76 +242,120 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Placement Highlights */}
-      <section id="placements" className="py-16 sm:py-20 bg-muted/20 border-b border-border">
+      {/* 5. ABOUT GITM GURGAON SECTION */}
+      <section
+        id="about"
+        className="py-16 sm:py-20 border-b border-border bg-background scroll-mt-14"
+        aria-labelledby="about-heading"
+      >
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-            <div>
-              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary">
-                <TrendingUp className="h-4 w-4" />
-                <span>Career Opportunities</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-7 space-y-5">
+              <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
+                <Building className="h-4 w-4" />
+                <span>About Global Institute of Technology & Management</span>
               </div>
-              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-foreground mt-1">
-                Outstanding Placement Highlights
+              <h2
+                id="about-heading"
+                className="text-2xl sm:text-4xl font-extrabold tracking-tight text-foreground leading-tight"
+              >
+                18+ Years of Academic Integrity & Professional Excellence
               </h2>
-              <p className="text-muted-foreground text-sm mt-1 max-w-xl">
-                Our Corporate Resource Centre connects graduates with Tier-1 multinational software, engineering, and pharmaceutical enterprises.
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                Established in 2008, Global Institute of Technology & Management (GITM) is strategically nestled in Gurgaon, the Millennium City and premier technology hub of India. Affiliated with Gurugram University, GITM has fostered more than 15,000 alumni across engineering, technology, artificial intelligence, business leadership, and clinical pharmaceutical science.
               </p>
-            </div>
-            <div className="flex items-center gap-2">
-              <Badge variant="success" className="text-xs px-3 py-1">
-                Top CTC: ₹28.5 LPA
-              </Badge>
-            </div>
-          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {placementHighlights.map((placement) => (
-              <Card key={placement.id} className="overflow-hidden hover:border-primary/50 transition-all">
-                <CardContent className="p-6">
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <h4 className="font-bold text-base text-foreground">
-                        {placement.studentName}
-                      </h4>
-                      <p className="text-xs text-muted-foreground">
-                        {placement.branch} • Batch {placement.year}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <span className="text-base font-extrabold text-primary">
-                        ₹{placement.packageLPA} LPA
-                      </span>
-                    </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                <div className="flex items-start gap-3 p-3.5 rounded-lg border border-border bg-card">
+                  <Cpu className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-xs font-bold text-foreground">Advanced Tech Labs</h4>
+                    <p className="text-[11px] text-muted-foreground">AI/ML research labs, IoT center, and high-performance computing clusters.</p>
                   </div>
+                </div>
 
-                  <div className="mt-4 pt-3 border-t border-border/60 flex items-center justify-between text-xs">
-                    <div className="flex items-center gap-1.5 font-medium text-foreground">
-                      <Building2 className="h-3.5 w-3.5 text-muted-foreground" />
-                      <span>{placement.company}</span>
-                    </div>
-                    <span className="text-muted-foreground">{placement.designation}</span>
+                <div className="flex items-start gap-3 p-3.5 rounded-lg border border-border bg-card">
+                  <ShieldCheck className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-xs font-bold text-foreground">Government Approvals</h4>
+                    <p className="text-[11px] text-muted-foreground">Approved by AICTE, PCI, and affiliated to Gurugram University, Haryana.</p>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
+                </div>
+
+                <div className="flex items-start gap-3 p-3.5 rounded-lg border border-border bg-card">
+                  <Users2 className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-xs font-bold text-foreground">Distinguished Faculty</h4>
+                    <p className="text-[11px] text-muted-foreground">PhD scholars, researchers, and corporate mentors guiding student projects.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 p-3.5 rounded-lg border border-border bg-card">
+                  <GraduationCap className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-xs font-bold text-foreground">Merit Scholarships</h4>
+                    <p className="text-[11px] text-muted-foreground">Scholarships up to 100% tuition waiver for meritorious candidates.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-5 bg-muted/40 rounded-2xl border border-border p-6 space-y-4">
+              <h3 className="text-base font-bold text-foreground">
+                Campus Highlights at a Glance
+              </h3>
+              <ul className="space-y-3 text-xs text-muted-foreground">
+                <li className="flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-primary" />
+                  <span>20+ Acres Lush Green Eco-Friendly Campus</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-primary" />
+                  <span>Digital Library with 50,000+ Volumes & IEEE Access</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-primary" />
+                  <span>Air-Conditioned Hostels for Boys & Girls with 24x7 Security</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-primary" />
+                  <span>Dedicated Fleet of AC Buses covering Gurgaon, Delhi & Rewari</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-primary" />
+                  <span>On-Campus Sports Complex & Gymnasium</span>
+                </li>
+              </ul>
+              <div className="pt-2">
+                <Button asChild variant="outline" className="w-full font-semibold">
+                  <a href="#inquiry">Book a Campus Tour</a>
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Events & Hackathons */}
-      <section id="events" className="py-16 sm:py-20 border-b border-border">
+      {/* 6. CAMPUS LIFE & EVENTS */}
+      <section
+        id="events"
+        className="py-16 sm:py-20 border-b border-border bg-muted/20 scroll-mt-14"
+        aria-labelledby="events-heading"
+      >
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
               <Sparkles className="h-4 w-4" />
-              <span>Campus Life & Innovation</span>
+              <span>Hackathons & Cultural Conclaves</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-foreground mt-2">
-              Conferences, Hackathons & Seminars
+            <h2
+              id="events-heading"
+              className="text-2xl sm:text-4xl font-extrabold tracking-tight text-foreground mt-2"
+            >
+              Campus Life & Innovation Summits
             </h2>
             <p className="text-muted-foreground text-sm sm:text-base mt-2">
-              Active student chapters, national competitions, and research symposiums hosted at GITM Gurgaon.
+              National hackathons, tech symposiums, and leadership conclaves at GITM Gurgaon.
             </p>
           </div>
 
@@ -355,7 +363,10 @@ export default async function HomePage() {
             {events.map((event) => {
               const tags = event.tags ? event.tags.split(",").map((t) => t.trim()) : [];
               return (
-                <Card key={event.id} className="flex flex-col justify-between hover:border-primary/50 transition-all">
+                <Card
+                  key={event.id}
+                  className="flex flex-col justify-between hover:border-primary/50 transition-all hover:shadow-md"
+                >
                   <CardHeader className="p-6">
                     <div className="flex flex-wrap items-center gap-2 mb-2">
                       {tags.map((tag) => (
@@ -396,27 +407,17 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Gurugram University Affiliation Details Banner */}
-      <section className="py-12 bg-primary/10 border-b border-border">
+      {/* 7. ADMISSION INQUIRY SECTION */}
+      <section
+        id="inquiry"
+        className="py-16 sm:py-20 border-b border-border bg-background scroll-mt-14"
+        aria-labelledby="inquiry-heading"
+      >
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="space-y-1 text-center md:text-left">
-              <h3 className="text-lg font-bold text-foreground">
-                Affiliated with Gurugram University, Established by Govt. of Haryana
-              </h3>
-              <p className="text-xs text-muted-foreground max-w-2xl">
-                Degree certifications, examinations, and official syllabi adhere to Gurugram University statutory guidelines and UGC recognized degrees.
-              </p>
-            </div>
-            <a
-              href="https://gurugramuniversity.ac.in"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg bg-background px-4 py-2 text-xs font-semibold text-foreground border border-border shadow-sm hover:bg-accent transition-colors"
-            >
-              Visit Gurugram University Portal
-              <ExternalLink className="h-3.5 w-3.5" />
-            </a>
+          <div className="max-w-3xl mx-auto">
+            <InquiryForm
+              courses={programs.map((p) => ({ slug: p.slug, name: p.name }))}
+            />
           </div>
         </div>
       </section>
