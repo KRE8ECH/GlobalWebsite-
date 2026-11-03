@@ -1,0 +1,124 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum NoticeCategory {
+  EXAM
+  ADMISSION
+  ACADEMIC
+  HOLIDAY
+  GENERAL
+}
+
+enum NoticeSource {
+  GITM
+  GURUGRAM_UNIVERSITY
+}
+
+enum Department {
+  ENGINEERING
+  MANAGEMENT
+  PHARMACY
+  COMPUTER_APPLICATIONS
+}
+
+enum ProgramLevel {
+  UG
+  PG
+  DIPLOMA
+}
+
+enum InquiryStatus {
+  PENDING
+  CONTACTED
+}
+
+model Notice {
+  id          String         @id @default(cuid())
+  title       String
+  category    NoticeCategory
+  source      NoticeSource   @default(GITM)
+  publishDate DateTime       @default(now())
+  pdfUrl      String?
+  sourceUrl   String?
+  isPinned    Boolean        @default(false)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  @@index([category])
+  @@index([source])
+  @@index([publishDate])
+}
+
+model Program {
+  id             String       @id @default(cuid())
+  slug           String       @unique
+  name           String
+  department     Department
+  level          ProgramLevel
+  durationYears  Int
+  eligibility    String
+  intake         Int
+  syllabusPdfUrl String?
+  description    String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@index([department])
+  @@index([level])
+}
+
+model Event {
+  id        String   @id @default(cuid())
+  title     String
+  summary   String
+  date      DateTime
+  location  String
+  imageUrl  String?
+  tags      String   // Comma-separated or JSON list of tags (e.g. "Tech,Hackathon,AI")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([date])
+}
+
+model PlacementHighlight {
+  id          String   @id @default(cuid())
+  studentName String
+  company     String
+  packageLPA  Float
+  designation String
+  year        Int
+  branch      String
+  photoUrl    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([year])
+  @@index([company])
+}
+
+model Inquiry {
+  id               String        @id @default(cuid())
+  fullName         String
+  email            String
+  phone            String
+  courseInterested String
+  state            String
+  message          String?
+  status           InquiryStatus @default(PENDING)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+}
+
