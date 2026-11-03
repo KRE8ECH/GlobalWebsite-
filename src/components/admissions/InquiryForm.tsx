@@ -463,3 +463,4 @@ export function InquiryForm({ initialCourse, onSuccess, className = "" }: Inquir
 }
 
 export default InquiryForm;
+

@@ -96,3 +96,4 @@ testInquiryAction()
   .finally(async () => {
     await prisma.$disconnect();
   });
+

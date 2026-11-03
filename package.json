@@ -12,7 +12,8 @@
     "prisma:seed": "tsx prisma/seed.ts",
     "seed": "tsx prisma/seed.ts",
     "verify:scraper": "tsx scripts/verify-scraper.ts",
-    "test:api": "tsx scripts/test-api-routes.ts"
+    "test:api": "tsx scripts/test-api-routes.ts",
+    "test:e2e": "playwright test"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
@@ -36,6 +37,7 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
