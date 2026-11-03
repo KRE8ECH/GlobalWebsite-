@@ -18,36 +18,36 @@ const MOCK_GU_HTML = `
     <ul class="list-group w-100">
       <li>
         <span class="notice-icon">📄</span>
-        <a href="Notice/Re-Evaluation_Result_Dec_2025.pdf" target="_blank">
-          Re-Evaluation Result Notification for B.Tech Semester Exams (Dec 2025) <span class="badge-new">NEW</span>
+        <a href="Notice/Mock_Test_Re_Evaluation_Result_Dec_2025.pdf" target="_blank">
+          Mock Test Re-Evaluation Result Notification for B.Tech Semester Exams (Dec 2025) <span class="badge-new">NEW</span>
         </a>
         <span class="badge-date">2026-11-03</span>
       </li>
       <li>
         <span class="notice-icon">📄</span>
-        <a href="/Notice/DateSheet_Even_Semester_May_2026.pdf" target="_blank">
-          Theory & Practical Date Sheet for Even Semester Examinations 2026
+        <a href="/Notice/Mock_Test_DateSheet_Even_Semester_May_2026.pdf" target="_blank">
+          Mock Test Theory & Practical Date Sheet for Even Semester Examinations 2026
         </a>
         <span class="badge-date">2026-10-28</span>
       </li>
       <li>
         <span class="notice-icon">📄</span>
-        <a href="https://gurugramuniversity.ac.in/Notice/UG_PG_Admissions_Round3_Counseling.pdf" target="_blank">
-          UG/PG Admissions Round 3 Counseling and Seat Allotment Circular <span class="badge-new">NEW</span>
+        <a href="https://gurugramuniversity.ac.in/Notice/Mock_Test_UG_PG_Admissions_Counseling.pdf" target="_blank">
+          Mock Test UG/PG Admissions Round 3 Counseling Circular <span class="badge-new">NEW</span>
         </a>
         <span class="badge-date">2026-10-25</span>
       </li>
       <li>
         <span class="notice-icon">📄</span>
-        <a href="Notice/Gazetted_Holiday_Diwali_Break_2026.pdf" target="_blank">
-          Gazetted Holiday Notification - Diwali Break & University Campus Closure
+        <a href="Notice/Mock_Test_Gazetted_Holiday_Diwali_Break_2026.pdf" target="_blank">
+          Mock Test Gazetted Holiday Notification - Diwali Break
         </a>
         <span class="badge-date">2026-10-20</span>
       </li>
       <li>
         <span class="notice-icon">📄</span>
-        <a href="Notice/Revised_Academic_Calendar_2026-27.pdf" target="_blank">
-          Revised Academic Calendar & Teaching Schedule for Session 2026-27
+        <a href="Notice/Mock_Test_Revised_Academic_Calendar_2026-27.pdf" target="_blank">
+          Mock Test Revised Academic Calendar & Teaching Schedule
         </a>
         <span class="badge-date">2026-10-15</span>
       </li>
@@ -137,12 +137,12 @@ async function runVerification() {
 
   const n1 = parsedNotices[0];
   assert(
-    n1.title === "Re-Evaluation Result Notification for B.Tech Semester Exams (Dec 2025)",
+    n1.title === "Mock Test Re-Evaluation Result Notification for B.Tech Semester Exams (Dec 2025)",
     `Cleaned title correctly: "${n1.title}"`
   );
   assert(n1.isPinned === true, "Identified NEW badge as pinned notice");
   assert(
-    n1.pdfUrl === "https://gurugramuniversity.ac.in/Notice/Re-Evaluation_Result_Dec_2025.pdf",
+    n1.pdfUrl === "https://gurugramuniversity.ac.in/Notice/Mock_Test_Re_Evaluation_Result_Dec_2025.pdf",
     `Resolved absolute PDF URL: "${n1.pdfUrl}"`
   );
   assert(
@@ -152,8 +152,8 @@ async function runVerification() {
 
   // TEST 4: Title Hashing Deduplication
   console.log("\n▶ [Test 4] Title Hash Stability");
-  const h1 = hashTitle("Re-Evaluation Result Notification for B.Tech");
-  const h2 = hashTitle("  re-evaluation result notification for b.tech!  ");
+  const h1 = hashTitle("Mock Test Re-Evaluation Result Notification for B.Tech");
+  const h2 = hashTitle("  mock test re-evaluation result notification for b.tech!  ");
   assert(h1 === h2, "Hash is case and punctuation insensitive");
 
   // TEST 5: Database Synchronization & Deduplication Idempotency
@@ -161,11 +161,11 @@ async function runVerification() {
   
   // Clean mock entries first if present
   const mockTitles = [
-    "Re-Evaluation Result Notification for B.Tech Semester Exams (Dec 2025)",
-    "Theory & Practical Date Sheet for Even Semester Examinations 2026",
-    "UG/PG Admissions Round 3 Counseling and Seat Allotment Circular",
-    "Gazetted Holiday Notification - Diwali Break & University Campus Closure",
-    "Revised Academic Calendar & Teaching Schedule for Session 2026-27",
+    "Mock Test Re-Evaluation Result Notification for B.Tech Semester Exams (Dec 2025)",
+    "Mock Test Theory & Practical Date Sheet for Even Semester Examinations 2026",
+    "Mock Test UG/PG Admissions Round 3 Counseling Circular",
+    "Mock Test Gazetted Holiday Notification - Diwali Break",
+    "Mock Test Revised Academic Calendar & Teaching Schedule",
   ];
   await prisma.notice.deleteMany({
     where: {

@@ -261,3 +261,4 @@ export function PlacementTicker({ placements }: PlacementTickerProps) {
 }
 
 export default PlacementTicker;
+
