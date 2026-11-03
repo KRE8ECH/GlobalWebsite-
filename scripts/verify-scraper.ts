@@ -160,10 +160,17 @@ async function runVerification() {
   console.log("\n▶ [Test 5] Database Sync & Deduplication Idempotency");
   
   // Clean mock entries first if present
+  const mockTitles = [
+    "Re-Evaluation Result Notification for B.Tech Semester Exams (Dec 2025)",
+    "Theory & Practical Date Sheet for Even Semester Examinations 2026",
+    "UG/PG Admissions Round 3 Counseling and Seat Allotment Circular",
+    "Gazetted Holiday Notification - Diwali Break & University Campus Closure",
+    "Revised Academic Calendar & Teaching Schedule for Session 2026-27",
+  ];
   await prisma.notice.deleteMany({
     where: {
       source: NoticeSource.GURUGRAM_UNIVERSITY,
-      title: { contains: "Re-Evaluation Result Notification for B.Tech" },
+      title: { in: mockTitles },
     },
   });
 
