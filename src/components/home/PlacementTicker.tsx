@@ -144,7 +144,7 @@ export function PlacementTicker({ placements }: PlacementTickerProps) {
             >
               Industry Recruiters & Career Placements
             </h2>
-            <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 mt-1.5 max-w-2xl leading-relaxed">
+            <p className="text-xs sm:text-sm text-stone-700 dark:text-stone-300 mt-1.5 max-w-2xl leading-relaxed font-medium">
               Situated in the corporate capital of Gurgaon, GITM maintains direct placement MoUs and annual campus recruitment drives with Fortune 500 multinationals and leading Indian conglomerates.
             </p>
           </div>
@@ -281,20 +281,20 @@ export function PlacementTicker({ placements }: PlacementTickerProps) {
                         </span>
                       </div>
 
-                      <p className="text-xs text-stone-500 flex items-center gap-1 mt-1">
-                        <GraduationCap className="h-3.5 w-3.5 text-stone-400 shrink-0" />
+                      <p className="text-xs text-stone-700 dark:text-stone-300 font-medium flex items-center gap-1 mt-1">
+                        <GraduationCap className="h-3.5 w-3.5 text-[#0f2b48] dark:text-amber-400 shrink-0" />
                         <span className="truncate">
                           {record.branch} • Batch {record.year}
                         </span>
                       </p>
 
-                      <div className="mt-2.5 pt-2 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between text-xs">
-                        <div className="flex items-center gap-1.5 font-bold text-stone-800 dark:text-stone-200">
-                          <Building className="h-3 w-3 text-stone-400" />
+                      <div className="mt-2.5 pt-2 border-t border-stone-200 dark:border-stone-800 flex items-center justify-between text-xs">
+                        <div className="flex items-center gap-1.5 font-bold text-stone-900 dark:text-stone-100">
+                          <Building className="h-3 w-3 text-[#881337] dark:text-amber-400" />
                           <span className="truncate">{record.company}</span>
                         </div>
-                        <div className="flex items-center gap-1 text-stone-500 text-[11px] truncate max-w-[130px]">
-                          <Briefcase className="h-3 w-3 shrink-0" />
+                        <div className="flex items-center gap-1 text-stone-700 dark:text-stone-300 text-[11px] font-medium truncate max-w-[130px]">
+                          <Briefcase className="h-3 w-3 shrink-0 text-stone-400" />
                           <span title={record.designation}>{record.designation}</span>
                         </div>
                       </div>

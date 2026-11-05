@@ -11,6 +11,8 @@ import {
   Maximize2,
   MapPin,
   Clock,
+  Eye,
+  Camera,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -124,30 +126,36 @@ const CAMPUS_FACILITIES: FacilityPhoto[] = [
 
 export function CampusGallery() {
   const [activeFilter, setActiveFilter] = React.useState<string>("all");
-  const [selectedPhotoIndex, setSelectedPhotoIndex] = React.useState<number | null>(null);
+  const [activePhotoIndex, setActivePhotoIndex] = React.useState<number>(0);
+  const [isLightboxOpen, setIsLightboxOpen] = React.useState<boolean>(false);
 
   const filteredPhotos = React.useMemo(() => {
     if (activeFilter === "all") return CAMPUS_FACILITIES;
     return CAMPUS_FACILITIES.filter((p) => p.category === activeFilter);
   }, [activeFilter]);
 
+  // Keep index in range when switching category
+  React.useEffect(() => {
+    setActivePhotoIndex(0);
+  }, [activeFilter]);
+
+  const activePhoto = filteredPhotos[activePhotoIndex] || filteredPhotos[0];
+
   // Handle keyboard navigation for modal lightbox
   React.useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-      if (selectedPhotoIndex === null) return;
+      if (!isLightboxOpen) return;
       if (e.key === "Escape") {
-        setSelectedPhotoIndex(null);
+        setIsLightboxOpen(false);
       } else if (e.key === "ArrowRight") {
-        setSelectedPhotoIndex((prev) => (prev !== null && prev < filteredPhotos.length - 1 ? prev + 1 : 0));
+        setActivePhotoIndex((prev) => (prev < filteredPhotos.length - 1 ? prev + 1 : 0));
       } else if (e.key === "ArrowLeft") {
-        setSelectedPhotoIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : filteredPhotos.length - 1));
+        setActivePhotoIndex((prev) => (prev > 0 ? prev - 1 : filteredPhotos.length - 1));
       }
     }
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedPhotoIndex, filteredPhotos.length]);
-
-  const currentPhoto = selectedPhotoIndex !== null ? filteredPhotos[selectedPhotoIndex] : null;
+  }, [isLightboxOpen, filteredPhotos.length]);
 
   return (
     <section
@@ -168,11 +176,11 @@ export function CampusGallery() {
               id="campus-gallery-heading"
               className="font-editorial text-2xl sm:text-4xl font-extrabold text-[#0f2b48] dark:text-stone-100"
             >
-              Campus Facilities & Virtual Video Tour
+              Campus Facilities & Infrastructure Gallery
             </h2>
 
             <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 mt-1.5 max-w-2xl leading-relaxed">
-              Explore authentic laboratories, lecture complexes, central digital library, athletic grounds, and campus life photographs verified from GITM Gurgaon.
+              Explore authentic laboratories, lecture theatres, central digital library, athletic grounds, and campus life verified from GITM Gurgaon.
             </p>
           </div>
 
@@ -184,14 +192,14 @@ export function CampusGallery() {
               className="flex items-center gap-1.5 text-[#881337] dark:text-amber-400"
             >
               <Video className="h-4 w-4" />
-              <span>Official YouTube Channel</span>
+              <span>Official Video Tour</span>
               <ExternalLink className="h-3 w-3" />
             </a>
           </Button>
         </div>
 
         {/* 1. OFFICIAL VIRTUAL VIDEO TOUR SHOWCASE */}
-        <div className="mb-14 rounded-md border border-stone-300 dark:border-stone-800 bg-stone-50 dark:bg-[#0f1c2e] p-4 sm:p-6 shadow-2xs">
+        <div className="mb-12 rounded-md border border-stone-300 dark:border-stone-800 bg-stone-50 dark:bg-[#0f1c2e] p-4 sm:p-6 shadow-2xs">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
             {/* Embedded YouTube Player Container */}
             <div className="lg:col-span-8 rounded-sm overflow-hidden border border-stone-300 dark:border-stone-700 aspect-video bg-black shadow-md relative">
@@ -220,23 +228,8 @@ export function CampusGallery() {
                 Take an immersive video walkthrough of the sprawling green campus, hi-tech engineering laboratories, pharmaceutical research center, modern residential hostels, sports arenas, and interview sessions with faculty and recruiters.
               </p>
 
-              <div className="space-y-2 pt-2 border-t border-stone-200 dark:border-stone-800 text-xs text-stone-700 dark:text-stone-300">
-                <div className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#0f2b48] dark:bg-amber-400" />
-                  <span><strong>Location:</strong> 5 KM Milestone, Farrukhnagar Rd, Gurugram</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#0f2b48] dark:bg-amber-400" />
-                  <span><strong>Connectivity:</strong> 25 mins from IGI Airport & Cyber City</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#0f2b48] dark:bg-amber-400" />
-                  <span><strong>Affiliation:</strong> Gurugram University, Sector 51</span>
-                </div>
-              </div>
-
               <div className="pt-2">
-                <Button asChild size="sm" className="w-full bg-[#0f2b48] hover:bg-[#1a3a5e] text-white font-bold text-xs uppercase tracking-wider rounded-xs shadow-2xs">
+                <Button asChild size="sm" className="bg-[#0f2b48] hover:bg-[#0b1e32] text-white font-bold text-xs uppercase tracking-wider rounded-xs shadow-2xs">
                   <a href="#inquiry">Book An In-Person Campus Inspection</a>
                 </Button>
               </div>
@@ -249,7 +242,7 @@ export function CampusGallery() {
           <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-sm border border-stone-300 dark:border-stone-700 bg-stone-100 dark:bg-stone-900 text-xs font-bold uppercase tracking-wider">
             <button
               onClick={() => setActiveFilter("all")}
-              className={`px-3 py-1.5 rounded-xs transition-colors ${
+              className={`px-3 py-1.5 rounded-xs transition-colors cursor-pointer ${
                 activeFilter === "all"
                   ? "bg-[#0f2b48] text-white shadow-2xs"
                   : "text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white"
@@ -259,7 +252,7 @@ export function CampusGallery() {
             </button>
             <button
               onClick={() => setActiveFilter("labs")}
-              className={`px-3 py-1.5 rounded-xs transition-colors ${
+              className={`px-3 py-1.5 rounded-xs transition-colors cursor-pointer ${
                 activeFilter === "labs"
                   ? "bg-[#0f2b48] text-white shadow-2xs"
                   : "text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white"
@@ -269,7 +262,7 @@ export function CampusGallery() {
             </button>
             <button
               onClick={() => setActiveFilter("library")}
-              className={`px-3 py-1.5 rounded-xs transition-colors ${
+              className={`px-3 py-1.5 rounded-xs transition-colors cursor-pointer ${
                 activeFilter === "library"
                   ? "bg-[#0f2b48] text-white shadow-2xs"
                   : "text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white"
@@ -279,7 +272,7 @@ export function CampusGallery() {
             </button>
             <button
               onClick={() => setActiveFilter("sports")}
-              className={`px-3 py-1.5 rounded-xs transition-colors ${
+              className={`px-3 py-1.5 rounded-xs transition-colors cursor-pointer ${
                 activeFilter === "sports"
                   ? "bg-[#0f2b48] text-white shadow-2xs"
                   : "text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white"
@@ -289,7 +282,7 @@ export function CampusGallery() {
             </button>
             <button
               onClick={() => setActiveFilter("campus")}
-              className={`px-3 py-1.5 rounded-xs transition-colors ${
+              className={`px-3 py-1.5 rounded-xs transition-colors cursor-pointer ${
                 activeFilter === "campus"
                   ? "bg-[#0f2b48] text-white shadow-2xs"
                   : "text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white"
@@ -304,25 +297,129 @@ export function CampusGallery() {
           </span>
         </div>
 
-        {/* 3. PHOTO GALLERY GRID */}
+        {/* 3. MASTER SHOWCASE: THE MAIN FEATURED IMAGE STAGE (Shown Before Full Modal) */}
+        {activePhoto && (
+          <div className="mb-6 rounded-md border border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-[#0f1c2e] overflow-hidden shadow-md">
+            {/* Main Featured Photo Stage */}
+            <div
+              onClick={() => setIsLightboxOpen(true)}
+              className="relative aspect-[16/9] sm:aspect-[21/9] w-full overflow-hidden bg-black group cursor-pointer"
+              title="Click to expand high-resolution photograph"
+            >
+              <img
+                src={activePhoto.imageSrc}
+                alt={activePhoto.title}
+                className="w-full h-full object-cover object-center photo-enhance group-hover:scale-102 transition-transform duration-500"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
+
+              {/* Top Status Tags */}
+              <div className="absolute top-4 left-4 flex items-center gap-2">
+                <span className="bg-[#881337] text-white text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-xs shadow-md">
+                  {activePhoto.categoryLabel}
+                </span>
+                <span className="bg-black/80 text-amber-300 text-[11px] font-mono font-bold px-2.5 py-1 rounded-xs border border-amber-400/30">
+                  {activePhotoIndex + 1} / {filteredPhotos.length}
+                </span>
+              </div>
+
+              {/* Top Right Expand Button */}
+              <div className="absolute top-4 right-4">
+                <span className="bg-black/75 hover:bg-black text-white text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-xs border border-white/25 flex items-center gap-1.5 shadow-md group-hover:bg-amber-500 group-hover:text-black transition-colors">
+                  <Maximize2 className="h-3.5 w-3.5" />
+                  <span>Click to Expand Fullscreen</span>
+                </span>
+              </div>
+
+              {/* Bottom In-Image Master Caption */}
+              <div className="absolute bottom-4 left-4 right-4 text-left text-white space-y-1">
+                <h3 className="font-editorial text-lg sm:text-2xl font-bold text-white tracking-wide leading-snug">
+                  {activePhoto.title}
+                </h3>
+                <p className="text-xs sm:text-sm text-stone-300 max-w-3xl line-clamp-2">
+                  {activePhoto.description}
+                </p>
+              </div>
+            </div>
+
+            {/* Interactive Thumbnail Filmstrip (Switch Main Image on Click or Hover) */}
+            <div className="p-3 sm:p-4 bg-white dark:bg-[#071322] border-t border-stone-200 dark:border-stone-800">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-stone-600 dark:text-stone-400">
+                  Select Thumbnail to Preview Above
+                </span>
+                <span className="text-[11px] text-stone-400 font-mono">
+                  {activePhotoIndex + 1} of {filteredPhotos.length} Selected
+                </span>
+              </div>
+
+              <div className="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-12 gap-2">
+                {filteredPhotos.map((photo, index) => {
+                  const isActive = index === activePhotoIndex;
+                  return (
+                    <button
+                      key={photo.id}
+                      onClick={() => setActivePhotoIndex(index)}
+                      className={`relative aspect-[16/10] rounded-xs overflow-hidden border-2 transition-all cursor-pointer group/thumb ${
+                        isActive
+                          ? "border-amber-400 ring-2 ring-amber-400/40 scale-105 shadow-md"
+                          : "border-stone-200 dark:border-stone-700 opacity-70 hover:opacity-100 hover:border-[#0f2b48]"
+                      }`}
+                      title={photo.title}
+                    >
+                      <img
+                        src={photo.imageSrc}
+                        alt={photo.title}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                      <span className="absolute bottom-0 inset-x-0 bg-black/80 text-[8px] font-mono text-white text-center py-0.2 truncate px-0.5">
+                        0{index + 1}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* 4. PHOTO GALLERY COMPACT GRID */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredPhotos.map((photo, index) => (
             <div
               key={photo.id}
-              onClick={() => setSelectedPhotoIndex(index)}
-              className="academic-card group cursor-pointer rounded-md border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] overflow-hidden flex flex-col justify-between"
+              onClick={() => {
+                setActivePhotoIndex(index);
+                // Smooth scroll to featured stage on mobile
+                const stage = document.getElementById("campus-gallery-heading");
+                if (stage && window.innerWidth < 768) {
+                  stage.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+              className={`academic-card group cursor-pointer rounded-md border bg-white dark:bg-[#0f1c2e] overflow-hidden flex flex-col justify-between transition-all ${
+                index === activePhotoIndex
+                  ? "border-[#0f2b48] dark:border-amber-400 shadow-md ring-1 ring-[#0f2b48]/20"
+                  : "border-stone-200 dark:border-stone-800"
+              }`}
             >
               {/* Photo Frame */}
               <div className="relative aspect-[16/10] overflow-hidden bg-stone-100 dark:bg-stone-800">
                 <img
                   src={photo.imageSrc}
                   alt={photo.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   loading="lazy"
                 />
                 <div className="absolute top-2.5 left-2.5 bg-black/85 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-xs">
                   {photo.categoryLabel}
                 </div>
+                {index === activePhotoIndex && (
+                  <div className="absolute bottom-2.5 right-2.5 bg-[#881337] text-white text-[10px] font-bold px-2 py-0.5 rounded-xs">
+                    Previewing Above
+                  </div>
+                )}
               </div>
 
               {/* Photo Details */}
@@ -338,31 +435,31 @@ export function CampusGallery() {
           ))}
         </div>
 
-        {/* Modal Lightbox for Full View */}
-        {currentPhoto && selectedPhotoIndex !== null && (
+        {/* Modal Lightbox for Full High-Res Inspection */}
+        {isLightboxOpen && activePhoto && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90"
-            onClick={() => setSelectedPhotoIndex(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-none"
+            onClick={() => setIsLightboxOpen(false)}
           >
             <div
-              className="relative max-w-4xl w-full bg-white dark:bg-[#0f1c2e] rounded-md overflow-hidden shadow-2xl border border-stone-300 dark:border-stone-700"
+              className="relative max-w-5xl w-full bg-white dark:bg-[#0f1c2e] rounded-md overflow-hidden shadow-2xl border border-stone-300 dark:border-stone-700"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="relative aspect-video bg-black flex items-center justify-center">
                 <img
-                  src={currentPhoto.imageSrc}
-                  alt={currentPhoto.title}
+                  src={activePhoto.imageSrc}
+                  alt={activePhoto.title}
                   className="w-full h-full object-contain"
                 />
 
                 {/* Left Arrow */}
                 <button
                   onClick={() =>
-                    setSelectedPhotoIndex((prev) =>
-                      prev !== null && prev > 0 ? prev - 1 : filteredPhotos.length - 1
+                    setActivePhotoIndex((prev) =>
+                      prev > 0 ? prev - 1 : filteredPhotos.length - 1
                     )
                   }
-                  className="absolute left-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-colors border border-white/20"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-colors border border-white/20 cursor-pointer"
                   aria-label="Previous photograph"
                 >
                   <ChevronLeft className="h-6 w-6" />
@@ -371,52 +468,48 @@ export function CampusGallery() {
                 {/* Right Arrow */}
                 <button
                   onClick={() =>
-                    setSelectedPhotoIndex((prev) =>
-                      prev !== null && prev < filteredPhotos.length - 1 ? prev + 1 : 0
+                    setActivePhotoIndex((prev) =>
+                      prev < filteredPhotos.length - 1 ? prev + 1 : 0
                     )
                   }
-                  className="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-colors border border-white/20"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-colors border border-white/20 cursor-pointer"
                   aria-label="Next photograph"
                 >
                   <ChevronRight className="h-6 w-6" />
                 </button>
 
+                {/* Counter & Close */}
                 <div className="absolute top-3 right-3 flex items-center gap-2">
-                  <span className="text-xs bg-black/85 text-white px-2 py-1 rounded-xs font-mono">
-                    {selectedPhotoIndex + 1} / {filteredPhotos.length}
+                  <span className="text-xs bg-black/85 text-white px-2.5 py-1 rounded-xs font-mono border border-white/20">
+                    {activePhotoIndex + 1} / {filteredPhotos.length}
                   </span>
                   <button
-                    onClick={() => setSelectedPhotoIndex(null)}
-                    className="h-8 w-8 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-colors border border-white/20"
-                    aria-label="Close Lightbox"
+                    onClick={() => setIsLightboxOpen(false)}
+                    className="h-8 w-8 rounded-full bg-black/80 hover:bg-black text-white flex items-center justify-center transition-colors border border-white/20 cursor-pointer"
+                    aria-label="Close high-resolution modal"
                   >
-                    <X className="h-4 w-4" />
+                    <X className="h-5 w-5" />
                   </button>
                 </div>
               </div>
 
-              {/* Caption and description */}
-              <div className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div>
+              {/* Modal Caption */}
+              <div className="p-4 bg-white dark:bg-[#0f1c2e] text-left border-t border-stone-200 dark:border-stone-800">
+                <div className="flex items-center gap-2 mb-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-[#881337] dark:text-amber-400">
-                    {currentPhoto.categoryLabel}
+                    {activePhoto.categoryLabel}
                   </span>
-                  <h3 className="font-editorial text-base sm:text-lg font-bold text-[#0f2b48] dark:text-stone-100 mt-0.5">
-                    {currentPhoto.title}
-                  </h3>
-                  <p className="text-xs text-stone-600 dark:text-stone-400 mt-1 leading-relaxed">
-                    {currentPhoto.description}
-                  </p>
+                  <span className="text-stone-400">•</span>
+                  <span className="text-[10px] text-stone-500 font-mono">
+                    GITM Farrukhnagar Campus Archive
+                  </span>
                 </div>
-
-                <Button
-                  onClick={() => setSelectedPhotoIndex(null)}
-                  variant="outline"
-                  size="sm"
-                  className="font-bold text-xs uppercase tracking-wider rounded-xs shrink-0"
-                >
-                  Close
-                </Button>
+                <h4 className="font-editorial text-base sm:text-lg font-bold text-[#0f2b48] dark:text-stone-100">
+                  {activePhoto.title}
+                </h4>
+                <p className="text-xs text-stone-600 dark:text-stone-400 mt-1 leading-relaxed">
+                  {activePhoto.description}
+                </p>
               </div>
             </div>
           </div>
@@ -425,5 +518,3 @@ export function CampusGallery() {
     </section>
   );
 }
-
-export default CampusGallery;

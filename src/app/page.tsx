@@ -1,5 +1,4 @@
 import prisma from "@/lib/prisma";
-import { OpeningReveal } from "@/components/home/OpeningReveal";
 import { Hero } from "@/components/home/Hero";
 import { PlacementTicker } from "@/components/home/PlacementTicker";
 import { ProgramFinder } from "@/components/academics/ProgramFinder";
@@ -21,6 +20,7 @@ import {
   Award,
   Landmark,
   BookOpen,
+  Phone,
 } from "lucide-react";
 
 export default async function HomePage() {
@@ -43,9 +43,6 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* 0. CINEMATIC INSTITUTIONAL OPENING PORTAL REVEAL */}
-      <OpeningReveal />
-
       {/* 1. HERO SECTION (Collegiate 2008 Legacy, Accreditations & Key Metrics) */}
       <Hero />
 
@@ -83,10 +80,10 @@ export default async function HomePage() {
               >
                 18+ Years of Academic Discipline, Integrity & Leadership
               </h2>
-              <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
+              <p className="text-xs sm:text-sm text-stone-700 dark:text-stone-300 leading-relaxed font-medium">
                 Founded in 2008 under the aegis of the Baljeet Singh Education Society, Global Institute of Technology & Management (GITM Gurgaon) is recognized by the Directorate of Technical Education, Government of Haryana, approved by the All India Council for Technical Education (AICTE), Ministry of Education, Government of India, and the Pharmacy Council of India (PCI). GITM is permanently affiliated with Gurugram University, Gurugram.
               </p>
-              <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
+              <p className="text-xs sm:text-sm text-stone-700 dark:text-stone-300 leading-relaxed font-medium">
                 Strategically situated across a 20-acre lush green campus on the Farrukhnagar-Gurgaon Highway within the corporate sphere of Delhi-NCR, the institute has nurtured over 15,000 engineers, software architects, corporate leaders, and pharmaceutical scientists serving in premier organizations worldwide.
               </p>
 
@@ -97,7 +94,7 @@ export default async function HomePage() {
                     <h4 className="text-xs font-bold text-stone-900 dark:text-stone-100">
                       Advanced Computing Infrastructure
                     </h4>
-                    <p className="text-[11px] text-stone-500 mt-0.5">
+                    <p className="text-[11px] text-stone-600 dark:text-stone-400 mt-0.5">
                       High-throughput artificial intelligence clusters, IoT design studios, and cloud research laboratories.
                     </p>
                   </div>
@@ -109,7 +106,7 @@ export default async function HomePage() {
                     <h4 className="text-xs font-bold text-stone-900 dark:text-stone-100">
                       Statutory Approvals & Affiliation
                     </h4>
-                    <p className="text-[11px] text-stone-500 mt-0.5">
+                    <p className="text-[11px] text-stone-600 dark:text-stone-400 mt-0.5">
                       Fully approved by AICTE, PCI, DTE Haryana (Code 074), and affiliated to Gurugram University.
                     </p>
                   </div>
@@ -121,7 +118,7 @@ export default async function HomePage() {
                     <h4 className="text-xs font-bold text-stone-900 dark:text-stone-100">
                       Eminent Academic Faculty
                     </h4>
-                    <p className="text-[11px] text-stone-500 mt-0.5">
+                    <p className="text-[11px] text-stone-600 dark:text-stone-400 mt-0.5">
                       Senior academicians, PhD scholars from premier central universities, and corporate research guides.
                     </p>
                   </div>
@@ -133,7 +130,7 @@ export default async function HomePage() {
                     <h4 className="text-xs font-bold text-stone-900 dark:text-stone-100">
                       Merit Scholarship Scheme
                     </h4>
-                    <p className="text-[11px] text-stone-500 mt-0.5">
+                    <p className="text-[11px] text-stone-600 dark:text-stone-400 mt-0.5">
                       Institutional fee concessions and merit scholarships awarded to top JEE, CUET, and 10+2 scorers.
                     </p>
                   </div>
@@ -349,15 +346,93 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 9. ADMISSION INQUIRY SECTION */}
+      {/* 9. ADMISSION INQUIRY SECTION (With Authentic Campus Photographic Backdrop) */}
       <section
         id="inquiry"
-        className="py-14 sm:py-20 border-b border-stone-200 dark:border-stone-800 bg-white dark:bg-[#080f1a] scroll-mt-14"
+        className="relative py-16 sm:py-24 border-b border-stone-200 dark:border-stone-800 scroll-mt-14 overflow-hidden bg-[#071322] text-white"
         aria-labelledby="inquiry-heading"
       >
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-2xl mx-auto">
-            <InquiryForm />
+        {/* Campus Photographic Backdrop with Depth Gradients */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/images/official/banner/banner_10_Banner-1.jpg"
+            alt="GITM Gurgaon 20-Acre Campus Ground"
+            className="w-full h-full object-cover object-center filter brightness-[0.32] contrast-[1.12]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#071322] via-[#071322]/90 to-[#0b1e32]/85" />
+        </div>
+
+        <div className="container relative z-10 mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Left Column (5 cols): Admissions Authority & Counseling Helpline */}
+            <div className="lg:col-span-5 space-y-6 text-left">
+              <div className="inline-flex items-center gap-2 rounded-xs border border-amber-400/40 bg-amber-400/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-amber-300">
+                <Landmark className="h-3.5 w-3.5 text-amber-400" />
+                <span>Central Admissions Office 2026-27</span>
+              </div>
+
+              <h2
+                id="inquiry-heading"
+                className="font-editorial text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight"
+              >
+                Begin Your Engineering & Management Career
+              </h2>
+
+              <p className="text-sm text-stone-200 leading-relaxed font-normal">
+                Direct admission counseling active for Academic Session 2026-27 across AICTE-approved B.Tech (CSE, AI & Data Science), MBA, MCA, BCA, and PCI-approved B.Pharm degree programs affiliated with Gurugram University.
+              </p>
+
+              {/* Verified Admissions Pillars */}
+              <div className="space-y-3 pt-2">
+                <div className="flex items-start gap-3 p-3.5 rounded-sm bg-white/5 border border-white/10">
+                  <ShieldCheck className="h-5 w-5 text-amber-400 shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+                      Gurugram University Affiliated & AICTE Approved
+                    </h4>
+                    <p className="text-[11px] text-stone-300 mt-0.5 leading-relaxed">
+                      100% recognized degree programs aligned with the National Education Policy (NEP 2020) credit framework.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 p-3.5 rounded-sm bg-white/5 border border-white/10">
+                  <Award className="h-5 w-5 text-amber-400 shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+                      Merit Scholarship Scheme
+                    </h4>
+                    <p className="text-[11px] text-stone-300 mt-0.5 leading-relaxed">
+                      Institutional fee concessions up to 100% awarded to top JEE Mains, CUET, and 12th Board scorers.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Official Admissions Helpline Card */}
+              <div className="p-4 rounded-sm bg-gradient-to-br from-[#881337] to-[#590a20] border border-amber-400/30 text-white space-y-1.5 shadow-xl">
+                <span className="text-[10px] uppercase tracking-wider font-bold text-amber-300 block">
+                  Official Admission Helpline
+                </span>
+                <a
+                  href="tel:+919555100100"
+                  className="text-lg sm:text-2xl font-mono font-black text-white hover:text-amber-200 flex items-center gap-2 transition-colors"
+                >
+                  <Phone className="h-5 w-5 text-amber-300" />
+                  <span>+91-9555 100 100</span>
+                </a>
+                <p className="text-[11px] text-stone-200">
+                  Direct counseling lines open Mon – Sat (9:00 AM – 5:00 PM)
+                </p>
+              </div>
+            </div>
+
+            {/* Right Column (7 cols): The High-Contrast Inquiry Form Card */}
+            <div className="lg:col-span-7">
+              <div className="bg-white dark:bg-[#0f1c2e] rounded-md shadow-2xl p-1 sm:p-2 border border-stone-200 dark:border-stone-700">
+                <InquiryForm />
+              </div>
+            </div>
           </div>
         </div>
       </section>

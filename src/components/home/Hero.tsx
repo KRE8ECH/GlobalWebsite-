@@ -49,7 +49,7 @@ export function Hero() {
             </h1>
 
             {/* Grounded Institutional Overview */}
-            <p className="text-sm sm:text-base text-stone-300 leading-relaxed font-normal max-w-2xl">
+            <p className="text-sm sm:text-base text-stone-200 leading-relaxed font-normal max-w-2xl">
               Global Institute of Technology & Management (GITM Gurgaon) is an autonomous seat of higher technical education established under the Baljeet Singh Education Society. Situated across 20 green acres in Delhi-NCR, GITM delivers four-year undergraduate and postgraduate programs in Engineering (CSE, AI & Data Science), Management (MBA), Pharmacy (B.Pharm), and Computer Applications aligned with the National Education Policy (NEP 2020).
             </p>
 
@@ -85,14 +85,14 @@ export function Hero() {
             </div>
 
             {/* Helpline and Direct Admission Contact */}
-            <div className="pt-2 flex flex-wrap items-center gap-4 text-xs text-stone-300 border-t border-white/10 pt-4">
+            <div className="pt-2 flex flex-wrap items-center gap-4 text-xs text-stone-200 border-t border-white/15 pt-4">
               <span className="flex items-center gap-1.5 font-bold text-amber-300">
                 <PhoneCall className="h-3.5 w-3.5" />
                 <span>Admissions Helpline: +91-9555 100 100</span>
               </span>
-              <span className="hidden sm:inline text-stone-500">•</span>
-              <span className="flex items-center gap-1 text-stone-300">
-                <MapPin className="h-3.5 w-3.5 text-stone-400" />
+              <span className="hidden sm:inline text-stone-400">•</span>
+              <span className="flex items-center gap-1 text-stone-200">
+                <MapPin className="h-3.5 w-3.5 text-stone-300" />
                 <span>5 KM Milestone, Farrukhnagar - Gurgaon Road, Gurugram</span>
               </span>
             </div>
