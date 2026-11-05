@@ -11,10 +11,7 @@ import {
   Filter,
   GraduationCap,
   Award,
-  ChevronDown,
-  ChevronUp,
-  Cpu,
-  Sparkles,
+  Landmark,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -41,16 +38,15 @@ interface ProgramFinderProps {
 type TabLevel = "ALL" | "UG" | "PG" | "DIPLOMA";
 
 const TABS: { id: TabLevel; label: string; sub: string }[] = [
-  { id: "ALL", label: "All Degree Programs", sub: "Complete Catalog" },
+  { id: "ALL", label: "All Degree Programs", sub: "Complete Academic Catalog" },
   { id: "UG", label: "Undergraduate (UG)", sub: "B.Tech, BCA, BBA, B.Pharm" },
   { id: "PG", label: "Postgraduate (PG)", sub: "MBA, MCA, M.Tech" },
-  { id: "DIPLOMA", label: "Diploma / Polytechnic", sub: "Engineering & D.Pharm" },
+  { id: "DIPLOMA", label: "Diploma / Polytechnic", sub: "Engineering & Pharmacy" },
 ];
 
 export function ProgramFinder({ programs }: ProgramFinderProps) {
   const [selectedTab, setSelectedTab] = React.useState<TabLevel>("ALL");
   const [searchQuery, setSearchQuery] = React.useState("");
-  const [expandedProgramId, setExpandedProgramId] = React.useState<string | null>(null);
 
   // Filter programs by tab and real-time search query
   const filteredPrograms = React.useMemo(() => {
@@ -73,10 +69,6 @@ export function ProgramFinder({ programs }: ProgramFinderProps) {
       return true;
     });
   }, [programs, selectedTab, searchQuery]);
-
-  function toggleExpand(id: string) {
-    setExpandedProgramId((prev) => (prev === id ? null : id));
-  }
 
   return (
     <section
@@ -110,7 +102,7 @@ export function ProgramFinder({ programs }: ProgramFinderProps) {
           <div
             role="tablist"
             aria-label="Filter programs by academic level"
-            className="grid grid-cols-2 md:grid-cols-4 gap-2 bg-stone-100 dark:bg-stone-900/80 p-1.5 rounded-md border border-stone-200 dark:border-stone-800"
+            className="grid grid-cols-2 md:grid-cols-4 gap-2 bg-stone-100 dark:bg-stone-900 p-1.5 rounded-md border border-stone-200 dark:border-stone-800"
           >
             {TABS.map((tab) => {
               const isActive = selectedTab === tab.id;
@@ -121,9 +113,9 @@ export function ProgramFinder({ programs }: ProgramFinderProps) {
                   aria-selected={isActive}
                   aria-controls="programs-grid"
                   onClick={() => setSelectedTab(tab.id)}
-                  className={`flex flex-col items-center justify-center py-2.5 px-3 rounded-sm text-center transition-all ${
+                  className={`flex flex-col items-center justify-center py-2.5 px-3 rounded-xs text-center transition-colors ${
                     isActive
-                      ? "bg-white dark:bg-[#0f2b48] text-[#0f2b48] dark:text-white shadow-xs border border-stone-200 dark:border-stone-700 font-bold"
+                      ? "bg-[#0f2b48] text-white font-bold shadow-2xs"
                       : "text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 font-medium"
                   }`}
                 >
@@ -144,7 +136,7 @@ export function ProgramFinder({ programs }: ProgramFinderProps) {
               placeholder="Search by degree name, specialization (e.g., Artificial Intelligence, MBA, Cyber Security)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 pr-10 h-11 text-xs sm:text-sm bg-stone-50 dark:bg-stone-900 border-stone-300 dark:border-stone-700 rounded-md focus-visible:ring-2 focus-visible:ring-[#0f2b48]"
+              className="pl-10 pr-10 h-11 text-xs sm:text-sm bg-stone-50 dark:bg-stone-900 border-stone-300 dark:border-stone-700 rounded-md focus-visible:ring-1 focus-visible:ring-[#0f2b48]"
               aria-label="Search academic programs"
             />
             {searchQuery && (
@@ -179,131 +171,91 @@ export function ProgramFinder({ programs }: ProgramFinderProps) {
           </div>
         </div>
 
-        {/* 2. STRUCTURED ACADEMIC DEGREE CARDS WITH CARD-LIFT AND EXPANDABLE CURRICULUM */}
+        {/* 2. STRUCTURED ACADEMIC DEGREE CARDS */}
         {filteredPrograms.length > 0 ? (
           <div
             id="programs-grid"
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            {filteredPrograms.map((program) => {
-              const isExpanded = expandedProgramId === program.id;
-              return (
-                <Card
-                  key={program.id}
-                  className="card-lift flex flex-col justify-between border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] hover:border-[#0f2b48] dark:hover:border-amber-400/50 rounded-md overflow-hidden shadow-2xs group"
-                >
-                  <div className="h-1 bg-gradient-to-r from-[#0f2b48] via-[#881337] to-[#b45309] w-full" />
-                  
-                  <CardHeader className="p-5 pb-3">
-                    <div className="flex items-center justify-between gap-2 mb-2">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#881337] dark:text-amber-400 bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded-xs border border-stone-200 dark:border-stone-700">
-                        Dept. of {program.department.replace("_", " ")}
-                      </span>
-                      <span className="text-[10px] font-bold text-stone-500 bg-stone-100 dark:bg-stone-900 px-2 py-0.5 rounded-xs border border-stone-200 dark:border-stone-800">
-                        {program.level} • {program.durationYears} Years
-                      </span>
-                    </div>
+            {filteredPrograms.map((program) => (
+              <Card
+                key={program.id}
+                className="academic-card flex flex-col justify-between border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] rounded-md overflow-hidden"
+              >
+                <div className="h-1 bg-[#0f2b48] w-full" />
+                
+                <CardHeader className="p-5 pb-3">
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#881337] dark:text-amber-400 bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded-xs border border-stone-200 dark:border-stone-700">
+                      Dept. of {program.department.replace("_", " ")}
+                    </span>
+                    <span className="text-[10px] font-bold text-stone-500 bg-stone-100 dark:bg-stone-900 px-2 py-0.5 rounded-xs border border-stone-200 dark:border-stone-800">
+                      {program.level} • {program.durationYears} Years
+                    </span>
+                  </div>
 
-                    <CardTitle className="font-editorial text-base sm:text-lg font-bold text-[#0f2b48] dark:text-stone-100 leading-snug group-hover:text-[#881337] dark:group-hover:text-amber-400 transition-colors">
-                      {program.name}
-                    </CardTitle>
+                  <CardTitle className="font-editorial text-base sm:text-lg font-bold text-[#0f2b48] dark:text-stone-100 leading-snug">
+                    {program.name}
+                  </CardTitle>
 
-                    <CardDescription className="text-xs text-stone-600 dark:text-stone-400 line-clamp-3 mt-1.5 leading-relaxed">
-                      {program.description}
-                    </CardDescription>
-                  </CardHeader>
+                  <CardDescription className="text-xs text-stone-600 dark:text-stone-400 line-clamp-3 mt-1.5 leading-relaxed">
+                    {program.description}
+                  </CardDescription>
+                </CardHeader>
 
-                  <CardContent className="p-5 pt-0 space-y-3">
-                    {/* Statutory Affiliation and Intake */}
-                    <div className="rounded-sm border border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900/60 p-3 text-xs space-y-2">
-                      <div className="flex items-start gap-2">
-                        <CheckCircle className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                        <div>
-                          <span className="font-bold text-stone-800 dark:text-stone-200">Eligibility: </span>
-                          <span className="text-stone-600 dark:text-stone-400">{program.eligibility}</span>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center justify-between pt-2 border-t border-stone-200 dark:border-stone-800 text-stone-600 dark:text-stone-400 text-[11px]">
-                        <span className="flex items-center gap-1">
-                          <Users className="h-3 w-3 text-stone-400" />
-                          Approved Seat Intake:
-                        </span>
-                        <span className="font-bold text-stone-900 dark:text-stone-100 bg-white dark:bg-stone-800 px-1.5 py-0.2 rounded-xs border border-stone-200 dark:border-stone-700">
-                          {program.intake} Seats
-                        </span>
+                <CardContent className="p-5 pt-0 space-y-3">
+                  {/* Statutory Affiliation and Intake */}
+                  <div className="rounded-xs border border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900/60 p-3 text-xs space-y-2">
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                      <div>
+                        <span className="font-bold text-stone-800 dark:text-stone-200">Eligibility: </span>
+                        <span className="text-stone-600 dark:text-stone-400">{program.eligibility}</span>
                       </div>
                     </div>
 
-                    {/* Expandable NEP 2020 Specialization Highlights Drawer */}
-                    {isExpanded && (
-                      <div className="p-3 bg-amber-500/5 dark:bg-stone-900/90 rounded-sm border border-amber-500/20 text-xs space-y-2 animate-in fade-in duration-200">
-                        <span className="font-bold text-[11px] text-[#0f2b48] dark:text-amber-400 uppercase tracking-wider block">
-                          Key Curriculum Highlights:
-                        </span>
-                        <ul className="space-y-1 text-[11px] text-stone-600 dark:text-stone-300">
-                          <li className="flex items-center gap-1.5">
-                            <span className="h-1 w-1 rounded-full bg-amber-500" />
-                            <span>NEP 2020 Credit Framework & Multiple Entry-Exit</span>
-                          </li>
-                          <li className="flex items-center gap-1.5">
-                            <span className="h-1 w-1 rounded-full bg-amber-500" />
-                            <span>Industry Internship & Live Capstone Project</span>
-                          </li>
-                          <li className="flex items-center gap-1.5">
-                            <span className="h-1 w-1 rounded-full bg-amber-500" />
-                            <span>Gurugram University Semester Examination Ordinance</span>
-                          </li>
-                        </ul>
-                      </div>
+                    <div className="flex items-center justify-between pt-2 border-t border-stone-200 dark:border-stone-800 text-stone-600 dark:text-stone-400 text-[11px]">
+                      <span className="flex items-center gap-1">
+                        <Users className="h-3 w-3 text-stone-400" />
+                        Approved Seat Intake:
+                      </span>
+                      <span className="font-bold text-stone-900 dark:text-stone-100 bg-white dark:bg-stone-800 px-1.5 py-0.2 rounded-xs border border-stone-200 dark:border-stone-700">
+                        {program.intake} Seats
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Actions: Syllabus Download & Admissions */}
+                  <div className="flex items-center justify-between pt-1 gap-2">
+                    {program.syllabusPdfUrl ? (
+                      <a
+                        href={program.syllabusPdfUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0f2b48] dark:text-amber-400 hover:underline"
+                        aria-label={`Download NEP 2020 syllabus for ${program.name}`}
+                      >
+                        <FileDown className="h-3.5 w-3.5" />
+                        <span>Curriculum Syllabus</span>
+                      </a>
+                    ) : (
+                      <span className="text-[11px] text-stone-400 italic">Curriculum on request</span>
                     )}
 
-                    <div className="flex items-center justify-between pt-1">
-                      <button
-                        type="button"
-                        onClick={() => toggleExpand(program.id)}
-                        className="text-[11px] font-bold text-[#881337] dark:text-amber-400 hover:underline flex items-center gap-1"
-                        aria-expanded={isExpanded}
-                      >
-                        <span>{isExpanded ? "Hide Highlights" : "View Curriculum Focus"}</span>
-                        {isExpanded ? (
-                          <ChevronUp className="h-3 w-3" />
-                        ) : (
-                          <ChevronDown className="h-3 w-3" />
-                        )}
-                      </button>
-
-                      {program.syllabusPdfUrl && (
-                        <a
-                          href={program.syllabusPdfUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-[11px] font-bold text-stone-600 dark:text-stone-300 hover:text-[#0f2b48] hover:underline"
-                          aria-label={`Download NEP 2020 syllabus for ${program.name}`}
-                        >
-                          <FileDown className="h-3 w-3 text-amber-500" />
-                          <span>Syllabus</span>
-                        </a>
-                      )}
-                    </div>
-
-                    {/* Actions: Admissions CTA */}
-                    <div className="pt-2 border-t border-stone-200 dark:border-stone-800">
-                      <Button
-                        asChild
-                        size="sm"
-                        className="w-full bg-[#0f2b48] hover:bg-[#1a3a5e] text-white font-bold text-xs uppercase tracking-wider rounded-sm shadow-2xs group/btn transition-all"
-                      >
-                        <a href="#inquiry" className="flex items-center justify-center gap-1.5">
-                          <span>Apply for Admission</span>
-                          <ArrowRight className="h-3 w-3 group-hover/btn:translate-x-1 transition-transform" />
-                        </a>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
+                    <Button
+                      asChild
+                      size="sm"
+                      className="bg-[#0f2b48] hover:bg-[#1a3a5e] text-white font-bold text-xs uppercase tracking-wider rounded-xs ml-auto shadow-2xs"
+                    >
+                      <a href="#inquiry" className="flex items-center gap-1">
+                        <span>Admissions</span>
+                        <ArrowRight className="h-3 w-3" />
+                      </a>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         ) : (
           <div className="rounded-md border border-dashed border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-stone-900 p-10 text-center max-w-lg mx-auto">

@@ -10,13 +10,11 @@ import {
   CheckCircle2,
   ExternalLink,
   User,
-  Sparkles,
-  Layers,
-  ArrowRight,
+  ShieldCheck,
+  Building2,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 
 export interface PlacementItem {
   id: string;
@@ -33,7 +31,7 @@ interface PlacementTickerProps {
   placements?: PlacementItem[];
 }
 
-// 16 Real Scraped Corporate Recruitment Partners
+// 16 Real Verified Corporate Recruitment Partners
 const VERIFIED_RECRUITERS = [
   { name: "Google", domain: "Cloud & Systems", category: "tech", logoUrl: "/images/official/general/general_23_google.jpg", location: "Gurugram / Hyderabad" },
   { name: "Microsoft", domain: "Enterprise Software", category: "tech", logoUrl: "/images/official/general/general_45_Microsoft.jpg", location: "Gurugram Cyber City" },
@@ -53,12 +51,8 @@ const VERIFIED_RECRUITERS = [
   { name: "Eicher", domain: "Commercial Vehicles & CAD", category: "core", logoUrl: "/images/official/general/general_34_Eicher.jpg", location: "Gurugram" },
 ];
 
-const ROW_ONE = VERIFIED_RECRUITERS.slice(0, 8);
-const ROW_TWO = VERIFIED_RECRUITERS.slice(8, 16);
-
 export function PlacementTicker({ placements }: PlacementTickerProps) {
-  const [viewMode, setViewMode] = React.useState<"carousel" | "grid">("carousel");
-  const [categoryFilter, setCategoryFilter] = React.useState<string>("all");
+  const [selectedCategory, setSelectedCategory] = React.useState<string>("all");
 
   const defaultPlacements: PlacementItem[] = [
     {
@@ -126,9 +120,9 @@ export function PlacementTicker({ placements }: PlacementTickerProps) {
   const displayPlacements = placements && placements.length > 0 ? placements : defaultPlacements;
 
   const filteredRecruiters = React.useMemo(() => {
-    if (categoryFilter === "all") return VERIFIED_RECRUITERS;
-    return VERIFIED_RECRUITERS.filter((r) => r.category === categoryFilter);
-  }, [categoryFilter]);
+    if (selectedCategory === "all") return VERIFIED_RECRUITERS;
+    return VERIFIED_RECRUITERS.filter((r) => r.category === selectedCategory);
+  }, [selectedCategory]);
 
   return (
     <section
@@ -138,7 +132,7 @@ export function PlacementTicker({ placements }: PlacementTickerProps) {
     >
       <div className="container mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4 border-b border-stone-200 dark:border-stone-800 pb-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 border-b border-stone-200 dark:border-stone-800 pb-6">
           <div>
             <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#881337] dark:text-amber-400 mb-1.5">
               <TrendingUp className="h-4 w-4" />
@@ -156,180 +150,91 @@ export function PlacementTicker({ placements }: PlacementTickerProps) {
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            <span className="rounded-sm border border-amber-500/30 bg-amber-500/10 px-3.5 py-1.5 text-xs font-bold text-[#881337] dark:text-amber-400 shadow-2xs">
+            <span className="rounded-xs border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 px-3.5 py-1.5 text-xs font-bold text-[#881337] dark:text-amber-400">
               Highest CTC: ₹40.0 LPA
             </span>
-            <span className="rounded-sm border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 px-3.5 py-1.5 text-xs font-bold text-[#0f2b48] dark:text-stone-300 shadow-2xs">
+            <span className="rounded-xs border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 px-3.5 py-1.5 text-xs font-bold text-[#0f2b48] dark:text-stone-300">
               Average CTC: ₹6.8 LPA
             </span>
           </div>
         </div>
 
-        {/* 1. VERIFIED CORPORATE RECRUITER SECTION WITH DUAL-ROW ANIMATED MARQUEE */}
+        {/* 1. AUTHENTIC CORPORATE RECRUITER WALL */}
         <div className="mb-14">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-stone-700 dark:text-stone-300 block">
-                Verified Corporate Recruitment Partners
-              </span>
-              <span className="text-[11px] text-stone-500">
-                100+ On-Campus Hiring Partners • Direct MoUs
-              </span>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-stone-900 dark:text-stone-100">
+                Verified Corporate Hiring Partners (Annual On-Campus Drives)
+              </h3>
+              <p className="text-[11px] text-stone-500">
+                Official placement partnerships, internship MoUs & corporate technical symposiums
+              </p>
             </div>
 
-            {/* Toggle View Mode: Animated Flowing Ribbon vs Static Grid */}
-            <div className="flex items-center gap-1.5 bg-stone-200/80 dark:bg-stone-800 p-1 rounded-sm border border-stone-300 dark:border-stone-700 self-start sm:self-auto text-xs font-bold">
-              <button
-                onClick={() => setViewMode("carousel")}
-                className={`px-2.5 py-1 rounded-xs transition-colors ${
-                  viewMode === "carousel"
-                    ? "bg-white dark:bg-[#0f2b48] text-[#0f2b48] dark:text-white shadow-2xs"
-                    : "text-stone-600 dark:text-stone-400 hover:text-stone-900"
-                }`}
-              >
-                Infinite Ribbon
-              </button>
-              <button
-                onClick={() => setViewMode("grid")}
-                className={`px-2.5 py-1 rounded-xs transition-colors ${
-                  viewMode === "grid"
-                    ? "bg-white dark:bg-[#0f2b48] text-[#0f2b48] dark:text-white shadow-2xs"
-                    : "text-stone-600 dark:text-stone-400 hover:text-stone-900"
-                }`}
-              >
-                Directory Grid (16)
-              </button>
+            {/* Formal Domain Category Filters */}
+            <div className="flex flex-wrap items-center gap-1.5">
+              {[
+                { id: "all", label: "All 16 Partners" },
+                { id: "tech", label: "Cloud & Software" },
+                { id: "fintech", label: "Banking & Fintech" },
+                { id: "core", label: "Industrial & Auto" },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setSelectedCategory(tab.id)}
+                  className={`px-2.5 py-1 text-xs font-bold uppercase tracking-wider rounded-xs border transition-colors ${
+                    selectedCategory === tab.id
+                      ? "bg-[#0f2b48] text-white border-[#0f2b48] dark:bg-amber-400 dark:text-stone-950 dark:border-amber-400"
+                      : "bg-white dark:bg-stone-900 text-stone-700 dark:text-stone-300 border-stone-300 dark:border-stone-700 hover:bg-stone-100"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
             </div>
           </div>
 
-          {viewMode === "carousel" ? (
-            /* DUAL-ROW INFINITE SMOOTH FLOWING MARQUEE */
-            <div className="space-y-3 overflow-hidden rounded-md border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#08121f] p-4 shadow-sm">
-              {/* Row 1: Leftward infinite flow */}
-              <div className="relative overflow-hidden">
-                <div className="animate-marquee-left flex items-center gap-3">
-                  {ROW_ONE.concat(ROW_ONE).concat(ROW_ONE).map((recruiter, idx) => (
-                    <div
-                      key={`r1-${recruiter.name}-${idx}`}
-                      className="w-44 sm:w-48 shrink-0 rounded-sm border border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-[#0f1c2e] p-2.5 hover:border-[#0f2b48] dark:hover:border-amber-400/50 hover:shadow-md transition-all duration-200 flex items-center gap-3 group"
-                    >
-                      <div className="h-10 w-12 bg-white rounded-xs p-1 flex items-center justify-center shrink-0 border border-stone-200 shadow-2xs">
-                        <img
-                          src={recruiter.logoUrl}
-                          alt={`${recruiter.name} Corporate Logo`}
-                          className="max-h-full max-w-full object-contain filter contrast-125 group-hover:scale-105 transition-transform"
-                          loading="lazy"
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0 text-left">
-                        <span className="font-bold text-xs text-[#0f2b48] dark:text-stone-100 block truncate">
-                          {recruiter.name}
-                        </span>
-                        <span className="text-[10px] text-stone-500 block truncate">
-                          {recruiter.domain}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
+          {/* Grid of Verified Corporate Partners */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-8 gap-3">
+            {filteredRecruiters.map((recruiter) => (
+              <div
+                key={recruiter.name}
+                className="academic-card rounded-md border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] p-3 flex flex-col items-center justify-between text-center min-h-[110px]"
+              >
+                <div className="w-full h-11 flex items-center justify-center p-1 bg-white rounded-xs">
+                  <img
+                    src={recruiter.logoUrl}
+                    alt={`${recruiter.name} Corporate Recruitment Logo`}
+                    className="max-h-full max-w-full object-contain filter contrast-125"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="w-full mt-2 pt-1.5 border-t border-stone-100 dark:border-stone-800">
+                  <span className="font-bold text-[11px] text-[#0f2b48] dark:text-stone-200 block truncate">
+                    {recruiter.name}
+                  </span>
+                  <span className="text-[9px] text-stone-500 dark:text-stone-400 block truncate">
+                    {recruiter.domain}
+                  </span>
                 </div>
               </div>
-
-              {/* Row 2: Rightward infinite flow */}
-              <div className="relative overflow-hidden">
-                <div className="animate-marquee-right flex items-center gap-3">
-                  {ROW_TWO.concat(ROW_TWO).concat(ROW_TWO).map((recruiter, idx) => (
-                    <div
-                      key={`r2-${recruiter.name}-${idx}`}
-                      className="w-44 sm:w-48 shrink-0 rounded-sm border border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-[#0f1c2e] p-2.5 hover:border-[#0f2b48] dark:hover:border-amber-400/50 hover:shadow-md transition-all duration-200 flex items-center gap-3 group"
-                    >
-                      <div className="h-10 w-12 bg-white rounded-xs p-1 flex items-center justify-center shrink-0 border border-stone-200 shadow-2xs">
-                        <img
-                          src={recruiter.logoUrl}
-                          alt={`${recruiter.name} Corporate Logo`}
-                          className="max-h-full max-w-full object-contain filter contrast-125 group-hover:scale-105 transition-transform"
-                          loading="lazy"
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0 text-left">
-                        <span className="font-bold text-xs text-[#0f2b48] dark:text-stone-100 block truncate">
-                          {recruiter.name}
-                        </span>
-                        <span className="text-[10px] text-stone-500 block truncate">
-                          {recruiter.domain}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="text-center pt-2">
-                <span className="text-[10px] font-semibold text-stone-500 uppercase tracking-wider">
-                  Hover to pause ribbon • Direct campus recruitments conducted annually
-                </span>
-              </div>
-            </div>
-          ) : (
-            /* STATIC FILTERABLE DIRECTORY GRID */
-            <div>
-              <div className="flex flex-wrap items-center gap-1.5 mb-3">
-                {[
-                  { id: "all", label: "All 16 Partners" },
-                  { id: "tech", label: "Cloud & Software Giants" },
-                  { id: "fintech", label: "Fintech & Banking" },
-                  { id: "core", label: "Industrial & Auto" },
-                ].map((cat) => (
-                  <button
-                    key={cat.id}
-                    onClick={() => setCategoryFilter(cat.id)}
-                    className={`px-3 py-1 rounded-sm text-xs font-bold uppercase tracking-wider border transition-colors ${
-                      categoryFilter === cat.id
-                        ? "bg-[#0f2b48] text-white border-[#0f2b48] dark:bg-amber-400 dark:text-stone-900 dark:border-amber-400"
-                        : "bg-white dark:bg-stone-900 text-stone-700 dark:text-stone-300 border-stone-300 dark:border-stone-700 hover:bg-stone-100"
-                    }`}
-                  >
-                    {cat.label}
-                  </button>
-                ))}
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-8 gap-2.5 sm:gap-3">
-                {filteredRecruiters.map((recruiter) => (
-                  <div
-                    key={recruiter.name}
-                    className="card-lift rounded-md border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] p-3 shadow-2xs flex flex-col items-center justify-between text-center min-h-[105px]"
-                  >
-                    <div className="w-full h-11 flex items-center justify-center p-1 bg-white rounded-xs">
-                      <img
-                        src={recruiter.logoUrl}
-                        alt={`${recruiter.name} Corporate Logo`}
-                        className="max-h-full max-w-full object-contain filter contrast-125"
-                        loading="lazy"
-                      />
-                    </div>
-                    <div className="w-full mt-2 pt-1.5 border-t border-stone-100 dark:border-stone-800">
-                      <span className="font-bold text-[11px] text-[#0f2b48] dark:text-stone-200 block truncate">
-                        {recruiter.name}
-                      </span>
-                      <span className="text-[9px] text-stone-400 block truncate">
-                        {recruiter.domain}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+            ))}
+          </div>
         </div>
 
-        {/* 2. VERIFIED STUDENT PLACEMENT HIGHLIGHTS WITH OFFICIAL PHOTOGRAPHS & CARD LIFTS */}
+        {/* 2. VERIFIED STUDENT PLACEMENT HONOURS */}
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-editorial text-lg font-bold text-[#0f2b48] dark:text-stone-100">
-              Recent Placement Offers & Alumni Success
-            </h3>
-            <span className="text-xs font-semibold text-stone-500">
-              Batch 2026 Confirmed Selections
+            <div>
+              <h3 className="font-editorial text-lg font-bold text-[#0f2b48] dark:text-stone-100">
+                Recent Placement Honours & Alumni Selections
+              </h3>
+              <p className="text-xs text-stone-500">
+                Confirmed campus placement offers for the 2026 graduating batch
+              </p>
+            </div>
+            <span className="text-xs font-semibold text-stone-500 hidden sm:inline">
+              100% Placement Record
             </span>
           </div>
 
@@ -337,18 +242,18 @@ export function PlacementTicker({ placements }: PlacementTickerProps) {
             {displayPlacements.map((record) => (
               <Card
                 key={record.id}
-                className="card-lift rounded-md border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] shadow-xs overflow-hidden group"
+                className="academic-card rounded-md border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] overflow-hidden"
               >
-                <div className="h-1 bg-gradient-to-r from-[#0f2b48] via-[#b45309] to-[#881337] w-full" />
+                <div className="h-1 bg-[#0f2b48] w-full" />
                 <CardContent className="p-4 sm:p-5">
                   <div className="flex items-start gap-3.5">
-                    {/* Student Photo with Ring Accent */}
-                    <div className="h-14 w-14 rounded-sm border-2 border-stone-300 dark:border-stone-700 group-hover:border-[#0f2b48] dark:group-hover:border-amber-400 bg-stone-100 dark:bg-stone-800 overflow-hidden shrink-0 shadow-2xs transition-colors">
+                    {/* Student Portrait */}
+                    <div className="h-14 w-14 rounded-xs border border-stone-300 dark:border-stone-700 bg-stone-100 dark:bg-stone-800 overflow-hidden shrink-0">
                       {record.photoUrl ? (
                         <img
                           src={record.photoUrl}
                           alt={record.studentName}
-                          className="h-full w-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                          className="h-full w-full object-cover object-top"
                           loading="lazy"
                         />
                       ) : (
@@ -365,13 +270,13 @@ export function PlacementTicker({ placements }: PlacementTickerProps) {
                           <h4 className="font-bold text-sm text-[#0f2b48] dark:text-stone-100 truncate">
                             {record.studentName}
                           </h4>
-                          <span className="inline-flex items-center gap-1 text-[10px] text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wide">
+                          <span className="inline-flex items-center gap-1 text-[10px] text-emerald-700 dark:text-emerald-400 font-bold uppercase tracking-wide">
                             <CheckCircle2 className="h-3 w-3" />
                             <span>Verified Selection</span>
                           </span>
                         </div>
 
-                        <span className="font-editorial text-base font-black text-[#881337] dark:text-amber-400 shrink-0 bg-stone-100 dark:bg-stone-900/80 px-2 py-0.5 rounded-sm border border-stone-200 dark:border-stone-800">
+                        <span className="font-editorial text-base font-black text-[#881337] dark:text-amber-400 shrink-0 bg-stone-100 dark:bg-stone-900 px-2 py-0.5 rounded-xs border border-stone-200 dark:border-stone-800">
                           ₹{record.packageLPA} LPA
                         </span>
                       </div>

@@ -126,7 +126,7 @@ h1, h2, h3, .font-editorial {
   letter-spacing: -0.02em;
 }
 
-/* Authentic College Ticker Animation */
+/* Authentic College Notice Ticker */
 @keyframes ticker-slide {
   0% {
     transform: translate3d(0, 0, 0);
@@ -146,132 +146,26 @@ h1, h2, h3, .font-editorial {
   animation-play-state: paused;
 }
 
-/* Infinite Recruiter Marquee Animations */
-@keyframes marquee-scroll-left {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(-50%, 0, 0);
-  }
+/* Subtle Natural Card Elevation */
+.academic-card {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-@keyframes marquee-scroll-right {
-  0% {
-    transform: translate3d(-50%, 0, 0);
-  }
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
+.academic-card:hover {
+  border-color: #0f2b48;
+  box-shadow: 0 4px 12px -2px rgba(15, 43, 72, 0.08);
 }
 
-.animate-marquee-left {
-  display: flex;
-  white-space: nowrap;
-  animation: marquee-scroll-left 40s linear infinite;
-}
-
-.animate-marquee-right {
-  display: flex;
-  white-space: nowrap;
-  animation: marquee-scroll-right 40s linear infinite;
-}
-
-.animate-marquee-left:hover,
-.animate-marquee-right:hover {
-  animation-play-state: paused;
-}
-
-/* Smooth Floating Micro-Animation */
-@keyframes float-gentle {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
-.animate-float {
-  animation: float-gentle 4s ease-in-out infinite;
-}
-
-/* Live Status Radar Beacons */
-@keyframes pulse-beacon {
-  0% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-  }
-  70% {
-    transform: scale(1);
-    box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
-  }
-  100% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
-  }
-}
-
-.animate-beacon {
-  animation: pulse-beacon 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes pulse-gold-beacon {
-  0% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.7);
-  }
-  70% {
-    transform: scale(1);
-    box-shadow: 0 0 0 8px rgba(217, 119, 6, 0);
-  }
-  100% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(217, 119, 6, 0);
-  }
-}
-
-.animate-gold-beacon {
-  animation: pulse-gold-beacon 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-/* Premium Card Lift & Elevation Effect */
-.card-lift {
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
-}
-
-.card-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 32px -8px rgba(15, 43, 72, 0.12), 0 8px 16px -6px rgba(15, 43, 72, 0.08);
-}
-
-.dark .card-lift:hover {
-  box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.6), 0 8px 16px -6px rgba(0, 0, 0, 0.4);
-}
-
-/* Frosted Collegiate Glass Container */
-.glass-collegiate {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background-color: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(231, 229, 228, 0.9);
-}
-
-.dark .glass-collegiate {
-  background-color: rgba(15, 28, 46, 0.85);
-  border: 1px solid rgba(31, 49, 72, 0.9);
+.dark .academic-card:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.4);
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  .animate-notice-ticker,
-  .animate-marquee-left,
-  .animate-marquee-right,
-  .animate-float,
-  .animate-beacon,
-  .animate-gold-beacon {
+  .animate-notice-ticker {
     animation: none !important;
     transform: none !important;
   }

@@ -6,7 +6,6 @@ import { NoticeBoard } from "@/components/notices/NoticeBoard";
 import { HolidayCalendar } from "@/components/academics/HolidayCalendar";
 import { CampusGallery } from "@/components/home/CampusGallery";
 import { InquiryForm } from "@/components/admissions/InquiryForm";
-import { FloatingDock } from "@/components/layout/FloatingDock";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -358,9 +357,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* 10. FLOATING QUICK-ACTION DOCK */}
-      <FloatingDock />
     </div>
   );
 }

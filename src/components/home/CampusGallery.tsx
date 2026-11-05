@@ -5,16 +5,12 @@ import {
   Building2,
   Video,
   ExternalLink,
-  Cpu,
-  BookOpen,
-  Trophy,
-  Play,
-  Layers,
-  MapPin,
   ChevronLeft,
   ChevronRight,
   X,
   Maximize2,
+  MapPin,
+  Clock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -126,13 +122,6 @@ const CAMPUS_FACILITIES: FacilityPhoto[] = [
   },
 ];
 
-const TOUR_CHAPTERS = [
-  { time: "0:15", title: "Main Academic Complex" },
-  { time: "0:45", title: "High-Performance AI Labs" },
-  { time: "1:15", title: "Central Digital Library" },
-  { time: "1:40", title: "Sports Complex & Hostels" },
-];
-
 export function CampusGallery() {
   const [activeFilter, setActiveFilter] = React.useState<string>("all");
   const [selectedPhotoIndex, setSelectedPhotoIndex] = React.useState<number | null>(null);
@@ -187,7 +176,7 @@ export function CampusGallery() {
             </p>
           </div>
 
-          <Button asChild variant="outline" size="sm" className="bg-stone-50 dark:bg-stone-900 border-stone-300 dark:border-stone-700 font-bold text-xs uppercase tracking-wider rounded-sm shrink-0 hover:bg-stone-100 transition-colors">
+          <Button asChild variant="outline" size="sm" className="bg-stone-50 dark:bg-stone-900 border-stone-300 dark:border-stone-700 font-bold text-xs uppercase tracking-wider rounded-xs shrink-0 hover:bg-stone-100 transition-colors">
             <a
               href="https://www.youtube.com/@GITMGuraon"
               target="_blank"
@@ -201,68 +190,55 @@ export function CampusGallery() {
           </Button>
         </div>
 
-        {/* 1. CINEMA-MODE VIRTUAL VIDEO TOUR SHOWCASE WITH AMBIENT GLOW */}
-        <div className="mb-14 relative">
-          {/* Subtle Ambient Theater Illumination behind video */}
-          <div 
-            className="absolute -inset-2 bg-gradient-to-r from-amber-500/10 via-[#0f2b48]/20 to-[#881337]/15 rounded-xl blur-2xl pointer-events-none -z-10" 
-            aria-hidden="true" 
-          />
+        {/* 1. OFFICIAL VIRTUAL VIDEO TOUR SHOWCASE */}
+        <div className="mb-14 rounded-md border border-stone-300 dark:border-stone-800 bg-stone-50 dark:bg-[#0f1c2e] p-4 sm:p-6 shadow-2xs">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            {/* Embedded YouTube Player Container */}
+            <div className="lg:col-span-8 rounded-sm overflow-hidden border border-stone-300 dark:border-stone-700 aspect-video bg-black shadow-md relative">
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/FmS2fA7G-Ls?rel=0"
+                title="Global Institute of Technology & Management (GITM Gurgaon) Official Campus Tour & Video Review"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="w-full h-full border-0"
+                loading="lazy"
+              />
+            </div>
 
-          <div className="rounded-md border border-stone-300 dark:border-stone-800 bg-stone-50 dark:bg-[#0f1c2e] p-4 sm:p-6 shadow-md">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-              {/* Embedded YouTube Player Container */}
-              <div className="lg:col-span-8 rounded-sm overflow-hidden border-2 border-stone-300 dark:border-stone-700 aspect-video bg-black shadow-lg relative group">
-                <iframe
-                  src="https://www.youtube-nocookie.com/embed/FmS2fA7G-Ls?rel=0"
-                  title="Global Institute of Technology & Management (GITM Gurgaon) Official Campus Tour & Video Review"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  className="w-full h-full border-0"
-                  loading="lazy"
-                />
+            {/* Video Description, Highlights & Affiliations */}
+            <div className="lg:col-span-4 space-y-4">
+              <div className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider bg-[#881337] text-white px-2.5 py-0.5 rounded-xs">
+                <Video className="h-3.5 w-3.5" />
+                <span>Virtual Video Walkthrough</span>
               </div>
 
-              {/* Video Description, Highlights & Chapter Timestamps */}
-              <div className="lg:col-span-4 space-y-4">
-                <div className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider bg-[#881337] text-white px-2.5 py-0.5 rounded-xs shadow-2xs">
-                  <Video className="h-3.5 w-3.5" />
-                  <span>Virtual Video Tour</span>
+              <h3 className="font-editorial text-xl font-bold text-[#0f2b48] dark:text-stone-100 leading-snug">
+                Experience GITM Gurgaon: 20-Acre Campus Infrastructure & Student Life
+              </h3>
+
+              <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
+                Take an immersive video walkthrough of the sprawling green campus, hi-tech engineering laboratories, pharmaceutical research center, modern residential hostels, sports arenas, and interview sessions with faculty and recruiters.
+              </p>
+
+              <div className="space-y-2 pt-2 border-t border-stone-200 dark:border-stone-800 text-xs text-stone-700 dark:text-stone-300">
+                <div className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#0f2b48] dark:bg-amber-400" />
+                  <span><strong>Location:</strong> 5 KM Milestone, Farrukhnagar Rd, Gurugram</span>
                 </div>
-
-                <h3 className="font-editorial text-xl font-bold text-[#0f2b48] dark:text-stone-100 leading-snug">
-                  Experience GITM Gurgaon: 20-Acre Campus Infrastructure & Student Life
-                </h3>
-
-                <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-                  Take an immersive video walkthrough of the sprawling green campus, hi-tech engineering laboratories, pharmaceutical research center, modern residential hostels, sports arenas, and interview sessions with faculty and recruiters.
-                </p>
-
-                {/* Tour Key Chapters */}
-                <div className="pt-2 border-t border-stone-200 dark:border-stone-800 space-y-1.5">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-stone-500 block">
-                    Tour Key Chapters:
-                  </span>
-                  <div className="grid grid-cols-2 gap-1.5">
-                    {TOUR_CHAPTERS.map((ch) => (
-                      <div
-                        key={ch.time}
-                        className="p-1.5 rounded-xs bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 text-[11px] flex items-center gap-1.5 text-stone-700 dark:text-stone-300"
-                      >
-                        <span className="font-mono text-[10px] text-[#881337] dark:text-amber-400 font-bold shrink-0">
-                          {ch.time}
-                        </span>
-                        <span className="truncate">{ch.title}</span>
-                      </div>
-                    ))}
-                  </div>
+                <div className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#0f2b48] dark:bg-amber-400" />
+                  <span><strong>Connectivity:</strong> 25 mins from IGI Airport & Cyber City</span>
                 </div>
-
-                <div className="pt-2">
-                  <Button asChild size="sm" className="w-full bg-[#0f2b48] hover:bg-[#1a3a5e] text-white font-bold text-xs uppercase tracking-wider rounded-sm shadow-2xs transition-transform active:scale-98">
-                    <a href="#inquiry">Book An In-Person Campus Visit</a>
-                  </Button>
+                <div className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#0f2b48] dark:bg-amber-400" />
+                  <span><strong>Affiliation:</strong> Gurugram University, Sector 51</span>
                 </div>
+              </div>
+
+              <div className="pt-2">
+                <Button asChild size="sm" className="w-full bg-[#0f2b48] hover:bg-[#1a3a5e] text-white font-bold text-xs uppercase tracking-wider rounded-xs shadow-2xs">
+                  <a href="#inquiry">Book An In-Person Campus Inspection</a>
+                </Button>
               </div>
             </div>
           </div>
@@ -275,7 +251,7 @@ export function CampusGallery() {
               onClick={() => setActiveFilter("all")}
               className={`px-3 py-1.5 rounded-xs transition-colors ${
                 activeFilter === "all"
-                  ? "bg-[#0f2b48] text-white shadow-xs"
+                  ? "bg-[#0f2b48] text-white shadow-2xs"
                   : "text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white"
               }`}
             >
@@ -285,7 +261,7 @@ export function CampusGallery() {
               onClick={() => setActiveFilter("labs")}
               className={`px-3 py-1.5 rounded-xs transition-colors ${
                 activeFilter === "labs"
-                  ? "bg-[#0f2b48] text-white shadow-xs"
+                  ? "bg-[#0f2b48] text-white shadow-2xs"
                   : "text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white"
               }`}
             >
@@ -295,7 +271,7 @@ export function CampusGallery() {
               onClick={() => setActiveFilter("library")}
               className={`px-3 py-1.5 rounded-xs transition-colors ${
                 activeFilter === "library"
-                  ? "bg-[#0f2b48] text-white shadow-xs"
+                  ? "bg-[#0f2b48] text-white shadow-2xs"
                   : "text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white"
               }`}
             >
@@ -305,7 +281,7 @@ export function CampusGallery() {
               onClick={() => setActiveFilter("sports")}
               className={`px-3 py-1.5 rounded-xs transition-colors ${
                 activeFilter === "sports"
-                  ? "bg-[#0f2b48] text-white shadow-xs"
+                  ? "bg-[#0f2b48] text-white shadow-2xs"
                   : "text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white"
               }`}
             >
@@ -315,7 +291,7 @@ export function CampusGallery() {
               onClick={() => setActiveFilter("campus")}
               className={`px-3 py-1.5 rounded-xs transition-colors ${
                 activeFilter === "campus"
-                  ? "bg-[#0f2b48] text-white shadow-xs"
+                  ? "bg-[#0f2b48] text-white shadow-2xs"
                   : "text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white"
               }`}
             >
@@ -328,27 +304,24 @@ export function CampusGallery() {
           </span>
         </div>
 
-        {/* 3. PHOTO GALLERY GRID WITH CARD-LIFT AND LIGHTBOX TRIGGER */}
+        {/* 3. PHOTO GALLERY GRID */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredPhotos.map((photo, index) => (
             <div
               key={photo.id}
               onClick={() => setSelectedPhotoIndex(index)}
-              className="card-lift group cursor-pointer rounded-md border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] overflow-hidden shadow-2xs hover:border-[#0f2b48] dark:hover:border-amber-400/50 flex flex-col justify-between"
+              className="academic-card group cursor-pointer rounded-md border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] overflow-hidden flex flex-col justify-between"
             >
               {/* Photo Frame */}
               <div className="relative aspect-[16/10] overflow-hidden bg-stone-100 dark:bg-stone-800">
                 <img
                   src={photo.imageSrc}
                   alt={photo.title}
-                  className="w-full h-full object-cover group-hover:scale-106 transition-transform duration-500 ease-out"
+                  className="w-full h-full object-cover"
                   loading="lazy"
                 />
-                <div className="absolute top-2.5 left-2.5 bg-black/75 backdrop-blur-xs text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-xs border border-white/15">
+                <div className="absolute top-2.5 left-2.5 bg-black/75 backdrop-blur-xs text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-xs">
                   {photo.categoryLabel}
-                </div>
-                <div className="absolute bottom-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition-opacity bg-black/70 backdrop-blur-xs text-white p-1 rounded-full">
-                  <Maximize2 className="h-3.5 w-3.5" />
                 </div>
               </div>
 
@@ -365,17 +338,16 @@ export function CampusGallery() {
           ))}
         </div>
 
-        {/* Interactive Modal Lightbox for Full View with Prev/Next Controls */}
+        {/* Modal Lightbox for Full View */}
         {currentPhoto && selectedPhotoIndex !== null && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-xs"
             onClick={() => setSelectedPhotoIndex(null)}
           >
             <div
               className="relative max-w-4xl w-full bg-white dark:bg-[#0f1c2e] rounded-md overflow-hidden shadow-2xl border border-stone-300 dark:border-stone-700"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Image with Prev/Next arrow overlays */}
               <div className="relative aspect-video bg-black flex items-center justify-center">
                 <img
                   src={currentPhoto.imageSrc}
@@ -390,7 +362,7 @@ export function CampusGallery() {
                       prev !== null && prev > 0 ? prev - 1 : filteredPhotos.length - 1
                     )
                   }
-                  className="absolute left-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center transition-colors border border-white/20"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-colors border border-white/20"
                   aria-label="Previous photograph"
                 >
                   <ChevronLeft className="h-6 w-6" />
@@ -403,14 +375,14 @@ export function CampusGallery() {
                       prev !== null && prev < filteredPhotos.length - 1 ? prev + 1 : 0
                     )
                   }
-                  className="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center transition-colors border border-white/20"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-colors border border-white/20"
                   aria-label="Next photograph"
                 >
                   <ChevronRight className="h-6 w-6" />
                 </button>
 
                 <div className="absolute top-3 right-3 flex items-center gap-2">
-                  <span className="text-xs bg-black/70 backdrop-blur-xs text-white px-2 py-1 rounded-sm font-mono">
+                  <span className="text-xs bg-black/70 backdrop-blur-xs text-white px-2 py-1 rounded-xs font-mono">
                     {selectedPhotoIndex + 1} / {filteredPhotos.length}
                   </span>
                   <button
@@ -437,19 +409,14 @@ export function CampusGallery() {
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-[10px] text-stone-400 font-mono hidden md:inline">
-                    Use ← → arrow keys to navigate
-                  </span>
-                  <Button
-                    onClick={() => setSelectedPhotoIndex(null)}
-                    variant="outline"
-                    size="sm"
-                    className="font-bold text-xs uppercase tracking-wider rounded-sm"
-                  >
-                    Close
-                  </Button>
-                </div>
+                <Button
+                  onClick={() => setSelectedPhotoIndex(null)}
+                  variant="outline"
+                  size="sm"
+                  className="font-bold text-xs uppercase tracking-wider rounded-xs shrink-0"
+                >
+                  Close
+                </Button>
               </div>
             </div>
           </div>
