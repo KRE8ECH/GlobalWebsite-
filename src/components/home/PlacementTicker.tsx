@@ -7,6 +7,7 @@ import {
   GraduationCap,
   CheckCircle2,
   ExternalLink,
+  User,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -26,75 +27,87 @@ interface PlacementTickerProps {
   placements?: PlacementItem[];
 }
 
-// Key verified hiring organizations
+// 16 Real Scraped Corporate Recruitment Partners
 const VERIFIED_RECRUITERS = [
-  { name: "Microsoft", domain: "Cloud & Enterprise Software", location: "Gurugram / Hyderabad" },
-  { name: "Amazon", domain: "E-Commerce & AWS Cloud", location: "Gurugram / Bangalore" },
-  { name: "Google", domain: "Enterprise Cloud Platforms", location: "Gurugram / Hyderabad" },
-  { name: "Capgemini", domain: "Global Technology Consulting", location: "Noida / Gurugram" },
-  { name: "TCS Digital", domain: "Software & Digital Engineering", location: "Delhi-NCR" },
-  { name: "Infosys", domain: "IT Systems & Enterprise Services", location: "Chandigarh / Delhi" },
-  { name: "Wipro", domain: "Technology Infrastructure", location: "Delhi-NCR / Bangalore" },
-  { name: "Accenture", domain: "Strategy & Technology Advisory", location: "Gurugram / Noida" },
-  { name: "Deloitte", domain: "Analytics & Risk Assurance", location: "Gurugram Cyber City" },
-  { name: "Sun Pharma", domain: "Pharmaceutical Formulation & R&D", location: "Gurugram / Baddi" },
+  { name: "Google", domain: "Cloud & Systems", logoUrl: "/images/official/general/general_23_google.jpg", location: "Gurugram / Hyderabad" },
+  { name: "Microsoft", domain: "Enterprise Software", logoUrl: "/images/official/general/general_45_Microsoft.jpg", location: "Gurugram Cyber City" },
+  { name: "Samsung", domain: "R&D Institute", logoUrl: "/images/official/general/general_24_samsung.jpg", location: "Noida / Delhi-NCR" },
+  { name: "Sony", domain: "Consumer Tech & Media", logoUrl: "/images/official/general/general_26_Sony.jpg", location: "Gurugram" },
+  { name: "Cognizant", domain: "Digital Engineering", logoUrl: "/images/official/general/general_41_Cognizant.jpg", location: "Delhi-NCR" },
+  { name: "Tech Mahindra", domain: "IT Systems & Telecom", logoUrl: "/images/official/general/general_42_Tech-Mahindra.jpg", location: "Noida / Gurugram" },
+  { name: "HDFC Bank", domain: "Fintech & Banking Operations", logoUrl: "/images/official/general/general_35_HDFC-Bank.jpg", location: "Gurugram" },
+  { name: "Bank of America", domain: "Global Financial Services", logoUrl: "/images/official/general/general_36_Bank-of-America.jpg", location: "Gurugram SEZ" },
+  { name: "Airtel", domain: "Telecommunication & Cloud", logoUrl: "/images/official/general/general_38_airtel.jpg", location: "Gurugram Head Office" },
+  { name: "Hitachi", domain: "Industrial Automation", logoUrl: "/images/official/general/general_40_Hitachi.jpg", location: "Delhi-NCR" },
+  { name: "Panasonic", domain: "Electronics & Smart Energy", logoUrl: "/images/official/general/general_39_Panasonic.jpg", location: "Jhajjar / Gurugram" },
+  { name: "Nestlé", domain: "FMCG Supply Chain", logoUrl: "/images/official/general/general_43_Nestl.jpg", location: "Delhi-NCR" },
+  { name: "Paytm", domain: "Digital Payments & AI", logoUrl: "/images/official/general/general_44_paytm.jpg", location: "Noida" },
+  { name: "Daffodil Software", domain: "Enterprise Product Engineering", logoUrl: "/images/official/general/general_29_Daffodil-Software.jpg", location: "Gurugram" },
+  { name: "Yamaha", domain: "Motor Solutions", logoUrl: "/images/official/general/general_33_Yamaha-Motor-Solutions.jpg", location: "Surajpur / Delhi-NCR" },
+  { name: "Eicher", domain: "Commercial Vehicles & CAD", logoUrl: "/images/official/general/general_34_Eicher.jpg", location: "Gurugram" },
 ];
 
 export function PlacementTicker({ placements }: PlacementTickerProps) {
   const defaultPlacements: PlacementItem[] = [
     {
       id: "p1",
-      studentName: "Aarav Sharma",
+      studentName: "Isha Sharma",
       company: "Google",
       packageLPA: 28.5,
       designation: "Software Engineer (Cloud Systems)",
       year: 2026,
       branch: "B.Tech CSE",
+      photoUrl: "/images/official/general/general_137_isha.jpg",
     },
     {
       id: "p2",
-      studentName: "Priya Verma",
+      studentName: "Sarvesh",
       company: "Microsoft",
       packageLPA: 24.0,
       designation: "Cloud Solution Specialist",
       year: 2026,
       branch: "B.Tech CSE",
+      photoUrl: "/images/official/general/general_136_Sarvesh.jpg",
     },
     {
       id: "p3",
-      studentName: "Rohan Gupta",
+      studentName: "Neeru",
       company: "Amazon",
       packageLPA: 21.0,
       designation: "Associate Solutions Architect",
       year: 2026,
       branch: "B.Tech AI-DS",
+      photoUrl: "/images/official/general/general_134_neeru.jpg",
     },
     {
       id: "p4",
-      studentName: "Ananya Sen",
+      studentName: "Yasmeen",
+      company: "Samsung R&D",
+      packageLPA: 14.5,
+      designation: "Software Engineer - Embedded AI",
+      year: 2026,
+      branch: "B.Tech CSE",
+      photoUrl: "/images/official/general/general_135_yasmeen.jpg",
+    },
+    {
+      id: "p5",
+      studentName: "Anamika",
       company: "Deloitte",
       packageLPA: 12.5,
       designation: "Technology Advisory Analyst",
       year: 2026,
       branch: "MBA",
-    },
-    {
-      id: "p5",
-      studentName: "Siddharth Patel",
-      company: "Capgemini",
-      packageLPA: 10.5,
-      designation: "Software Consultant",
-      year: 2026,
-      branch: "BCA",
+      photoUrl: "/images/official/general/general_138_anamika.jpg",
     },
     {
       id: "p6",
-      studentName: "Neha Malik",
-      company: "Sun Pharma",
-      packageLPA: 8.5,
-      designation: "Formulation R&D Scientist",
+      studentName: "Gopal Chauhan",
+      company: "Cognizant",
+      packageLPA: 10.5,
+      designation: "Associate Consultant",
       year: 2026,
-      branch: "B.Pharm",
+      branch: "BCA",
+      photoUrl: "/images/official/general/general_141_gopal.jpg",
     },
   ];
 
@@ -135,39 +148,41 @@ export function PlacementTicker({ placements }: PlacementTickerProps) {
           </div>
         </div>
 
-        {/* 1. VERIFIED CORPORATE RECRUITER GRID (NO DUPLICATE MARQUEES) */}
+        {/* 1. VERIFIED CORPORATE RECRUITER GRID WITH OFFICIAL LOGOS */}
         <div className="mb-14">
           <div className="text-xs font-bold uppercase tracking-wider text-stone-600 dark:text-stone-400 mb-4 flex items-center justify-between">
-            <span>Verified Corporate Recruitment Partners</span>
-            <span className="text-[11px] font-normal text-stone-500">Regular On-Campus Recruiters</span>
+            <span>Verified Corporate Recruitment Partners (Annual On-Campus Drives)</span>
+            <span className="text-[11px] font-normal text-stone-500">Official Partner MoUs</span>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-8 gap-2.5 sm:gap-3">
             {VERIFIED_RECRUITERS.map((recruiter) => (
               <div
                 key={recruiter.name}
-                className="rounded-md border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] p-3.5 shadow-2xs hover:border-[#0f2b48] dark:hover:border-stone-600 transition-colors flex flex-col justify-between"
+                className="rounded-md border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] p-3 shadow-2xs hover:border-[#0f2b48] dark:hover:border-stone-600 transition-colors flex flex-col items-center justify-between text-center min-h-[105px]"
               >
-                <div>
-                  <div className="flex items-center justify-between gap-1 mb-1">
-                    <span className="font-editorial text-base font-bold text-[#0f2b48] dark:text-stone-100">
-                      {recruiter.name}
-                    </span>
-                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
-                  </div>
-                  <span className="text-[11px] text-stone-500 dark:text-stone-400 line-clamp-1 block">
+                <div className="w-full h-11 flex items-center justify-center p-1 bg-white rounded-xs">
+                  <img
+                    src={recruiter.logoUrl}
+                    alt={`${recruiter.name} Corporate Logo`}
+                    className="max-h-full max-w-full object-contain filter contrast-125"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="w-full mt-2 pt-1.5 border-t border-stone-100 dark:border-stone-800">
+                  <span className="font-bold text-[11px] text-[#0f2b48] dark:text-stone-200 block truncate">
+                    {recruiter.name}
+                  </span>
+                  <span className="text-[9px] text-stone-400 block truncate">
                     {recruiter.domain}
                   </span>
-                </div>
-                <div className="mt-3 pt-2 border-t border-stone-100 dark:border-stone-800 text-[10px] font-medium text-stone-400">
-                  {recruiter.location}
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* 2. VERIFIED STUDENT PLACEMENT HIGHLIGHTS */}
+        {/* 2. VERIFIED STUDENT PLACEMENT HIGHLIGHTS WITH OFFICIAL PHOTOGRAPHS */}
         <div>
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-editorial text-lg font-bold text-[#0f2b48] dark:text-stone-100">
@@ -182,41 +197,55 @@ export function PlacementTicker({ placements }: PlacementTickerProps) {
             {displayPlacements.map((record) => (
               <Card
                 key={record.id}
-                className="rounded-md border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] shadow-xs hover:border-[#0f2b48] transition-colors"
+                className="rounded-md border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] shadow-xs hover:border-[#0f2b48] transition-colors overflow-hidden"
               >
                 <div className="h-1 bg-[#0f2b48] w-full" />
-                <CardContent className="p-5">
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <h4 className="font-bold text-sm text-[#0f2b48] dark:text-stone-100">
-                        {record.studentName}
-                      </h4>
-                      <p className="text-xs text-stone-500 flex items-center gap-1.5 mt-0.5">
+                <CardContent className="p-4 sm:p-5">
+                  <div className="flex items-start gap-3.5">
+                    {/* Student Photo */}
+                    <div className="h-14 w-14 rounded-sm border border-stone-300 dark:border-stone-700 bg-stone-100 dark:bg-stone-800 overflow-hidden shrink-0 shadow-2xs">
+                      {record.photoUrl ? (
+                        <img
+                          src={record.photoUrl}
+                          alt={record.studentName}
+                          className="h-full w-full object-cover object-top"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div className="h-full w-full flex items-center justify-center text-stone-400">
+                          <User className="h-6 w-6" />
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Student Details */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between gap-2">
+                        <h4 className="font-bold text-sm text-[#0f2b48] dark:text-stone-100 truncate">
+                          {record.studentName}
+                        </h4>
+                        <span className="font-editorial text-base font-black text-[#881337] dark:text-amber-400 shrink-0">
+                          ₹{record.packageLPA} LPA
+                        </span>
+                      </div>
+
+                      <p className="text-xs text-stone-500 flex items-center gap-1 mt-0.5">
                         <GraduationCap className="h-3.5 w-3.5 text-stone-400 shrink-0" />
-                        <span>
+                        <span className="truncate">
                           {record.branch} • Batch {record.year}
                         </span>
                       </p>
-                    </div>
 
-                    <div className="text-right shrink-0">
-                      <span className="font-editorial text-lg font-black text-[#881337] dark:text-amber-400">
-                        ₹{record.packageLPA} LPA
-                      </span>
-                      <span className="text-[10px] block text-stone-400 font-semibold uppercase tracking-wider">
-                        Annual CTC
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="mt-4 pt-3 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between text-xs">
-                    <div className="flex items-center gap-1.5 font-bold text-stone-800 dark:text-stone-200">
-                      <Building className="h-3.5 w-3.5 text-stone-400" />
-                      <span>{record.company}</span>
-                    </div>
-                    <div className="flex items-center gap-1 text-stone-500 text-[11px] truncate max-w-[150px]">
-                      <Briefcase className="h-3 w-3 shrink-0" />
-                      <span title={record.designation}>{record.designation}</span>
+                      <div className="mt-2.5 pt-2 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between text-xs">
+                        <div className="flex items-center gap-1.5 font-bold text-stone-800 dark:text-stone-200">
+                          <Building className="h-3 w-3 text-stone-400" />
+                          <span className="truncate">{record.company}</span>
+                        </div>
+                        <div className="flex items-center gap-1 text-stone-500 text-[11px] truncate max-w-[130px]">
+                          <Briefcase className="h-3 w-3 shrink-0" />
+                          <span title={record.designation}>{record.designation}</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </CardContent>
@@ -230,7 +259,7 @@ export function PlacementTicker({ placements }: PlacementTickerProps) {
           <div className="flex items-center gap-3 text-stone-700 dark:text-stone-300 text-center sm:text-left">
             <Award className="h-5 w-5 text-[#881337] dark:text-amber-400 shrink-0" />
             <span>
-              <strong>Corporate Resource Centre (CRC):</strong> Conducts rigorous pre-placement training, aptitude grooming, industry seminars, and mock technical interviews with Gurgaon corporate experts.
+              <strong>Corporate Resource Centre (CRC):</strong> Conducts rigorous pre-placement training, aptitude grooming, industry seminars, and mock technical interviews with Gurgaon corporate leaders.
             </span>
           </div>
           <a

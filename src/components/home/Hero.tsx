@@ -17,21 +17,21 @@ import { Button } from "@/components/ui/button";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-stone-200 dark:border-stone-800 bg-[#0f2b48] text-white py-14 sm:py-20 lg:py-24">
-      {/* Background Architectural Grid Pattern (Subtle Collegiate Blueprint / Architectural lines) */}
+    <section className="relative overflow-hidden border-b border-stone-200 dark:border-stone-800 bg-[#0f2b48] text-white py-14 sm:py-18 lg:py-20">
+      {/* Background Architectural Grid Pattern */}
       <div
         className="absolute inset-0 -z-10 opacity-10 bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:36px_36px]"
         aria-hidden="true"
       />
 
-      {/* Decorative Warm Accent Ambient Overlay */}
+      {/* Decorative Warm Accent Overlay */}
       <div 
         className="absolute -top-32 right-0 w-96 h-96 rounded-full bg-[#b45309]/15 blur-3xl pointer-events-none -z-10" 
         aria-hidden="true" 
       />
 
       <div className="container mx-auto px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto text-center space-y-6">
+        <div className="max-w-5xl mx-auto text-center space-y-6">
           {/* Statutory Approvals & Accreditations Row */}
           <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
             <span className="inline-flex items-center gap-1.5 rounded-sm border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-bold text-amber-300">
@@ -61,7 +61,7 @@ export function Hero() {
           </p>
 
           {/* Primary Action Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-3">
+          <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
             <Button
               asChild
               size="lg"
@@ -91,8 +91,40 @@ export function Hero() {
             </Button>
           </div>
 
-          {/* 4 Grounded Institutional Key Metrics (Understated Bar with Sharp Borders) */}
-          <div className="pt-8 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto">
+          {/* OFFICIAL CAMPUS PHOTOGRAPHIC SHOWCASE */}
+          <div className="pt-6 pb-2">
+            <div className="relative rounded-md overflow-hidden border-2 border-white/20 shadow-2xl max-w-4xl mx-auto group">
+              <img
+                src="/images/official/general/general_11_about-img.jpg"
+                alt="Global Institute of Technology & Management Gurgaon Main Campus Building"
+                className="w-full h-64 sm:h-80 md:h-96 object-cover object-center group-hover:scale-102 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0f2b48]/90 via-transparent to-transparent" />
+              
+              {/* Bottom Caption Overlay */}
+              <div className="absolute bottom-0 inset-x-0 p-4 sm:p-6 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-3 text-left">
+                <div>
+                  <span className="inline-block px-2 py-0.5 rounded-xs bg-[#881337] text-white text-[10px] font-bold uppercase tracking-wider mb-1">
+                    Official Campus View
+                  </span>
+                  <h3 className="font-editorial text-lg sm:text-xl font-bold text-white">
+                    GITM Central Academic Complex & Quadrangle
+                  </h3>
+                  <p className="text-xs text-stone-300">
+                    5 KM Milestone, Farrukhnagar - Gurgaon Highway, Delhi-NCR
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2 bg-black/50 backdrop-blur-xs px-3 py-1.5 rounded-sm border border-white/20 text-xs text-amber-300 font-semibold shrink-0">
+                  <Landmark className="h-4 w-4 text-amber-400" />
+                  <span>20-Acre Eco-Friendly Campus</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 4 Grounded Institutional Key Metrics */}
+          <div className="pt-4 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto">
             {/* Metric 1 */}
             <div className="rounded-md border border-white/15 bg-white/5 p-4 text-left">
               <div className="text-2xl sm:text-3xl font-extrabold text-amber-400 font-editorial">

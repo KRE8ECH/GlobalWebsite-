@@ -36,7 +36,7 @@ const MAIN_NAV_ITEMS: NavItem[] = [
   { label: "Live University Notices", href: "#notices", badge: "Sync" },
   { label: "Placements", href: "#placements" },
   { label: "Academic Calendar", href: "#calendar" },
-  { label: "Campus Life", href: "#events" },
+  { label: "Campus & Tour", href: "#campus-life", badge: "Video" },
   { label: "About GITM", href: "#about" },
 ];
 
@@ -256,8 +256,12 @@ export function Navbar() {
               aria-label="GITM Gurgaon - Global Institute of Technology & Management Home"
             >
               {/* Institutional Emblem Crest */}
-              <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-sm bg-[#0f2b48] text-white border-2 border-[#b45309] shadow-sm shrink-0">
-                <GraduationCap className="h-7 w-7 text-amber-400" />
+              <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-sm bg-white p-1 border border-stone-200 shadow-2xs shrink-0 overflow-hidden">
+                <img
+                  src="/images/official/logo/logo_1_logo.png"
+                  alt="Global Institute of Technology & Management Official Crest"
+                  className="h-full w-full object-contain"
+                />
               </div>
 
               <div className="flex flex-col">
@@ -392,8 +396,12 @@ export function Navbar() {
               <div>
                 <div className="flex items-center justify-between pb-4 border-b border-stone-200 dark:border-stone-800">
                   <div className="flex items-center gap-2.5">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-sm bg-[#0f2b48] text-white border border-[#b45309]">
-                      <GraduationCap className="h-5 w-5 text-amber-400" />
+                    <div className="flex h-10 w-10 items-center justify-center rounded-sm bg-white p-1 border border-stone-200 shrink-0 overflow-hidden">
+                      <img
+                        src="/images/official/logo/logo_1_logo.png"
+                        alt="GITM Official Crest"
+                        className="h-full w-full object-contain"
+                      />
                     </div>
                     <div>
                       <span className="font-editorial font-bold text-sm text-[#0f2b48] dark:text-white block">
