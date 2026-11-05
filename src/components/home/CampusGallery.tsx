@@ -320,7 +320,7 @@ export function CampusGallery() {
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
-                <div className="absolute top-2.5 left-2.5 bg-black/75 backdrop-blur-xs text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-xs">
+                <div className="absolute top-2.5 left-2.5 bg-black/85 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-xs">
                   {photo.categoryLabel}
                 </div>
               </div>
@@ -341,7 +341,7 @@ export function CampusGallery() {
         {/* Modal Lightbox for Full View */}
         {currentPhoto && selectedPhotoIndex !== null && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-xs"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90"
             onClick={() => setSelectedPhotoIndex(null)}
           >
             <div
@@ -382,7 +382,7 @@ export function CampusGallery() {
                 </button>
 
                 <div className="absolute top-3 right-3 flex items-center gap-2">
-                  <span className="text-xs bg-black/70 backdrop-blur-xs text-white px-2 py-1 rounded-xs font-mono">
+                  <span className="text-xs bg-black/85 text-white px-2 py-1 rounded-xs font-mono">
                     {selectedPhotoIndex + 1} / {filteredPhotos.length}
                   </span>
                   <button

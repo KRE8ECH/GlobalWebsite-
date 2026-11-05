@@ -288,7 +288,7 @@ export default async function HomePage() {
                         {tags.map((tag) => (
                           <span
                             key={tag}
-                            className="text-[10px] font-bold uppercase tracking-wider bg-black/75 backdrop-blur-xs text-white px-2 py-0.5 rounded-xs border border-white/20"
+                            className="text-[10px] font-bold uppercase tracking-wider bg-black/85 text-white px-2 py-0.5 rounded-xs border border-white/20"
                           >
                             {tag}
                           </span>
