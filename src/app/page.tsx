@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { OpeningReveal } from "@/components/home/OpeningReveal";
 import { Hero } from "@/components/home/Hero";
 import { PlacementTicker } from "@/components/home/PlacementTicker";
 import { ProgramFinder } from "@/components/academics/ProgramFinder";
@@ -42,6 +43,9 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col min-h-screen">
+      {/* 0. CINEMATIC INSTITUTIONAL OPENING PORTAL REVEAL */}
+      <OpeningReveal />
+
       {/* 1. HERO SECTION (Collegiate 2008 Legacy, Accreditations & Key Metrics) */}
       <Hero />
 

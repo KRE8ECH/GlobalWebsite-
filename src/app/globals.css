@@ -157,8 +157,28 @@ h1, h2, h3, .font-editorial {
 }
 
 .dark .academic-card:hover {
-  border-color: #3b82f6;
+  border-color: #b45309;
   box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.4);
+}
+
+/* Horizon progress bar for opening reveal */
+@keyframes sweep-progress {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-marquee-progress {
+  animation: sweep-progress 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Photographic enhancement filter */
+.photo-enhance {
+  filter: contrast(1.05) saturate(1.08) brightness(1.01);
+  transition: filter 0.3s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {

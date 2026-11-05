@@ -13,6 +13,7 @@ import {
   GraduationCap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Campus3DViewer } from "./Campus3DViewer";
 
 export function Hero() {
   return (
@@ -96,36 +97,9 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Right Column (5 cols): Authentic Photographic Campus Frame & Admissions Notice */}
+          {/* Right Column (5 cols): 3D Interactive Campus Perspective Viewer & Admissions Notice */}
           <div className="lg:col-span-5 space-y-4">
-            {/* Photographic Campus Frame */}
-            <div className="rounded-md border-2 border-white/20 overflow-hidden shadow-xl bg-black">
-              <div className="relative aspect-[16/10] overflow-hidden">
-                <img
-                  src="/images/official/general/general_11_about-img.jpg"
-                  alt="GITM Gurgaon 20-Acre Main Academic Complex"
-                  className="w-full h-full object-cover object-center"
-                />
-                <div className="absolute top-2.5 left-2.5 bg-[#881337] text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-xs">
-                  Official Campus Photography
-                </div>
-              </div>
-
-              {/* Caption Strip */}
-              <div className="bg-[#0b1e32] p-3 text-left border-t border-white/15 flex items-center justify-between">
-                <div>
-                  <h3 className="font-editorial text-xs font-bold text-white">
-                    GITM Central Academic Complex & Quadrangle
-                  </h3>
-                  <p className="text-[10px] text-stone-400">
-                    20-Acre Wi-Fi Enabled Campus • Sector 51 Affiliation
-                  </p>
-                </div>
-                <span className="text-[10px] font-bold text-amber-300 border border-amber-400/30 px-2 py-0.5 rounded-xs bg-amber-400/10 shrink-0">
-                  ESTD. 2008
-                </span>
-              </div>
-            </div>
+            <Campus3DViewer />
 
             {/* Official Academic Session Desk Card */}
             <div className="rounded-md border border-white/15 bg-white/5 p-4 text-left space-y-2">
