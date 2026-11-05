@@ -248,36 +248,37 @@ export function Navbar() {
         {/* 2. OFFICIAL INSTITUTIONAL BRAND HEADER */}
         <div className="bg-white dark:bg-[#0f1c2e] border-b border-stone-200 dark:border-stone-800 py-3 px-4 sm:px-6">
           <div className="container mx-auto flex items-center justify-between gap-4">
-            {/* Official College Crest & Typography */}
+            {/* Official College Brand Lockup */}
             <Link
               href="/"
-              className="flex items-center gap-3.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded p-1"
+              className="flex items-center gap-3 sm:gap-4 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded p-1"
               aria-label="GITM Gurgaon - Global Institute of Technology & Management Home"
             >
-              {/* Institutional Emblem Crest */}
-              <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-sm bg-white p-1 border border-stone-200 shadow-2xs shrink-0 overflow-hidden">
+              {/* Authentic Wide Logo (Rendered at true 4:1 aspect ratio) */}
+              <div className="h-11 sm:h-14 md:h-16 flex items-center shrink-0">
                 <img
                   src="/images/official/logo/logo_1_logo.png"
-                  alt="Global Institute of Technology & Management Official Crest"
-                  className="h-full w-full object-contain"
+                  alt="Global Institute of Technology & Management Official Logo"
+                  className="h-full w-auto object-contain max-w-[210px] sm:max-w-[280px] md:max-w-[340px]"
                 />
               </div>
 
-              <div className="flex flex-col">
+              {/* Dignified Institutional Sub-branding */}
+              <div className="hidden lg:flex flex-col border-l border-stone-300 dark:border-stone-700 pl-3.5 py-0.5 text-left">
                 <div className="flex items-center gap-2">
-                  <span className="font-editorial text-lg sm:text-2xl font-black tracking-tight text-[#0f2b48] dark:text-stone-100 leading-tight">
+                  <span className="font-editorial text-sm font-black tracking-tight text-[#0f2b48] dark:text-stone-100">
                     GITM GURGAON
                   </span>
-                  <span className="hidden sm:inline-block border border-stone-300 dark:border-stone-700 bg-stone-100 dark:bg-stone-800 px-1.5 py-0.2 text-[10px] font-bold text-stone-700 dark:text-stone-300 rounded-sm">
+                  <span className="border border-stone-300 dark:border-stone-700 bg-stone-100 dark:bg-stone-800 px-1.5 py-0.2 text-[9px] font-bold text-stone-700 dark:text-stone-300 rounded-sm">
                     ESTD. 2008
                   </span>
                 </div>
-                <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#881337] dark:text-amber-400 line-clamp-1">
-                  Global Institute of Technology & Management
-                </span>
-                <span className="text-[10px] sm:text-[11px] text-stone-600 dark:text-stone-400 flex items-center gap-1 line-clamp-1">
+                <span className="text-[10px] text-stone-600 dark:text-stone-400 flex items-center gap-1">
                   <MapPin className="h-3 w-3 text-stone-400 shrink-0" />
-                  Farrukhnagar, Gurugram (Delhi-NCR) • Affiliated to Gurugram University
+                  Farrukhnagar, Gurugram (Delhi-NCR)
+                </span>
+                <span className="text-[10px] font-bold text-[#881337] dark:text-amber-400">
+                  Affiliated to Gurugram University • AICTE Approved
                 </span>
               </div>
             </Link>

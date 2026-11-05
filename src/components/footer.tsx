@@ -7,16 +7,16 @@ export function Footer() {
       {/* Top Footer Strip: Institutional Affiliations */}
       <div className="border-b border-[#153456] py-6 px-4 sm:px-6 bg-[#081726]">
         <div className="container mx-auto flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-sm bg-white p-1 border border-stone-200 shrink-0 overflow-hidden">
+          <div className="flex items-center gap-4">
+            <div className="bg-white rounded-sm px-3 py-1.5 border border-stone-200 shadow-xs flex items-center shrink-0">
               <img
                 src="/images/official/logo/logo_1_logo.png"
-                alt="GITM Logo"
-                className="h-full w-full object-contain"
+                alt="Global Institute of Technology & Management Logo"
+                className="h-10 sm:h-12 w-auto object-contain max-w-[200px] sm:max-w-[260px]"
               />
             </div>
             <div>
-              <h3 className="font-editorial text-base font-bold text-white tracking-tight">
+              <h3 className="font-editorial text-sm sm:text-base font-bold text-white tracking-tight">
                 GLOBAL INSTITUTE OF TECHNOLOGY & MANAGEMENT
               </h3>
               <p className="text-[11px] text-stone-400">

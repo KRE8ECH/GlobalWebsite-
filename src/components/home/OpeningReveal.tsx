@@ -73,14 +73,14 @@ export function OpeningReveal() {
 
       {/* Main Container */}
       <div className="relative z-10 max-w-xl mx-auto px-6 text-center flex flex-col items-center select-none">
-        {/* 3D Elevated Official College Crest */}
+        {/* 3D Elevated Official College Brand Plaque */}
         <div className="relative group mb-6">
           <div className="absolute -inset-1 rounded-sm bg-gradient-to-r from-amber-500 via-amber-300 to-amber-600 opacity-60 blur-xs transition-opacity duration-500" />
-          <div className="relative flex h-24 w-24 sm:h-28 sm:w-28 items-center justify-center rounded-sm bg-white p-2.5 border-2 border-amber-400 shadow-2xl">
+          <div className="relative flex items-center justify-center rounded-sm bg-white px-6 sm:px-8 py-3.5 border-2 border-amber-400 shadow-2xl">
             <img
               src="/images/official/logo/logo_1_logo.png"
-              alt="Global Institute of Technology & Management Crest"
-              className="h-full w-full object-contain"
+              alt="Global Institute of Technology & Management Official Crest & Logo"
+              className="h-12 sm:h-16 w-auto object-contain"
             />
           </div>
         </div>
