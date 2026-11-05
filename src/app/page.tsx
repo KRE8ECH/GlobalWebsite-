@@ -6,6 +6,7 @@ import { NoticeBoard } from "@/components/notices/NoticeBoard";
 import { HolidayCalendar } from "@/components/academics/HolidayCalendar";
 import { CampusGallery } from "@/components/home/CampusGallery";
 import { InquiryForm } from "@/components/admissions/InquiryForm";
+import { FloatingDock } from "@/components/layout/FloatingDock";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -275,20 +276,20 @@ export default async function HomePage() {
               return (
                 <Card
                   key={event.id}
-                  className="rounded-md border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] hover:border-[#0f2b48] transition-colors shadow-2xs flex flex-col justify-between overflow-hidden"
+                  className="card-lift rounded-md border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] hover:border-[#0f2b48] dark:hover:border-amber-400/50 shadow-2xs flex flex-col justify-between overflow-hidden group"
                 >
                   {event.imageUrl && (
                     <div className="relative h-44 sm:h-52 w-full bg-stone-100 dark:bg-stone-800 overflow-hidden border-b border-stone-200 dark:border-stone-800">
                       <img
                         src={event.imageUrl}
                         alt={event.title}
-                        className="w-full h-full object-cover object-center hover:scale-103 transition-transform duration-300"
+                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
                       />
                       <div className="absolute top-2.5 left-2.5 flex flex-wrap gap-1">
                         {tags.map((tag) => (
                           <span
                             key={tag}
-                            className="text-[10px] font-bold uppercase tracking-wider bg-black/70 backdrop-blur-xs text-white px-2 py-0.5 rounded-xs border border-white/20"
+                            className="text-[10px] font-bold uppercase tracking-wider bg-black/75 backdrop-blur-xs text-white px-2 py-0.5 rounded-xs border border-white/20"
                           >
                             {tag}
                           </span>
@@ -311,7 +312,7 @@ export default async function HomePage() {
                       </div>
                     )}
 
-                    <CardTitle className="font-editorial text-base sm:text-lg font-bold text-[#0f2b48] dark:text-stone-100 leading-snug">
+                    <CardTitle className="font-editorial text-base sm:text-lg font-bold text-[#0f2b48] dark:text-stone-100 leading-snug group-hover:text-[#881337] dark:group-hover:text-amber-400 transition-colors">
                       {event.title}
                     </CardTitle>
 
@@ -345,7 +346,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 8. ADMISSION INQUIRY SECTION */}
+      {/* 9. ADMISSION INQUIRY SECTION */}
       <section
         id="inquiry"
         className="py-14 sm:py-20 border-b border-stone-200 dark:border-stone-800 bg-white dark:bg-[#080f1a] scroll-mt-14"
@@ -357,6 +358,9 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* 10. FLOATING QUICK-ACTION DOCK */}
+      <FloatingDock />
     </div>
   );
 }

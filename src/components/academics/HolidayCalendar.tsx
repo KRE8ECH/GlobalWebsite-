@@ -198,7 +198,7 @@ export function HolidayCalendar() {
           {filteredItems.map((item) => (
             <Card
               key={item.id}
-              className="flex items-start gap-4 p-4 rounded-md border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] hover:border-[#0f2b48] transition-colors shadow-2xs"
+              className="card-lift flex items-start gap-4 p-4 rounded-md border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] hover:border-[#0f2b48] dark:hover:border-amber-400/50 shadow-2xs group"
             >
               {/* Collegiate Date Stamp */}
               <div className="flex flex-col items-center justify-center h-14 w-14 rounded-sm bg-[#0f2b48] text-white border border-[#0b1e32] shrink-0">

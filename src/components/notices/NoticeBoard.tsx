@@ -103,8 +103,11 @@ export function NoticeBoard({ notices }: NoticeBoardProps) {
             </p>
           </div>
 
-          <div className="flex items-center gap-2 text-xs font-bold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 px-3 py-1.5 rounded-sm border border-emerald-300 dark:border-emerald-800 shrink-0">
-            <span className="h-2 w-2 rounded-full bg-emerald-600 animate-pulse" />
+          <div className="flex items-center gap-2 text-xs font-bold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 px-3.5 py-1.5 rounded-sm border border-emerald-300 dark:border-emerald-800 shrink-0 shadow-2xs">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-600" />
+            </span>
             <span>Automated Live Sync Active</span>
           </div>
         </div>

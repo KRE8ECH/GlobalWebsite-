@@ -305,10 +305,14 @@ export function Navbar() {
               <Button
                 onClick={() => setInquiryModalOpen(true)}
                 size="sm"
-                className="hidden sm:inline-flex bg-[#881337] hover:bg-[#70102e] text-white font-bold rounded-md shadow-sm px-4 py-2 text-xs uppercase tracking-wider"
+                className="hidden sm:inline-flex bg-[#881337] hover:bg-[#70102e] text-white font-bold rounded-md shadow-md hover:shadow-lg px-4 py-2 text-xs uppercase tracking-wider transition-all duration-200 active:scale-95 group/apply"
               >
+                <span className="relative flex h-2 w-2 mr-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-300" />
+                </span>
                 <span>Apply Now 2026-27</span>
-                <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
+                <ArrowRight className="h-3.5 w-3.5 ml-1.5 group-hover/apply:translate-x-0.5 transition-transform" />
               </Button>
 
               {/* Hamburger for Mobile */}
