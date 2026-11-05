@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Campus3DViewer } from "./Campus3DViewer";
+import { AnimatedLedger } from "./AnimatedLedger";
 
 export function Hero() {
   return (
@@ -137,64 +138,8 @@ export function Hero() {
         </div>
       </div>
 
-      {/* 2. GROUNDED INSTITUTIONAL LEDGER (Full-Width Academic Baseline) */}
-      <div className="border-t border-white/15 bg-[#0a1b2d] py-5 px-4 sm:px-6">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:divide-x md:divide-white/15 text-left">
-            {/* Pillar 1 */}
-            <div className="space-y-1 md:pr-4">
-              <div className="font-editorial text-2xl sm:text-3xl font-black text-amber-400">
-                18+ Years
-              </div>
-              <div className="text-xs font-bold text-stone-200 uppercase tracking-wide">
-                Academic Discipline
-              </div>
-              <p className="text-[11px] text-stone-400">
-                Estd. 2008 • Over 15,000 alumni serving worldwide
-              </p>
-            </div>
-
-            {/* Pillar 2 */}
-            <div className="space-y-1 md:px-4">
-              <div className="font-editorial text-2xl sm:text-3xl font-black text-white">
-                100+ Partners
-              </div>
-              <div className="text-xs font-bold text-stone-200 uppercase tracking-wide">
-                Corporate Recruiters
-              </div>
-              <p className="text-[11px] text-stone-400">
-                Annual on-campus placement drives & corporate MoUs
-              </p>
-            </div>
-
-            {/* Pillar 3 */}
-            <div className="space-y-1 md:px-4">
-              <div className="font-editorial text-2xl sm:text-3xl font-black text-amber-400">
-                ₹40.0 LPA
-              </div>
-              <div className="text-xs font-bold text-stone-200 uppercase tracking-wide">
-                Highest CTC Package
-              </div>
-              <p className="text-[11px] text-stone-400">
-                ₹6.8 LPA average package for core engineering batches
-              </p>
-            </div>
-
-            {/* Pillar 4 */}
-            <div className="space-y-1 md:pl-4">
-              <div className="font-editorial text-2xl sm:text-3xl font-black text-white">
-                20-Acre Campus
-              </div>
-              <div className="text-xs font-bold text-stone-200 uppercase tracking-wide">
-                Academic Infrastructure
-              </div>
-              <p className="text-[11px] text-stone-400">
-                Pollution-free eco-campus with Wi-Fi & modern laboratories
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* 2. GROUNDED INSTITUTIONAL LEDGER (With Smooth Real-Time Counter Animation) */}
+      <AnimatedLedger />
     </section>
   );
 }

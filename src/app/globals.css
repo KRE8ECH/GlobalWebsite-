@@ -181,6 +181,19 @@ h1, h2, h3, .font-editorial {
   transition: filter 0.3s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 16s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
