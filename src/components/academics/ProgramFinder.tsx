@@ -17,6 +17,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import ThreeDTiltCard from "@/components/3d/ThreeDTiltCard";
 
 export interface ProgramItem {
   id: string;
@@ -178,83 +179,89 @@ export function ProgramFinder({ programs }: ProgramFinderProps) {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
             {filteredPrograms.map((program) => (
-              <Card
+              <ThreeDTiltCard
                 key={program.id}
-                className="academic-card flex flex-col justify-between border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] rounded-md overflow-hidden"
+                maxTilt={6}
+                glareColor="rgba(217, 119, 6, 0.12)"
+                className="h-full"
               >
-                <div className="h-1 bg-[#0f2b48] w-full" />
-                
-                <CardHeader className="p-5 pb-3">
-                  <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#881337] dark:text-amber-400 bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded-xs border border-stone-200 dark:border-stone-700">
-                      Dept. of {program.department.replace("_", " ")}
-                    </span>
-                    <span className="text-[10px] font-bold text-stone-500 bg-stone-100 dark:bg-stone-900 px-2 py-0.5 rounded-xs border border-stone-200 dark:border-stone-800">
-                      {program.level} • {program.durationYears} Years
-                    </span>
-                  </div>
+                <Card
+                  className="academic-card h-full flex flex-col justify-between border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] rounded-md overflow-hidden shadow-xs hover:shadow-md transition-shadow"
+                >
+                  <div className="h-1 bg-[#0f2b48] w-full" />
+                  
+                  <CardHeader className="p-5 pb-3">
+                    <div className="flex items-center justify-between gap-2 mb-2">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#881337] dark:text-amber-400 bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded-xs border border-stone-200 dark:border-stone-700">
+                        Dept. of {program.department.replace("_", " ")}
+                      </span>
+                      <span className="text-[10px] font-bold text-stone-500 bg-stone-100 dark:bg-stone-900 px-2 py-0.5 rounded-xs border border-stone-200 dark:border-stone-800">
+                        {program.level} • {program.durationYears} Years
+                      </span>
+                    </div>
 
-                  <CardTitle className="font-editorial text-base sm:text-lg font-bold text-[#0f2b48] dark:text-stone-100 leading-snug">
-                    {program.name}
-                  </CardTitle>
+                    <CardTitle className="font-editorial text-base sm:text-lg font-bold text-[#0f2b48] dark:text-stone-100 leading-snug">
+                      {program.name}
+                    </CardTitle>
 
-                  <CardDescription className="text-xs text-stone-600 dark:text-stone-400 line-clamp-3 mt-1.5 leading-relaxed">
-                    {program.description}
-                  </CardDescription>
-                </CardHeader>
+                    <CardDescription className="text-xs text-stone-600 dark:text-stone-400 line-clamp-3 mt-1.5 leading-relaxed">
+                      {program.description}
+                    </CardDescription>
+                  </CardHeader>
 
-                <CardContent className="p-5 pt-0 space-y-3">
-                  {/* Statutory Affiliation and Intake */}
-                  <div className="rounded-xs border border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900/60 p-3 text-xs space-y-2">
-                    <div className="flex items-start gap-2">
-                      <CheckCircle className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                      <div>
-                        <span className="font-bold text-stone-800 dark:text-stone-200">Eligibility: </span>
-                        <span className="text-stone-600 dark:text-stone-400">{program.eligibility}</span>
+                  <CardContent className="p-5 pt-0 space-y-3">
+                    {/* Statutory Affiliation and Intake */}
+                    <div className="rounded-xs border border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900/60 p-3 text-xs space-y-2">
+                      <div className="flex items-start gap-2">
+                        <CheckCircle className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                        <div>
+                          <span className="font-bold text-stone-800 dark:text-stone-200">Eligibility: </span>
+                          <span className="text-stone-600 dark:text-stone-400">{program.eligibility}</span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between pt-2 border-t border-stone-200 dark:border-stone-800 text-stone-600 dark:text-stone-400 text-[11px]">
+                        <span className="flex items-center gap-1">
+                          <Users className="h-3 w-3 text-stone-400" />
+                          Approved Seat Intake:
+                        </span>
+                        <span className="font-bold text-stone-900 dark:text-stone-100 bg-white dark:bg-stone-800 px-1.5 py-0.2 rounded-xs border border-stone-200 dark:border-stone-700">
+                          {program.intake} Seats
+                        </span>
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between pt-2 border-t border-stone-200 dark:border-stone-800 text-stone-600 dark:text-stone-400 text-[11px]">
-                      <span className="flex items-center gap-1">
-                        <Users className="h-3 w-3 text-stone-400" />
-                        Approved Seat Intake:
-                      </span>
-                      <span className="font-bold text-stone-900 dark:text-stone-100 bg-white dark:bg-stone-800 px-1.5 py-0.2 rounded-xs border border-stone-200 dark:border-stone-700">
-                        {program.intake} Seats
-                      </span>
-                    </div>
-                  </div>
+                    {/* Actions: Syllabus Download & Admissions */}
+                    <div className="flex items-center justify-between pt-1 gap-2">
+                      {program.syllabusPdfUrl ? (
+                        <a
+                          href={program.syllabusPdfUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0f2b48] dark:text-amber-400 hover:underline"
+                          aria-label={`Download NEP 2020 syllabus for ${program.name}`}
+                        >
+                          <FileDown className="h-3.5 w-3.5" />
+                          <span>Curriculum Syllabus</span>
+                        </a>
+                      ) : (
+                        <span className="text-[11px] text-stone-400 italic">Curriculum on request</span>
+                      )}
 
-                  {/* Actions: Syllabus Download & Admissions */}
-                  <div className="flex items-center justify-between pt-1 gap-2">
-                    {program.syllabusPdfUrl ? (
-                      <a
-                        href={program.syllabusPdfUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0f2b48] dark:text-amber-400 hover:underline"
-                        aria-label={`Download NEP 2020 syllabus for ${program.name}`}
+                      <Button
+                        asChild
+                        size="sm"
+                        className="bg-[#0f2b48] hover:bg-[#1a3a5e] text-white font-bold text-xs uppercase tracking-wider rounded-xs ml-auto shadow-2xs"
                       >
-                        <FileDown className="h-3.5 w-3.5" />
-                        <span>Curriculum Syllabus</span>
-                      </a>
-                    ) : (
-                      <span className="text-[11px] text-stone-400 italic">Curriculum on request</span>
-                    )}
-
-                    <Button
-                      asChild
-                      size="sm"
-                      className="bg-[#0f2b48] hover:bg-[#1a3a5e] text-white font-bold text-xs uppercase tracking-wider rounded-xs ml-auto shadow-2xs"
-                    >
-                      <a href="#inquiry" className="flex items-center gap-1">
-                        <span>Admissions</span>
-                        <ArrowRight className="h-3 w-3" />
-                      </a>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+                        <a href="#inquiry" className="flex items-center gap-1">
+                          <span>Admissions</span>
+                          <ArrowRight className="h-3 w-3" />
+                        </a>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </ThreeDTiltCard>
             ))}
           </div>
         ) : (

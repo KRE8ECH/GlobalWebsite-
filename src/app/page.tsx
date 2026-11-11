@@ -9,6 +9,7 @@ import { InquiryForm } from "@/components/admissions/InquiryForm";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import ThreeDTiltCard from "@/components/3d/ThreeDTiltCard";
 import {
   Calendar,
   MapPin,
@@ -88,53 +89,61 @@ export default async function HomePage() {
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                <div className="p-3.5 rounded-md border border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900/60 flex items-start gap-3">
-                  <Cpu className="h-5 w-5 text-[#0f2b48] dark:text-amber-400 shrink-0 mt-0.5" />
-                  <div>
-                    <h4 className="text-xs font-bold text-stone-900 dark:text-stone-100">
-                      Advanced Computing Infrastructure
-                    </h4>
-                    <p className="text-[11px] text-stone-600 dark:text-stone-400 mt-0.5">
-                      High-throughput artificial intelligence clusters, IoT design studios, and cloud research laboratories.
-                    </p>
+                <ThreeDTiltCard maxTilt={7} glareColor="rgba(15, 43, 72, 0.15)">
+                  <div className="h-full p-3.5 rounded-md border border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900/60 flex items-start gap-3 shadow-2xs hover:shadow-xs transition-shadow">
+                    <Cpu className="h-5 w-5 text-[#0f2b48] dark:text-amber-400 shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="text-xs font-bold text-stone-900 dark:text-stone-100">
+                        Advanced Computing Infrastructure
+                      </h4>
+                      <p className="text-[11px] text-stone-600 dark:text-stone-400 mt-0.5">
+                        High-throughput artificial intelligence clusters, IoT design studios, and cloud research laboratories.
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </ThreeDTiltCard>
 
-                <div className="p-3.5 rounded-md border border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900/60 flex items-start gap-3">
-                  <ShieldCheck className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
-                  <div>
-                    <h4 className="text-xs font-bold text-stone-900 dark:text-stone-100">
-                      Statutory Approvals & Affiliation
-                    </h4>
-                    <p className="text-[11px] text-stone-600 dark:text-stone-400 mt-0.5">
-                      Fully approved by AICTE, PCI, DTE Haryana (Code 074), and affiliated to Gurugram University.
-                    </p>
+                <ThreeDTiltCard maxTilt={7} glareColor="rgba(16, 185, 129, 0.15)">
+                  <div className="h-full p-3.5 rounded-md border border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900/60 flex items-start gap-3 shadow-2xs hover:shadow-xs transition-shadow">
+                    <ShieldCheck className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="text-xs font-bold text-stone-900 dark:text-stone-100">
+                        Statutory Approvals & Affiliation
+                      </h4>
+                      <p className="text-[11px] text-stone-600 dark:text-stone-400 mt-0.5">
+                        Fully approved by AICTE, PCI, DTE Haryana (Code 074), and affiliated to Gurugram University.
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </ThreeDTiltCard>
 
-                <div className="p-3.5 rounded-md border border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900/60 flex items-start gap-3">
-                  <Users2 className="h-5 w-5 text-[#b45309] shrink-0 mt-0.5" />
-                  <div>
-                    <h4 className="text-xs font-bold text-stone-900 dark:text-stone-100">
-                      Eminent Academic Faculty
-                    </h4>
-                    <p className="text-[11px] text-stone-600 dark:text-stone-400 mt-0.5">
-                      Senior academicians, PhD scholars from premier central universities, and corporate research guides.
-                    </p>
+                <ThreeDTiltCard maxTilt={7} glareColor="rgba(180, 83, 9, 0.15)">
+                  <div className="h-full p-3.5 rounded-md border border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900/60 flex items-start gap-3 shadow-2xs hover:shadow-xs transition-shadow">
+                    <Users2 className="h-5 w-5 text-[#b45309] shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="text-xs font-bold text-stone-900 dark:text-stone-100">
+                        Eminent Academic Faculty
+                      </h4>
+                      <p className="text-[11px] text-stone-600 dark:text-stone-400 mt-0.5">
+                        Senior academicians, PhD scholars from premier central universities, and corporate research guides.
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </ThreeDTiltCard>
 
-                <div className="p-3.5 rounded-md border border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900/60 flex items-start gap-3">
-                  <GraduationCap className="h-5 w-5 text-[#881337] dark:text-rose-400 shrink-0 mt-0.5" />
-                  <div>
-                    <h4 className="text-xs font-bold text-stone-900 dark:text-stone-100">
-                      Merit Scholarship Scheme
-                    </h4>
-                    <p className="text-[11px] text-stone-600 dark:text-stone-400 mt-0.5">
-                      Institutional fee concessions and merit scholarships awarded to top JEE, CUET, and 10+2 scorers.
-                    </p>
+                <ThreeDTiltCard maxTilt={7} glareColor="rgba(136, 19, 55, 0.15)">
+                  <div className="h-full p-3.5 rounded-md border border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900/60 flex items-start gap-3 shadow-2xs hover:shadow-xs transition-shadow">
+                    <GraduationCap className="h-5 w-5 text-[#881337] dark:text-rose-400 shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="text-xs font-bold text-stone-900 dark:text-stone-100">
+                        Merit Scholarship Scheme
+                      </h4>
+                      <p className="text-[11px] text-stone-600 dark:text-stone-400 mt-0.5">
+                        Institutional fee concessions and merit scholarships awarded to top JEE, CUET, and 10+2 scorers.
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </ThreeDTiltCard>
               </div>
             </div>
 

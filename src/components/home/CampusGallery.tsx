@@ -15,6 +15,7 @@ import {
   Camera,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ThreeDTiltCard from "@/components/3d/ThreeDTiltCard";
 
 interface FacilityPhoto {
   id: string;
@@ -299,90 +300,96 @@ export function CampusGallery() {
 
         {/* 3. MASTER SHOWCASE: THE MAIN FEATURED IMAGE STAGE (Shown Before Full Modal) */}
         {activePhoto && (
-          <div className="mb-6 rounded-md border border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-[#0f1c2e] overflow-hidden shadow-md">
-            {/* Main Featured Photo Stage */}
-            <div
-              onClick={() => setIsLightboxOpen(true)}
-              className="relative aspect-[16/9] sm:aspect-[21/9] w-full overflow-hidden bg-black group cursor-pointer"
-              title="Click to expand high-resolution photograph"
-            >
-              <img
-                src={activePhoto.imageSrc}
-                alt={activePhoto.title}
-                className="w-full h-full object-cover object-center photo-enhance group-hover:scale-102 transition-transform duration-500"
-              />
+          <ThreeDTiltCard
+            maxTilt={3}
+            glareColor="rgba(217, 119, 6, 0.12)"
+            className="mb-6 rounded-md overflow-hidden shadow-md"
+          >
+            <div className="rounded-md border border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-[#0f1c2e] overflow-hidden">
+              {/* Main Featured Photo Stage */}
+              <div
+                onClick={() => setIsLightboxOpen(true)}
+                className="relative aspect-[16/9] sm:aspect-[21/9] w-full overflow-hidden bg-black group cursor-pointer"
+                title="Click to expand high-resolution photograph"
+              >
+                <img
+                  src={activePhoto.imageSrc}
+                  alt={activePhoto.title}
+                  className="w-full h-full object-cover object-center photo-enhance group-hover:scale-102 transition-transform duration-500"
+                />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
 
-              {/* Top Status Tags */}
-              <div className="absolute top-4 left-4 flex items-center gap-2">
-                <span className="bg-[#881337] text-white text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-xs shadow-md">
-                  {activePhoto.categoryLabel}
-                </span>
-                <span className="bg-black/80 text-amber-300 text-[11px] font-mono font-bold px-2.5 py-1 rounded-xs border border-amber-400/30">
-                  {activePhotoIndex + 1} / {filteredPhotos.length}
-                </span>
+                {/* Top Status Tags */}
+                <div className="absolute top-4 left-4 flex items-center gap-2">
+                  <span className="bg-[#881337] text-white text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-xs shadow-md">
+                    {activePhoto.categoryLabel}
+                  </span>
+                  <span className="bg-black/80 text-amber-300 text-[11px] font-mono font-bold px-2.5 py-1 rounded-xs border border-amber-400/30">
+                    {activePhotoIndex + 1} / {filteredPhotos.length}
+                  </span>
+                </div>
+
+                {/* Top Right Expand Button */}
+                <div className="absolute top-4 right-4">
+                  <span className="bg-black/75 hover:bg-black text-white text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-xs border border-white/25 flex items-center gap-1.5 shadow-md group-hover:bg-amber-500 group-hover:text-black transition-colors">
+                    <Maximize2 className="h-3.5 w-3.5" />
+                    <span>Click to Expand Fullscreen</span>
+                  </span>
+                </div>
+
+                {/* Bottom In-Image Master Caption */}
+                <div className="absolute bottom-4 left-4 right-4 text-left text-white space-y-1">
+                  <h3 className="font-editorial text-lg sm:text-2xl font-bold text-white tracking-wide leading-snug">
+                    {activePhoto.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-stone-300 max-w-3xl line-clamp-2">
+                    {activePhoto.description}
+                  </p>
+                </div>
               </div>
 
-              {/* Top Right Expand Button */}
-              <div className="absolute top-4 right-4">
-                <span className="bg-black/75 hover:bg-black text-white text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-xs border border-white/25 flex items-center gap-1.5 shadow-md group-hover:bg-amber-500 group-hover:text-black transition-colors">
-                  <Maximize2 className="h-3.5 w-3.5" />
-                  <span>Click to Expand Fullscreen</span>
-                </span>
-              </div>
+              {/* Interactive Thumbnail Filmstrip (Switch Main Image on Click or Hover) */}
+              <div className="p-3 sm:p-4 bg-white dark:bg-[#071322] border-t border-stone-200 dark:border-stone-800">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-stone-600 dark:text-stone-400">
+                    Select Thumbnail to Preview Above
+                  </span>
+                  <span className="text-[11px] text-stone-400 font-mono">
+                    {activePhotoIndex + 1} of {filteredPhotos.length} Selected
+                  </span>
+                </div>
 
-              {/* Bottom In-Image Master Caption */}
-              <div className="absolute bottom-4 left-4 right-4 text-left text-white space-y-1">
-                <h3 className="font-editorial text-lg sm:text-2xl font-bold text-white tracking-wide leading-snug">
-                  {activePhoto.title}
-                </h3>
-                <p className="text-xs sm:text-sm text-stone-300 max-w-3xl line-clamp-2">
-                  {activePhoto.description}
-                </p>
+                <div className="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-12 gap-2">
+                  {filteredPhotos.map((photo, index) => {
+                    const isActive = index === activePhotoIndex;
+                    return (
+                      <button
+                        key={photo.id}
+                        onClick={() => setActivePhotoIndex(index)}
+                        className={`relative aspect-[16/10] rounded-xs overflow-hidden border-2 transition-all cursor-pointer group/thumb ${
+                          isActive
+                            ? "border-amber-400 ring-2 ring-amber-400/40 scale-105 shadow-md"
+                            : "border-stone-200 dark:border-stone-700 opacity-70 hover:opacity-100 hover:border-[#0f2b48]"
+                        }`}
+                        title={photo.title}
+                      >
+                        <img
+                          src={photo.imageSrc}
+                          alt={photo.title}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                        <span className="absolute bottom-0 inset-x-0 bg-black/80 text-[8px] font-mono text-white text-center py-0.2 truncate px-0.5">
+                          0{index + 1}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
-
-            {/* Interactive Thumbnail Filmstrip (Switch Main Image on Click or Hover) */}
-            <div className="p-3 sm:p-4 bg-white dark:bg-[#071322] border-t border-stone-200 dark:border-stone-800">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-stone-600 dark:text-stone-400">
-                  Select Thumbnail to Preview Above
-                </span>
-                <span className="text-[11px] text-stone-400 font-mono">
-                  {activePhotoIndex + 1} of {filteredPhotos.length} Selected
-                </span>
-              </div>
-
-              <div className="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-12 gap-2">
-                {filteredPhotos.map((photo, index) => {
-                  const isActive = index === activePhotoIndex;
-                  return (
-                    <button
-                      key={photo.id}
-                      onClick={() => setActivePhotoIndex(index)}
-                      className={`relative aspect-[16/10] rounded-xs overflow-hidden border-2 transition-all cursor-pointer group/thumb ${
-                        isActive
-                          ? "border-amber-400 ring-2 ring-amber-400/40 scale-105 shadow-md"
-                          : "border-stone-200 dark:border-stone-700 opacity-70 hover:opacity-100 hover:border-[#0f2b48]"
-                      }`}
-                      title={photo.title}
-                    >
-                      <img
-                        src={photo.imageSrc}
-                        alt={photo.title}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                      />
-                      <span className="absolute bottom-0 inset-x-0 bg-black/80 text-[8px] font-mono text-white text-center py-0.2 truncate px-0.5">
-                        0{index + 1}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
+          </ThreeDTiltCard>
         )}
 
         {/* 4. PHOTO GALLERY COMPACT GRID */}

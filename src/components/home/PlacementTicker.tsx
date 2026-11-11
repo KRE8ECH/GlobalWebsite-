@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import ThreeDTiltCard from "@/components/3d/ThreeDTiltCard";
 
 export interface PlacementItem {
   id: string;
@@ -197,27 +198,33 @@ export function PlacementTicker({ placements }: PlacementTickerProps) {
           {/* Grid of Verified Corporate Partners */}
           <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-8 gap-3">
             {filteredRecruiters.map((recruiter) => (
-              <div
+              <ThreeDTiltCard
                 key={recruiter.name}
-                className="academic-card rounded-md border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] p-3 flex flex-col items-center justify-between text-center min-h-[110px]"
+                maxTilt={8}
+                glareColor="rgba(217, 119, 6, 0.15)"
+                className="h-full"
               >
-                <div className="w-full h-11 flex items-center justify-center p-1 bg-white rounded-xs">
-                  <img
-                    src={recruiter.logoUrl}
-                    alt={`${recruiter.name} Corporate Recruitment Logo`}
-                    className="max-h-full max-w-full object-contain filter contrast-125"
-                    loading="lazy"
-                  />
+                <div
+                  className="academic-card h-full rounded-md border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] p-3 flex flex-col items-center justify-between text-center min-h-[110px] shadow-2xs hover:shadow-sm transition-all"
+                >
+                  <div className="w-full h-11 flex items-center justify-center p-1 bg-white rounded-xs">
+                    <img
+                      src={recruiter.logoUrl}
+                      alt={`${recruiter.name} Corporate Recruitment Logo`}
+                      className="max-h-full max-w-full object-contain filter contrast-125"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="w-full mt-2 pt-1.5 border-t border-stone-100 dark:border-stone-800">
+                    <span className="font-bold text-[11px] text-[#0f2b48] dark:text-stone-200 block truncate">
+                      {recruiter.name}
+                    </span>
+                    <span className="text-[9px] text-stone-500 dark:text-stone-400 block truncate">
+                      {recruiter.domain}
+                    </span>
+                  </div>
                 </div>
-                <div className="w-full mt-2 pt-1.5 border-t border-stone-100 dark:border-stone-800">
-                  <span className="font-bold text-[11px] text-[#0f2b48] dark:text-stone-200 block truncate">
-                    {recruiter.name}
-                  </span>
-                  <span className="text-[9px] text-stone-500 dark:text-stone-400 block truncate">
-                    {recruiter.domain}
-                  </span>
-                </div>
-              </div>
+              </ThreeDTiltCard>
             ))}
           </div>
         </div>
@@ -240,68 +247,74 @@ export function PlacementTicker({ placements }: PlacementTickerProps) {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {displayPlacements.map((record) => (
-              <Card
+              <ThreeDTiltCard
                 key={record.id}
-                className="academic-card rounded-md border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] overflow-hidden"
+                maxTilt={6}
+                glareColor="rgba(217, 119, 6, 0.12)"
+                className="h-full"
               >
-                <div className="h-1 bg-[#0f2b48] w-full" />
-                <CardContent className="p-4 sm:p-5">
-                  <div className="flex items-start gap-3.5">
-                    {/* Student Portrait */}
-                    <div className="h-14 w-14 rounded-xs border border-stone-300 dark:border-stone-700 bg-stone-100 dark:bg-stone-800 overflow-hidden shrink-0">
-                      {record.photoUrl ? (
-                        <img
-                          src={record.photoUrl}
-                          alt={record.studentName}
-                          className="h-full w-full object-cover object-top"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <div className="h-full w-full flex items-center justify-center text-stone-400">
-                          <User className="h-6 w-6" />
-                        </div>
-                      )}
-                    </div>
+                <Card
+                  className="academic-card h-full rounded-md border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#0f1c2e] overflow-hidden shadow-2xs hover:shadow-sm transition-all"
+                >
+                  <div className="h-1 bg-[#0f2b48] w-full" />
+                  <CardContent className="p-4 sm:p-5">
+                    <div className="flex items-start gap-3.5">
+                      {/* Student Portrait */}
+                      <div className="h-14 w-14 rounded-xs border border-stone-300 dark:border-stone-700 bg-stone-100 dark:bg-stone-800 overflow-hidden shrink-0">
+                        {record.photoUrl ? (
+                          <img
+                            src={record.photoUrl}
+                            alt={record.studentName}
+                            className="h-full w-full object-cover object-top"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div className="h-full w-full flex items-center justify-center text-stone-400">
+                            <User className="h-6 w-6" />
+                          </div>
+                        )}
+                      </div>
 
-                    {/* Student Details */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-start justify-between gap-2">
-                        <div>
-                          <h4 className="font-bold text-sm text-[#0f2b48] dark:text-stone-100 truncate">
-                            {record.studentName}
-                          </h4>
-                          <span className="inline-flex items-center gap-1 text-[10px] text-emerald-700 dark:text-emerald-400 font-bold uppercase tracking-wide">
-                            <CheckCircle2 className="h-3 w-3" />
-                            <span>Verified Selection</span>
+                      {/* Student Details */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between gap-2">
+                          <div>
+                            <h4 className="font-bold text-sm text-[#0f2b48] dark:text-stone-100 truncate">
+                              {record.studentName}
+                            </h4>
+                            <span className="inline-flex items-center gap-1 text-[10px] text-emerald-700 dark:text-emerald-400 font-bold uppercase tracking-wide">
+                              <CheckCircle2 className="h-3 w-3" />
+                              <span>Verified Selection</span>
+                            </span>
+                          </div>
+
+                          <span className="font-editorial text-base font-black text-[#881337] dark:text-amber-400 shrink-0 bg-stone-100 dark:bg-stone-900 px-2 py-0.5 rounded-xs border border-stone-200 dark:border-stone-800">
+                            ₹{record.packageLPA} LPA
                           </span>
                         </div>
 
-                        <span className="font-editorial text-base font-black text-[#881337] dark:text-amber-400 shrink-0 bg-stone-100 dark:bg-stone-900 px-2 py-0.5 rounded-xs border border-stone-200 dark:border-stone-800">
-                          ₹{record.packageLPA} LPA
-                        </span>
-                      </div>
+                        <p className="text-xs text-stone-700 dark:text-stone-300 font-medium flex items-center gap-1 mt-1">
+                          <GraduationCap className="h-3.5 w-3.5 text-[#0f2b48] dark:text-amber-400 shrink-0" />
+                          <span className="truncate">
+                            {record.branch} • Batch {record.year}
+                          </span>
+                        </p>
 
-                      <p className="text-xs text-stone-700 dark:text-stone-300 font-medium flex items-center gap-1 mt-1">
-                        <GraduationCap className="h-3.5 w-3.5 text-[#0f2b48] dark:text-amber-400 shrink-0" />
-                        <span className="truncate">
-                          {record.branch} • Batch {record.year}
-                        </span>
-                      </p>
-
-                      <div className="mt-2.5 pt-2 border-t border-stone-200 dark:border-stone-800 flex items-center justify-between text-xs">
-                        <div className="flex items-center gap-1.5 font-bold text-stone-900 dark:text-stone-100">
-                          <Building className="h-3 w-3 text-[#881337] dark:text-amber-400" />
-                          <span className="truncate">{record.company}</span>
-                        </div>
-                        <div className="flex items-center gap-1 text-stone-700 dark:text-stone-300 text-[11px] font-medium truncate max-w-[130px]">
-                          <Briefcase className="h-3 w-3 shrink-0 text-stone-400" />
-                          <span title={record.designation}>{record.designation}</span>
+                        <div className="mt-2.5 pt-2 border-t border-stone-200 dark:border-stone-800 flex items-center justify-between text-xs">
+                          <div className="flex items-center gap-1.5 font-bold text-stone-900 dark:text-stone-100">
+                            <Building className="h-3 w-3 text-[#881337] dark:text-amber-400" />
+                            <span className="truncate">{record.company}</span>
+                          </div>
+                          <div className="flex items-center gap-1 text-stone-700 dark:text-stone-300 text-[11px] font-medium truncate max-w-[130px]">
+                            <Briefcase className="h-3 w-3 shrink-0 text-stone-400" />
+                            <span title={record.designation}>{record.designation}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </ThreeDTiltCard>
             ))}
           </div>
         </div>
