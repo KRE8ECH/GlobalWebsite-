@@ -20,8 +20,10 @@ import {
   Home,
   Globe,
   Award,
+  Navigation,
 } from "lucide-react";
 import CelestialSphere from "@/components/3d/CelestialSphere";
+import MapFlightCanvas from "@/components/3d/MapFlightCanvas";
 
 interface CampusFacility {
   id: string;
@@ -106,7 +108,7 @@ const CAMPUS_FACILITIES: CampusFacility[] = [
 ];
 
 export function Campus3DViewer() {
-  const [viewMode, setViewMode] = React.useState<"astrolabe" | "campus">("astrolabe");
+  const [viewMode, setViewMode] = React.useState<"astrolabe" | "flight" | "campus">("astrolabe");
   const [activeIdx, setActiveIdx] = React.useState(0);
   const [rotation, setRotation] = React.useState({ x: 0, y: 0 });
   const [targetRotation, setTargetRotation] = React.useState({ x: 0, y: 0 });
@@ -184,39 +186,52 @@ export function Campus3DViewer() {
 
   return (
     <div className="w-full flex flex-col space-y-3">
-      {/* View Mode Switcher: 3D Celestial Core vs 3D Campus Explorer */}
-      <div className="flex items-center justify-between bg-stone-900/90 border border-white/20 p-1 rounded-sm shadow-inner">
+      {/* View Mode Switcher: 3D Celestial Core vs Map Flight vs 3D Campus Explorer */}
+      <div className="flex items-center justify-between bg-stone-900/90 border border-white/20 p-1 rounded-sm shadow-inner overflow-x-auto scrollbar-none">
         <div className="flex items-center gap-1">
           <button
             type="button"
             onClick={() => setViewMode("astrolabe")}
-            className={`px-3 py-1.5 rounded-xs text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
+            className={`px-2.5 py-1.5 rounded-xs text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
               viewMode === "astrolabe"
                 ? "bg-amber-600 text-white shadow-sm"
                 : "text-stone-300 hover:text-white hover:bg-stone-800"
             }`}
           >
             <Sparkles className="h-3.5 w-3.5 text-amber-300" />
-            <span>3D Celestial Astrolabe</span>
+            <span>3D Astrolabe</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setViewMode("flight")}
+            className={`px-2.5 py-1.5 rounded-xs text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
+              viewMode === "flight"
+                ? "bg-amber-600 text-white shadow-sm"
+                : "text-stone-300 hover:text-white hover:bg-stone-800"
+            }`}
+          >
+            <Navigation className="h-3.5 w-3.5 text-amber-300" />
+            <span>Map Flight</span>
           </button>
 
           <button
             type="button"
             onClick={() => setViewMode("campus")}
-            className={`px-3 py-1.5 rounded-xs text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
+            className={`px-2.5 py-1.5 rounded-xs text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
               viewMode === "campus"
                 ? "bg-amber-600 text-white shadow-sm"
                 : "text-stone-300 hover:text-white hover:bg-stone-800"
             }`}
           >
             <Compass className="h-3.5 w-3.5 text-amber-300" />
-            <span>3D Campus Tour</span>
+            <span>3D Facilities</span>
           </button>
         </div>
 
-        <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-mono text-stone-400 pr-2">
+        <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-mono text-stone-400 pr-2 whitespace-nowrap">
           <ShieldCheck className="h-3 w-3 text-emerald-400" />
-          <span>Interactive 3D Engine</span>
+          <span>Interactive 3D</span>
         </span>
       </div>
 
@@ -252,7 +267,19 @@ export function Campus3DViewer() {
         </div>
       )}
 
-      {/* MODE 2: 3D CAMPUS PERSPECTIVE TOUR (Facilities with Hotspots & Spec Drawers) */}
+      {/* MODE 2: MAP FLIGHT RADAR & SATELLITE TRANSIT */}
+      {viewMode === "flight" && (
+        <div className="animate-in fade-in-50 duration-300">
+          <MapFlightCanvas
+            onArriveAtCampus={() => {
+              const el = document.getElementById("campus-tour");
+              el?.scrollIntoView({ behavior: "smooth" });
+            }}
+          />
+        </div>
+      )}
+
+      {/* MODE 3: 3D CAMPUS PERSPECTIVE TOUR (Facilities with Hotspots & Spec Drawers) */}
       {viewMode === "campus" && (
         <div
           className="w-full select-none animate-in fade-in-50 duration-300"

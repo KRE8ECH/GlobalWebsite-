@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ThreeDTiltCard from "@/components/3d/ThreeDTiltCard";
+import CampusMapTour from "@/components/home/CampusMapTour";
 
 interface FacilityPhoto {
   id: string;
@@ -199,43 +200,9 @@ export function CampusGallery() {
           </Button>
         </div>
 
-        {/* 1. OFFICIAL VIRTUAL VIDEO TOUR SHOWCASE */}
-        <div className="mb-12 rounded-md border border-stone-300 dark:border-stone-800 bg-stone-50 dark:bg-[#0f1c2e] p-4 sm:p-6 shadow-2xs">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-            {/* Embedded YouTube Player Container */}
-            <div className="lg:col-span-8 rounded-sm overflow-hidden border border-stone-300 dark:border-stone-700 aspect-video bg-black shadow-md relative">
-              <iframe
-                src="https://www.youtube-nocookie.com/embed/FmS2fA7G-Ls?rel=0"
-                title="Global Institute of Technology & Management (GITM Gurgaon) Official Campus Tour & Video Review"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                className="w-full h-full border-0"
-                loading="lazy"
-              />
-            </div>
-
-            {/* Video Description, Highlights & Affiliations */}
-            <div className="lg:col-span-4 space-y-4">
-              <div className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider bg-[#881337] text-white px-2.5 py-0.5 rounded-xs">
-                <Video className="h-3.5 w-3.5" />
-                <span>Virtual Video Walkthrough</span>
-              </div>
-
-              <h3 className="font-editorial text-xl font-bold text-[#0f2b48] dark:text-stone-100 leading-snug">
-                Experience GITM Gurgaon: 20-Acre Campus Infrastructure & Student Life
-              </h3>
-
-              <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-                Take an immersive video walkthrough of the sprawling green campus, hi-tech engineering laboratories, pharmaceutical research center, modern residential hostels, sports arenas, and interview sessions with faculty and recruiters.
-              </p>
-
-              <div className="pt-2">
-                <Button asChild size="sm" className="bg-[#0f2b48] hover:bg-[#0b1e32] text-white font-bold text-xs uppercase tracking-wider rounded-xs shadow-2xs">
-                  <a href="#inquiry">Book An In-Person Campus Inspection</a>
-                </Button>
-              </div>
-            </div>
-          </div>
+        {/* 1. INTERACTIVE MAP FLIGHT & OFFICIAL CAMPUS TOUR VIDEO */}
+        <div className="mb-12">
+          <CampusMapTour id="campus-tour" defaultMode="map" />
         </div>
 
         {/* 2. PHOTO GALLERY FILTER TABS WITH COUNTERS */}

@@ -11,6 +11,7 @@ import {
   Landmark,
   PhoneCall,
   GraduationCap,
+  Navigation,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Campus3DViewer } from "./Campus3DViewer";
@@ -80,6 +81,18 @@ export function Hero() {
                 >
                   <Download className="h-4 w-4 text-[#881337]" />
                   <span>Download Information Brochure</span>
+                </a>
+              </Button>
+
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="border-amber-400/60 bg-amber-400/10 text-amber-300 hover:bg-amber-400 hover:text-stone-950 font-bold h-11 px-5 text-xs uppercase tracking-wider rounded-sm shadow-sm transition-colors"
+              >
+                <a href="#campus-tour" className="flex items-center gap-2" aria-label="Take Virtual Campus Flight & Video Tour">
+                  <Navigation className="h-4 w-4 text-amber-400" />
+                  <span>Flight Tour & Video</span>
                 </a>
               </Button>
             </div>
