@@ -153,6 +153,7 @@ project is currently linked to a *different* GitHub repository.
 | `docs/ANTIGRAVITY-PROMPTS.md` | Copy-paste prompt pack for continuing in Antigravity |
 | `docs/TASKS.md` | Backlog by wave, with priorities and owners |
 | `docs/DEPLOYMENT.md` | Deployment checklist |
+| `docs/STEP-BY-STEP.md` | **Start here to go live** — step-by-step against your actual Vercel project |
 
 ---
 

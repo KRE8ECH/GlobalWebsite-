@@ -7,10 +7,21 @@
 
 ## Action A1 — 🔴 Deploy this repository (blocking everything)
 
+> **Full walkthrough: `docs/STEP-BY-STEP.md`** — written against the live Vercel
+> project, with the verified project IDs, deployment states, domain situation and
+> troubleshooting.
+
 **The problem.** The Vercel project `gitm-gurugram`
 (`prj_FQGnViYjWSKUSIYyCv19VlTaA833`) is linked to the GitHub repo
 **`KRE8ECH/GITM`**. This work is in **`KRE8ECH/GlobalWebsite-`**. Until those are
 connected, nothing here is live.
+
+**Two further facts confirmed against the account on 13 Nov 2026:**
+- The project has **no custom domain** — only `gitm-gurugram.vercel.app`. GitHub
+  Pages is serving `gitmgurgaon.com`, so attaching that domain is a migration, not
+  a toggle, and it must not break the institute's email DNS.
+- The account has **no environment variables**, so `NEXT_PUBLIC_APP_URL` must be
+  added or canonical URLs will fall back to the `.vercel.app` host.
 
 **Option 1 — re-link the project (recommended if you want one site).**
 
