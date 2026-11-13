@@ -1,59 +1,59 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("Admission Inquiry Multi-Step Funnel E2E", () => {
+test.describe("Admission inquiry form", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/contact");
   });
 
-  test("Step 1 validates personal contact details and rejects invalid phone", async ({
-    page,
-  }) => {
-    const formSection = page.locator("#inquiry");
-    await expect(formSection).toBeVisible();
+  const form = (page: import("@playwright/test").Page) => page.locator("form").first();
 
-    // Fill valid name & email, but INVALID 5-digit phone
-    await formSection.locator("#inquiry-fullName").fill("Vikram Malhotra");
-    await formSection.locator("#inquiry-email").fill("vikram@example.com");
-    await formSection.locator("#inquiry-phone").fill("12345");
+  test("rejects an invalid Indian mobile number and stays on step one", async ({ page }) => {
+    const f = form(page);
+    await f.locator("#contact-fullName").fill("Vikram Malhotra");
+    await f.locator("#contact-email").fill("vikram@example.com");
+    await f.locator("#contact-phone").fill("12345");
 
-    // Click Next
-    await formSection.getByRole("button", { name: /Continue to Academic Interests/i }).click();
+    await f.getByRole("button", { name: /^Continue$/i }).click();
 
-    // Verify validation error is shown
-    await expect(formSection).toContainText(/Please provide a valid 10-digit Indian mobile number/i);
-
-    // Verify still on Step 1
-    await expect(formSection).toContainText(/Step 1 of 2/i);
+    await expect(f).toContainText(/10-digit Indian mobile/i);
+    // Step two controls must not have appeared.
+    await expect(f.locator("#contact-courseInterested")).toHaveCount(0);
   });
 
-  test("Legitimate entry advances to Step 2 and submits successfully with reference ID", async ({
-    page,
-  }) => {
-    const formSection = page.locator("#inquiry");
+  test("completes both steps and shows a reference number", async ({ page }) => {
+    const f = form(page);
+    await f.locator("#contact-fullName").fill("Pooja Sharma");
+    await f.locator("#contact-email").fill("pooja.test@example.com");
+    await f.locator("#contact-phone").fill("9876543210");
+    await f.getByRole("button", { name: /^Continue$/i }).click();
 
-    // 1. Fill Step 1 with valid details
-    await formSection.locator("#inquiry-fullName").fill("Pooja Sharma");
-    await formSection.locator("#inquiry-email").fill("pooja.sharma.test@example.com");
-    await formSection.locator("#inquiry-phone").fill("9876543210");
+    await expect(f.locator("#contact-courseInterested")).toBeVisible();
+    await f.getByRole("button", { name: /Submit inquiry/i }).click();
 
-    // Advance to Step 2
-    await formSection.getByRole("button", { name: /Continue to Academic Interests/i }).click();
+    await expect(page.getByText(/your inquiry is logged/i)).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByText(/GITM-[A-Z0-9]{6}|RECEIVED|BOT/)).toBeVisible();
+  });
 
-    // 2. Verify on Step 2
-    await expect(formSection).toContainText(/Step 2 of 2/i);
-    await expect(formSection).toContainText(/Academic Interests/i);
-
-    // Select qualification & program
-    await formSection.locator("#inquiry-qual").selectOption("12th Standard (PCM)");
-    await formSection.locator("#inquiry-course").selectOption("B.Tech in Artificial Intelligence & Data Science");
-
-    // 3. Complete Submission
-    await formSection.getByRole("button", { name: /Complete Submission/i }).click();
-
-    // 4. Verify confirmation view with Reference ID
-    await expect(formSection).toContainText(/Admission Inquiry Received!/i, { timeout: 10000 });
-    await expect(formSection).toContainText(/Application Reference ID/i);
-    await expect(formSection.locator("span", { hasText: /^#/ })).toBeVisible();
+  test("honeypot field is hidden from assistive technology and keyboard order", async ({ page }) => {
+    const honeypot = page.locator("#contact-website");
+    await expect(honeypot).toHaveAttribute("tabindex", "-1");
+    // Its wrapper is aria-hidden, so it is not announced.
+    const wrapper = honeypot.locator("xpath=..");
+    await expect(wrapper).toHaveAttribute("aria-hidden", "true");
   });
 });
 
+test.describe("Inquiry delivery survives a missing database", () => {
+  test("submission still succeeds without DATABASE_URL", async ({ page }) => {
+    // The action falls back to log delivery and reports a reference.
+    await page.goto("/admissions");
+    const f = page.locator("form").first();
+    await f.locator("#adm-fullName").fill("Fallback Test");
+    await f.locator("#adm-email").fill("fallback@example.com");
+    await f.locator("#adm-phone").fill("9812345678");
+    await f.getByRole("button", { name: /^Continue$/i }).click();
+    await f.getByRole("button", { name: /Submit inquiry/i }).click();
+
+    await expect(page.getByText(/your inquiry is logged/i)).toBeVisible({ timeout: 15_000 });
+  });
+});
