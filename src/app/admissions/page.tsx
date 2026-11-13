@@ -7,6 +7,7 @@ import { InquiryForm } from "@/components/admissions/inquiry-form";
 import { EligibilityChecker } from "@/components/admissions/eligibility-checker";
 import { ScholarshipEstimator } from "@/components/admissions/scholarship-estimator";
 import { DeadlineCountdown } from "@/components/home/deadline-countdown";
+import { AdmissionsFaq, admissionsFaqs } from "@/components/admissions/admissions-faq";
 import { site, admissionsSeason } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -208,6 +209,49 @@ export default function AdmissionsPage() {
           </div>
         </div>
       </section>
+
+      <section aria-labelledby="faq-heading" className="container-page py-14 sm:py-20">
+        <div className="max-w-3xl">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-crimson">
+            Common questions
+          </p>
+          <h2
+            id="faq-heading"
+            className="mt-2 font-editorial text-2xl font-extrabold text-navy sm:text-4xl"
+          >
+            What applicants ask us most
+          </h2>
+          <p className="mt-3 text-stone-600">
+            If your question is not answered here, call{" "}
+            <a
+              href={site.phones.admissions.tel}
+              className="font-bold text-navy underline decoration-crimson/40 underline-offset-2"
+            >
+              {site.phones.admissions.label}
+            </a>{" "}
+            or send us an enquiry below.
+          </p>
+        </div>
+        <div className="mt-8 max-w-3xl">
+          <AdmissionsFaq />
+        </div>
+      </section>
+
+      <script
+        type="application/ld+json"
+        // FAQPage must mirror the visible accordion above, not add new claims.
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: admissionsFaqs.map((faq) => ({
+              "@type": "Question",
+              name: faq.question,
+              acceptedAnswer: { "@type": "Answer", text: faq.answer },
+            })),
+          }),
+        }}
+      />
 
       <CtaBand
         title="Questions about your application?"

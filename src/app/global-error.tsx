@@ -1,6 +1,11 @@
 "use client";
 
 /** Last-resort boundary: must render its own <html>/<body>. */
+/*
+ * This boundary replaces the root layout, so it cannot rely on anything from
+ * src/data/* (that module may be the thing that failed). The phone number is
+ * therefore duplicated here on purpose. Keep it in sync with site.phones.
+ */
 export default function GlobalError({
   error,
   reset,

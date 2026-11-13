@@ -76,7 +76,7 @@ export function CtaSection() {
                 rel="noopener noreferrer"
                 className="font-semibold text-amber-300 underline"
               >
-                Apply on admissions.gitmgurgaon.com
+                Apply on the official portal
               </a>
               .
             </span>

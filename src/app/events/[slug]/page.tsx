@@ -7,6 +7,7 @@ import { PageHero } from "@/components/layout/page-hero";
 import { CtaBand } from "@/components/layout/cta-band";
 import { getEventBySlug, getEvents } from "@/lib/content";
 import { formatDate } from "@/lib/utils";
+import { site } from "@/data/site";
 
 export const revalidate = 1800;
 
@@ -109,6 +110,39 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
           </aside>
         </div>
       </section>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Event",
+            name: event.title,
+            description: event.summary,
+            startDate: event.date,
+            eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+            eventStatus: "https://schema.org/EventScheduled",
+            image: event.imageUrl ? `${site.url}${event.imageUrl}` : `${site.url}/og-image.jpg`,
+            location: {
+              "@type": "Place",
+              name: event.location,
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: site.campus.lines[1],
+                addressLocality: "Gurugram",
+                addressRegion: "Haryana",
+                postalCode: "122506",
+                addressCountry: "IN",
+              },
+            },
+            organizer: {
+              "@type": "CollegeOrUniversity",
+              name: site.name,
+              url: site.url,
+            },
+          }),
+        }}
+      />
 
       <CtaBand />
     </>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { BreadcrumbsJsonLd } from "@/components/layout/breadcrumbs-jsonld";
 
 export type Crumb = { label: string; href?: string };
 
@@ -23,6 +24,7 @@ export function PageHero({
 }) {
   return (
     <section className="border-b border-stone-200 bg-navy text-white">
+      <BreadcrumbsJsonLd crumbs={crumbs} />
       <div className="container-page py-10 sm:py-14">
         <nav aria-label="Breadcrumb">
           <ol className="flex flex-wrap items-center gap-1 text-[11px] text-stone-400">
