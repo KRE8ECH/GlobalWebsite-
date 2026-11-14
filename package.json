@@ -1,35 +1,29 @@
 {
-  "name": "gitm-gurgaon-web",
-  "version": "0.1.0",
+  "name": "gitm-gurugram-web",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postinstall": "prisma generate",
+    "postinstall": "prisma generate || echo 'prisma generate skipped'",
     "start": "next start",
     "lint": "eslint",
-    "prisma:generate": "prisma generate",
-    "prisma:push": "prisma db push",
-    "prisma:seed": "tsx prisma/seed.ts",
-    "seed": "tsx prisma/seed.ts",
-    "verify:scraper": "tsx scripts/verify-scraper.ts",
-    "test:api": "tsx scripts/test-api-routes.ts",
-    "test:e2e": "playwright test"
-  },
-  "prisma": {
-    "seed": "tsx prisma/seed.ts"
+    "test:e2e": "playwright test",
+    "typecheck": "tsc --noEmit",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
+    "@fontsource-variable/plus-jakarta-sans": "^5.3.0",
+    "@fontsource/merriweather": "^5.3.0",
     "@hookform/resolvers": "^7.0.1",
     "@prisma/client": "^6.19.3",
-    "axios": "^1.21.0",
-    "cheerio": "^1.2.0",
+    "@tailwindcss/postcss": "^4.3.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "cmdk": "^1.1.1",
     "lucide-react": "^1.66.0",
     "next": "16.4.4",
-    "next-themes": "^0.4.6",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "react-hook-form": "^7.91.0",
@@ -39,7 +33,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.64.1",
-    "@tailwindcss/turbopack": "^4",
+    "@tailwindcss/postcss": "^4.3.4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -49,5 +43,6 @@
     "tailwindcss": "^4",
     "tsx": "^4.23.15",
     "typescript": "^5"
-  }
+  },
+  "description": "Official website for Global Institute of Technology & Management, Gurugram"
 }

@@ -1,93 +1,73 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("GITM Navigation & Layout E2E", () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto("/");
-  });
+const routes = [
+  { path: "/", heading: /Building engineers, managers and pharmacists/i },
+  { path: "/about", heading: /years of technical education/i },
+  { path: "/programmes", heading: /Programmes & courses/i },
+  { path: "/admissions", heading: /Admissions are open/i },
+  { path: "/admissions/fees", heading: /Fee structure/i },
+  { path: "/admissions/scholarships", heading: /scholarships/i },
+  { path: "/placements", heading: /Placements & recruiters/i },
+  { path: "/campus-life", heading: /acres in Farrukhnagar/i },
+  { path: "/events", heading: /Events & notices/i },
+  { path: "/contact", heading: /Talk to us/i },
+  { path: "/policies/privacy", heading: /Privacy Notice/i },
+  { path: "/policies/anti-ragging", heading: /Anti-Ragging/i },
+];
 
-  test("Desktop navigation displays branding, affiliation, and main navigation links", async ({
-    page,
-    isMobile,
-  }) => {
-    test.skip(isMobile, "Desktop test only");
+test.describe("Every public route renders", () => {
+  for (const route of routes) {
+    test(`${route.path} loads with a single h1`, async ({ page }) => {
+      const response = await page.goto(route.path);
+      expect(response?.status()).toBe(200);
 
-    // 1. Verify branding
-    await expect(page.locator("header")).toContainText("GITM GURGAON");
-    await expect(page.locator("header")).toContainText("Gurugram University Affiliated");
+      // Exactly one h1 per page — a screen-reader and SEO baseline.
+      await expect(page.locator("h1")).toHaveCount(1);
+      await expect(page.locator("h1")).toContainText(route.heading);
+    });
+  }
 
-    // 2. Verify admission helpline
-    const helpline = page.locator('a[href="tel:+919555100100"]');
-    await expect(helpline.first()).toBeVisible();
-    await expect(helpline.first()).toContainText("+91-9555 100 100");
-
-    // 3. Verify core navigation links
-    await expect(page.getByRole("link", { name: /^Programs/i })).toBeVisible();
-    await expect(page.getByRole("link", { name: /^Live University Notices/i })).toBeVisible();
-    await expect(page.getByRole("link", { name: /^Placements/i })).toBeVisible();
-  });
-
-  test("ERP Portals dropdown opens, lists portals, and closes on Escape", async ({
-    page,
-    isMobile,
-  }) => {
-    test.skip(isMobile, "Desktop test only");
-
-    const erpButton = page.getByRole("button", { name: /ERP Portals/i });
-    await expect(erpButton).toBeVisible();
-
-    // Open ERP menu
-    await erpButton.click();
-    await expect(erpButton).toHaveAttribute("aria-expanded", "true");
-
-    // Verify ERP links exist
-    await expect(page.getByRole("menuitem", { name: /Student ERP Portal/i })).toBeVisible();
-    await expect(page.getByRole("menuitem", { name: /Staff & Faculty ERP/i })).toBeVisible();
-    await expect(page.getByRole("menuitem", { name: /Institutional Webmail/i })).toBeVisible();
-
-    // Keyboard navigation: press Escape to close
-    await page.keyboard.press("Escape");
-    await expect(erpButton).toHaveAttribute("aria-expanded", "false");
-  });
-
-  test("Mobile drawer opens via hamburger, traps focus, and closes gracefully", async ({
-    page,
-    isMobile,
-  }) => {
-    test.skip(!isMobile, "Mobile test only");
-
-    const menuButton = page.getByRole("button", { name: /Open mobile menu/i });
-    await expect(menuButton).toBeVisible();
-
-    // Open mobile drawer
-    await menuButton.click();
-    const drawer = page.getByRole("dialog", { name: /Navigation Menu/i });
-    await expect(drawer).toBeVisible();
-
-    // Verify navigation links inside drawer
-    await expect(drawer.getByRole("link", { name: /^Programs/i })).toBeVisible();
-    await expect(drawer.getByRole("link", { name: /^Placements/i })).toBeVisible();
-
-    // Close drawer using close button
-    const closeBtn = drawer.getByRole("button", { name: /Close navigation menu/i });
-    await closeBtn.click();
-    await expect(drawer).not.toBeVisible();
-  });
-
-  test("Global Command Palette opens on click and closes on Escape", async ({ page }) => {
-    const searchButton = page.getByRole("button", { name: /Open search command palette/i });
-    if (await searchButton.isVisible()) {
-      await searchButton.click();
-
-      const palette = page.getByRole("dialog", { name: /Global search command palette/i });
-      await expect(palette).toBeVisible();
-
-      // Verify input placeholder
-      await expect(page.getByPlaceholder(/Type a program, notice/i)).toBeVisible();
-
-      // Press Escape to dismiss
-      await page.keyboard.press("Escape");
-      await expect(palette).not.toBeVisible();
-    }
+  test("unknown route returns a 404 page with navigation", async ({ page }) => {
+    const response = await page.goto("/this-page-does-not-exist");
+    expect(response?.status()).toBe(404);
+    await expect(page.getByRole("heading", { name: /does not exist/i })).toBeVisible();
   });
 });
 
+test.describe("Programme pages", () => {
+  test("programme detail page shows eligibility and fees", async ({ page }) => {
+    await page.goto("/programmes/b-tech-cse");
+    await expect(page.getByRole("heading", { name: /Eligibility/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /^Fees$/i })).toBeVisible();
+  });
+
+  test("invalid programme slug 404s", async ({ page }) => {
+    const response = await page.goto("/programmes/not-a-real-course");
+    expect(response?.status()).toBe(404);
+  });
+});
+
+test.describe("Navigation and search", () => {
+  test("header navigation reaches a programme page", async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("link", { name: "Programmes", exact: true }).first().click();
+    await expect(page).toHaveURL(/\/programmes$/);
+  });
+
+  test("command palette opens with Ctrl+K and finds a programme", async ({ page }) => {
+    await page.goto("/");
+    await page.keyboard.press("Control+k");
+    const search = page.getByRole("dialog", { name: /search/i });
+    await expect(search).toBeVisible();
+
+    await search.getByRole("option").first().waitFor();
+    await search.getByRole("textbox").fill("B.Pharm");
+    await expect(search.getByRole("option").first()).toContainText(/Pharmacy|Pharm/i);
+  });
+
+  test("skip link is the first focusable element", async ({ page }) => {
+    await page.goto("/");
+    await page.keyboard.press("Tab");
+    await expect(page.getByRole("link", { name: /skip to main content/i })).toBeFocused();
+  });
+});

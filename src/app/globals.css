@@ -1,205 +1,150 @@
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 /* --------------------------------------------------------------------------
-   INSTITUTIONAL DESIGN SYSTEM: GLOBAL INSTITUTE OF TECHNOLOGY & MANAGEMENT
-   Palette: Academic Navy (#0F2B48), Deep Crimson (#881337), Academic Gold (#B45309)
-   Surfaces: Warm White (#FAFAF9 / Stone-50), Crisp White (#FFFFFF), Border Stone (#E7E5E4)
-   Typography: Editorial Academic Serif (Merriweather) & Grounded Sans (Plus Jakarta Sans)
+   INSTITUTIONAL DESIGN SYSTEM — GITM GURUGRAM
+   Palette: Academic Navy, Deep Crimson, Academic Gold, Warm Stone
+   Typography: editorial serif for headings, grounded sans for body.
+   Fonts are self-hosted through next/font (see src/app/layout.tsx) — there is
+   no render-blocking request to Google Fonts and no layout shift on load.
    -------------------------------------------------------------------------- */
 
-@custom-variant dark (&:where(.dark, .dark *));
+@theme {
+  /* Brand */
+  --color-navy: #0f2b48;
+  --color-navy-dark: #0b1e32;
+  --color-navy-light: #1e3a5f;
+  --color-crimson: #881337;
+  --color-crimson-dark: #70102e;
+  --color-gold: #b45309;
+  --color-gold-light: #d97706;
+
+  /* Surfaces */
+  --color-paper: #fafaf9;
+
+  /* Typography hooks injected by next/font */
+  --font-sans: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-serif: Merriweather, Georgia, Cambria, serif;
+}
 
 :root {
-  /* Warm academic stone background */
   --background: #fafaf9;
   --foreground: #0c1929;
-  
-  /* Crisp institutional card surfaces */
   --card: #ffffff;
-  --card-foreground: #0c1929;
-  --popover: #ffffff;
-  --popover-foreground: #0c1929;
-
-  /* Deep Academic Navy (#0F2B48) */
-  --primary: #0f2b48;
-  --primary-foreground: #ffffff;
-
-  /* Warm Stone Secondary */
-  --secondary: #f5f5f4;
-  --secondary-foreground: #1c1917;
-
-  /* Soft Muted Surfaces */
-  --muted: #f5f5f4;
-  --muted-foreground: #57534e;
-
-  /* Accent: Deep Academic Crimson / Warm Gold */
-  --accent: #f5f5f4;
-  --accent-foreground: #0f2b48;
-  --crimson: #881337;
-  --gold: #b45309;
-
-  /* Destructive */
-  --destructive: #b91c1c;
-  --destructive-foreground: #ffffff;
-
-  /* Architectural Stone Borders */
-  --border: #e7e5e4;
-  --input: #e7e5e4;
-  --ring: #0f2b48;
-  --radius: 0.375rem; /* Subtle, sharp radiuses: rounded-md */
-}
-
-.dark {
-  --background: #080f1a;
-  --foreground: #f5f5f4;
-  --card: #0f1c2e;
-  --card-foreground: #f5f5f4;
-  --popover: #0f1c2e;
-  --popover-foreground: #f5f5f4;
-
-  --primary: #1e3a5f;
-  --primary-foreground: #ffffff;
-
-  --secondary: #172437;
-  --secondary-foreground: #f5f5f4;
-
-  --muted: #132032;
-  --muted-foreground: #a8a29e;
-
-  --accent: #172437;
-  --accent-foreground: #ffffff;
-  --crimson: #9f1239;
-  --gold: #d97706;
-
-  --destructive: #dc2626;
-  --destructive-foreground: #ffffff;
-
-  --border: #1f3148;
-  --input: #1f3148;
-  --ring: #b45309;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-crimson: var(--crimson);
-  --color-gold: var(--gold);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
+  --border-soft: #e7e5e4;
 }
 
 * {
-  border-color: var(--border);
+  border-color: var(--border-soft);
 }
 
 html {
   scroll-behavior: smooth;
+  /* Sticky header is ~180px tall on desktop; offset anchor targets so section
+     headings are never hidden underneath it. */
+  scroll-padding-top: 7rem;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-sans);
   min-height: 100vh;
   letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* Distinguished Academic Serif for Headings */
 h1, h2, h3, .font-editorial {
-  font-family: 'Merriweather', Georgia, Cambria, 'Times New Roman', Times, serif;
+  font-family: var(--font-serif);
   letter-spacing: -0.02em;
 }
 
-/* Authentic College Notice Ticker */
+/* Visible focus indicator for every interactive element. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-crimson);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Images never overflow their container. */
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Motion                                                                     */
+/* -------------------------------------------------------------------------- */
+
 @keyframes ticker-slide {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(-50%, 0, 0);
-  }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 .animate-notice-ticker {
-  display: inline-flex;
-  white-space: nowrap;
-  animation: ticker-slide 35s linear infinite;
+  animation: ticker-slide 60s linear infinite;
+  will-change: transform;
 }
 
-.animate-notice-ticker:hover {
+.animate-notice-ticker:hover,
+.animate-notice-ticker:focus-within {
   animation-play-state: paused;
 }
 
-/* Subtle Natural Card Elevation */
-.academic-card {
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
 }
 
-.academic-card:hover {
-  border-color: #0f2b48;
-  box-shadow: 0 4px 12px -2px rgba(15, 43, 72, 0.08);
+.animate-fade-up {
+  animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.dark .academic-card:hover {
-  border-color: #b45309;
-  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.4);
-}
-
-/* Horizon progress bar for opening reveal */
-@keyframes sweep-progress {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-.animate-marquee-progress {
-  animation: sweep-progress 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-}
-
-/* Photographic enhancement filter */
-.photo-enhance {
-  filter: contrast(1.05) saturate(1.08) brightness(1.01);
-  transition: filter 0.3s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes spin-slow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-spin-slow {
-  animation: spin-slow 16s linear infinite;
-}
-
+/* Respect the OS reduced-motion setting everywhere, not just the ticker. */
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
+
   .animate-notice-ticker {
     animation: none !important;
     transform: none !important;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Utilities                                                                  */
+/* -------------------------------------------------------------------------- */
+
+.container-page {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  max-width: 80rem;
+}
+
+@media (min-width: 640px) {
+  .container-page { padding-inline: 1.5rem; }
+}
+
+/* Print styles — students print notices and fee tables. */
+@media print {
+  header nav,
+  .no-print { display: none !important; }
+
+  body { background: white; color: black; }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75em;
+    word-break: break-all;
   }
 }

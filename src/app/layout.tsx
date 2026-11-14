@@ -1,64 +1,66 @@
 import type { Metadata } from "next";
+/* Self-hosted fonts: no third-party request, no FOUT from a blocked CDN, and
+   the same files serve every region. Variable axes keep the payload small. */
+import "@fontsource-variable/plus-jakarta-sans";
+import "@fontsource/merriweather/400.css";
+import "@fontsource/merriweather/700.css";
+import "@fontsource/merriweather/900.css";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/footer";
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
+import { MobileBar } from "@/components/layout/mobile-bar";
+import { site, socials } from "@/data/site";
 import { Toaster } from "sonner";
 
-const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://gitm.ac.in";
+const baseUrl = process.env.NEXT_PUBLIC_APP_URL || site.url;
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Global Institute of Technology & Management | GITM Gurgaon (Affiliated to Gurugram University)",
-    template: "%s | GITM Gurgaon",
+    default: `${site.name} | GITM Gurugram — Engineering, Management & Pharmacy`,
+    template: `%s | GITM Gurugram`,
   },
-  description:
-    "Official portal of GITM Gurgaon, premier engineering, management, and pharmacy college affiliated with Gurugram University. Explore B.Tech CSE, AI & Data Science, MBA, BCA, B.Pharm programs, placement records, and live university notices.",
+  description: site.description,
+  applicationName: site.name,
   keywords: [
     "GITM Gurgaon",
+    "GITM Gurugram",
     "Global Institute of Technology and Management",
-    "Gurugram University Affiliated College",
-    "B.Tech Admissions Gurgaon 2026",
+    "engineering college Gurugram",
+    "AICTE approved college Delhi NCR",
+    "Gurugram University affiliated college",
+    "B.Tech admission Gurgaon 2026",
     "B.Tech AI Data Science Haryana",
-    "Top Engineering College Delhi NCR",
-    "MBA College Gurgaon",
-    "BCA College Gurugram",
-    "B.Pharm College Haryana PCI Approved",
+    "MBA college Gurgaon",
+    "BCA college Gurugram",
+    "B.Pharm college Haryana PCI",
+    "best engineering college in Delhi NCR",
   ],
-  authors: [{ name: "GITM Academic Council" }],
-  creator: "Global Institute of Technology & Management",
-  publisher: "Gurugram University Affiliated Institutes",
-  formatDetection: {
-    email: false,
-    address: true,
-    telephone: true,
-  },
-  alternates: {
-    canonical: "/",
-  },
+  authors: [{ name: site.name, url: baseUrl }],
+  creator: site.name,
+  publisher: site.name,
+  alternates: { canonical: "/" },
+  formatDetection: { email: false, address: true, telephone: true },
   openGraph: {
-    title: "Global Institute of Technology & Management | GITM Gurgaon",
-    description:
-      "Premier engineering, management, and pharmacy institution affiliated with Gurugram University. Approved by AICTE & PCI. ₹28.5 LPA top package and 100+ recruiters.",
-    url: baseUrl,
-    siteName: "GITM Gurgaon",
-    locale: "en_IN",
     type: "website",
+    locale: "en_IN",
+    url: baseUrl,
+    siteName: "GITM Gurugram",
+    title: `${site.name} | Engineering, Management & Pharmacy in Delhi NCR`,
+    description: site.description,
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "GITM Gurgaon Campus - Affiliated to Gurugram University",
+        alt: "GITM Gurugram campus, Farrukhnagar",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "GITM Gurgaon | Engineering, Management & Pharmacy",
-    description:
-      "Affiliated to Gurugram University. Admissions open for 2026-27 in B.Tech, MBA, BCA, and B.Pharm.",
+    title: "GITM Gurugram | Engineering, Management & Pharmacy",
+    description: `${site.description} Admissions open for 2026-27.`,
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -72,110 +74,58 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  category: "education",
 };
 
-// JSON-LD Structured Data Schema for CollegeOrUniversity & Courses
-const collegeStructuredData = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "CollegeOrUniversity",
-      "@id": "https://gitm.ac.in/#institution",
-      "name": "Global Institute of Technology & Management",
-      "alternateName": ["GITM Gurgaon", "GITM"],
-      "url": "https://gitm.ac.in",
-      "logo": "https://gitm.ac.in/logo.png",
-      "image": "https://gitm.ac.in/og-image.jpg",
-      "description":
-        "Premier engineering, management, and pharmacy college in Gurgaon, affiliated with Gurugram University, approved by AICTE & PCI.",
-      "telephone": "+91-9555100100",
-      "email": "admissions@gitm.ac.in",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "5 KM Milestone, Kheda Khurrampur, Farrukhnagar - Haily Mandi Road",
-        "addressLocality": "Gurugram",
-        "addressRegion": "Haryana",
-        "postalCode": "122506",
-        "addressCountry": "IN",
-      },
-      "sameAs": [
-        "https://gurugramuniversity.ac.in",
-        "https://www.facebook.com/gitmgurgaonofficial",
-        "https://www.linkedin.com/school/gitmgurgaon",
-      ],
-    },
-    {
-      "@type": "Course",
-      "@id": "https://gitm.ac.in/#btech-cse",
-      "name": "B.Tech in Computer Science & Engineering",
-      "description":
-        "4-Year undergraduate engineering program in Computer Science covering cloud systems, algorithms, AI, and software architecture under Gurugram University.",
-      "educationalCredentialAwarded": "Bachelor of Technology",
-      "timeRequired": "P4Y",
-      "provider": {
-        "@id": "https://gitm.ac.in/#institution",
-      },
-    },
-    {
-      "@type": "Course",
-      "@id": "https://gitm.ac.in/#btech-ai-ds",
-      "name": "B.Tech in Artificial Intelligence & Data Science",
-      "description":
-        "Specialized degree in machine learning, neural networks, computer vision, and large scale data engineering.",
-      "educationalCredentialAwarded": "Bachelor of Technology",
-      "timeRequired": "P4Y",
-      "provider": {
-        "@id": "https://gitm.ac.in/#institution",
-      },
-    },
-    {
-      "@type": "Course",
-      "@id": "https://gitm.ac.in/#mba",
-      "name": "Master of Business Administration (MBA)",
-      "description":
-        "Postgraduate management program with dual specializations in Marketing, Finance, Human Resources, and Business Analytics.",
-      "educationalCredentialAwarded": "Master of Business Administration",
-      "timeRequired": "P2Y",
-      "provider": {
-        "@id": "https://gitm.ac.in/#institution",
-      },
-    },
-  ],
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className="h-full antialiased scroll-smooth"
-    >
-      <head>
-        {/* Inject JSON-LD Schema */}
+    <html lang="en-IN" className="h-full">
+      <body className="flex min-h-screen flex-col">
+        {/* Keyboard users must be able to skip the 3-row header. */}
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-navy focus:px-5 focus:py-3 focus:text-sm focus:font-bold focus:text-white"
+        >
+          Skip to main content
+        </a>
+
+        <Header />
+        <main id="main" className="flex-1">
+          {children}
+        </main>
+        <Footer />
+        <MobileBar />
+        <Toaster position="top-right" richColors closeButton />
+
+        {/* Social profiles belong in the document head, not the body. */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(collegeStructuredData),
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "CollegeOrUniversity",
+              "@id": `${baseUrl}/#institution`,
+              name: site.name,
+              alternateName: ["GITM Gurgaon", "GITM Gurugram", "GITM Farrukhnagar"],
+              url: baseUrl,
+              logo: `${baseUrl}/images/web/logo/1_logo.webp`,
+              image: `${baseUrl}/og-image.jpg`,
+              foundingDate: "2008",
+              description: site.description,
+              telephone: site.phones.general.value,
+              email: site.emails.general,
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "5 KM Milestone, Kheda Khurrampur, Farrukhnagar – Haily Mandi Road",
+                addressLocality: site.campus.addressLocality,
+                addressRegion: site.campus.addressRegion,
+                postalCode: site.campus.postalCode,
+                addressCountry: site.campus.country,
+              },
+              sameAs: socials.map((s) => s.href),
+            }),
           }}
         />
-      </head>
-      <body className="min-h-full flex flex-col bg-background text-foreground">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          forcedTheme="light"
-          enableSystem={false}
-          disableTransitionOnChange
-        >
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <Toaster position="top-right" richColors closeButton />
-        </ThemeProvider>
       </body>
     </html>
   );
