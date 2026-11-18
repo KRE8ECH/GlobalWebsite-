@@ -126,6 +126,67 @@ h1, h2, h3, .font-editorial {
   letter-spacing: -0.02em;
 }
 
+/* Full-Width Expansive Container Across Entire Website */
+.container {
+  width: 100% !important;
+  max-width: 1780px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    padding-left: 3rem !important;
+    padding-right: 3rem !important;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    padding-left: 4rem !important;
+    padding-right: 4rem !important;
+  }
+}
+
+/* Homepage Hero Viewport Dimensions & Editorial Typography */
+.hero-viewport-section {
+  min-height: calc(100svh - 127px);
+}
+
+@media (min-width: 640px) {
+  .hero-viewport-section {
+    min-height: calc(100svh - 139px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-viewport-section {
+    min-height: calc(100vh - 184px);
+  }
+}
+
+.hero-editorial-headline {
+  font-size: clamp(2.6rem, 6.2vw + 0.5rem, 7.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
 /* Authentic College Notice Ticker */
 @keyframes ticker-slide {
   0% {
